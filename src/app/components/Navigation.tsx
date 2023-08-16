@@ -2,11 +2,11 @@ import Link from "next/link"
 
 export default function Navigation() {
   return (
-    <nav>
+    <nav className="flex justify-between gap-4 p-8">
       <h1>
         <Link href={"/"}>My Leisure</Link>
       </h1>
-      <ul>
+      <ul className="flex gap-4">
         <li>
           <Link href={"#"}>Movies</Link>
         </li>

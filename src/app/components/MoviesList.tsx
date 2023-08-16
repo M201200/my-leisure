@@ -2,8 +2,7 @@ import { DataTMDB } from "@/api/DATA_TMDB"
 import Card from "./Card"
 
 export default async function MoviesList() {
-  const movies = (await DataTMDB()).movies
-  const movieGenres = (await DataTMDB()).movieGenres
+  const { movies, movieGenres } = await DataTMDB()
   const moviesList = movies.map((movie) => {
     const genreList = movie.genre_ids.map(
       (genreId) => movieGenres.find((genre) => genre.id === genreId)!.name
@@ -22,5 +21,5 @@ export default async function MoviesList() {
     )
   })
 
-  return <section>{moviesList}</section>
+  return moviesList
 }

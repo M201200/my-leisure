@@ -2,8 +2,7 @@ import { DataTMDB } from "@/api/DATA_TMDB"
 import Card from "./Card"
 
 export default async function SeriesList() {
-  const series = (await DataTMDB()).series
-  const TVGenres = (await DataTMDB()).TVGenres
+  const { series, TVGenres } = await DataTMDB()
   const seriesList = series.map((entry) => {
     const genreList = entry.genre_ids.map(
       (genreId) => TVGenres.find((genre) => genre.id === genreId)!.name
@@ -22,5 +21,5 @@ export default async function SeriesList() {
     )
   })
 
-  return <section>{seriesList}</section>
+  return seriesList
 }

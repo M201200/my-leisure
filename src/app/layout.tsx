@@ -15,7 +15,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body className={inter.className}>
         <Navigation />
-        <main>{props.children}</main>
+        <main className="grid">{props.children}</main>
       </body>
     </html>
   )

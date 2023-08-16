@@ -21,13 +21,14 @@ export default async function Card({
   score,
 }: Props) {
   return (
-    <div>
+    <div className="w-60 shrink-0">
       <Link href={`/${catalog}/${id}`}>
         <Image
+          className="h-96"
           src={`${folderPath}${coverPath}`}
           alt="cover"
-          width={200}
-          height={400}
+          width={240}
+          height={480}
         />
       </Link>
 
