@@ -11,6 +11,11 @@ module.exports = {
           hostname: 'image.tmdb.org',
           port: '',
         },
+        {
+          protocol: 'https',
+          hostname: 'upload.wikimedia.org',
+          port: '',
+        },
       ],
     },
   }

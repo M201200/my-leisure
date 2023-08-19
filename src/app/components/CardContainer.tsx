@@ -4,7 +4,7 @@ type Props = {
 
 export default function CardContainer({ children }: Props) {
   return (
-    <section className="flex max-w-full gap-2 px-12 py-8 overflow-auto justify-self-center">
+    <section className="flex w-full gap-2 px-2 py-4 overflow-auto bg-gray-500 scrollbar-hide">
       {children}
     </section>
   )

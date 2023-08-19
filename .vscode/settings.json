@@ -1,9 +1,5 @@
 {
-    "cSpell.words": [
-        "tailwindcss",
-        "tmdb"
-    ],
-    "cSpell.enableFiletypes": [
-        "tailwindcss"
-    ]
+  "cSpell.words": ["tailwindcss", "tmdb"],
+  "cSpell.enableFiletypes": ["tailwindcss"],
+  "cSpell.ignoreWords": ["tvshow", "tvshows", "webp"]
 }

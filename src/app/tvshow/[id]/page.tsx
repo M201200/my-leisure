@@ -7,7 +7,7 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const title = (await EntryTMDB(+params.id)).currentMovie?.title || "No title"
+  const title = (await EntryTMDB(+params.id)).currentTVShow?.name || "No title"
 
   return {
     title: title,
@@ -15,20 +15,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function MoviePage({ params }: Props) {
-  const movie = (await EntryTMDB(+params.id)).currentMovie
-  if (movie === undefined)
+  const TVShow = (await EntryTMDB(+params.id)).currentTVShow
+  if (TVShow === undefined)
     return <h1>Movie with id:{params.id} do not exist.</h1>
 
   return (
-    <div key={movie.id}>
+    <div key={TVShow.id}>
       <Image
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+        src={`https://image.tmdb.org/t/p/w500${TVShow.poster_path}`}
         alt="backdrop"
         width={200}
         height={400}
       />
-      <h2>{movie.title}</h2>
-      <p>{movie.overview}</p>
+      <h2>{TVShow.name}</h2>
+      <p>{TVShow.overview}</p>
     </div>
   )
 }

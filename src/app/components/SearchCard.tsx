@@ -32,9 +32,13 @@ export default function Card({
           width={128}
           height={192}
         />
-      </Link>
-      <h2>{title}</h2>
+          </Link>
+          <section>
+              <h2>{title}</h2>
+              
       <p>☆{score.toFixed(1)}</p>
+          </section>
+      
     </div>
   )
 }
