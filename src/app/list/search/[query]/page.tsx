@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { SearchTMDB, EntryTMDB } from "@/api/DATA_TMDB"
+import { SearchTMDB } from "@/api/DATA_TMDB"
 import Card from "@/app/components/Card"
 import CardContainer from "@/app/components/CardContainer"
 

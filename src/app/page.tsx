@@ -1,6 +1,6 @@
 import CardContainer from "./components/CardContainer"
-import MoviesList from "./components/PopularMovies"
-import SeriesList from "./components/PopularTVShows"
+import MoviesList from "./components/data/PopularMovies"
+import SeriesList from "./components/data/PopularTVShows"
 
 export default function HomePage() {
   return (

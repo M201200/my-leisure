@@ -1,5 +1,5 @@
 import { HomePageTMDB } from "@/api/DATA_TMDB"
-import Card from "./Card"
+import Card from "../Card"
 
 export default async function MoviesList() {
   const { popularMovies } = await HomePageTMDB()

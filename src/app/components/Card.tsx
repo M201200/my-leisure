@@ -1,5 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
+import AddToFav from "./AddToFav"
+import AddToList from "./AddToList"
 
 type Props = {
   id: number
@@ -19,10 +21,10 @@ export default function Card({
   score,
 }: Props) {
   return (
-    <div className="w-32 bg-gray-200 shrink-0">
-      <Link href={`/${catalog}/${id}`}>
+    <div className="relative w-32 bg-gray-200 shrink-0">
+      <Link href={`/entry/${catalog}/${id}`}>
         <Image
-          className="aspect-auto min-h-12"
+          className="aspect-auto min-h-48"
           src={
             coverPath
               ? `${folderPath}${coverPath}`
@@ -33,8 +35,16 @@ export default function Card({
           height={192}
         />
       </Link>
-      <h2>{title}</h2>
-      <p>☆{score.toFixed(1)}</p>
+      <section>
+        <h3 className="truncate">{title}</h3>
+        <div className="flex justify-between">
+          <span>☆{score.toFixed(1)}</span>
+          <span>
+            <AddToFav catalog={`fav-${catalog}`} id={id} />
+            <AddToList catalog={`list-${catalog}`} id={id} />
+          </span>
+        </div>
+      </section>
     </div>
   )
 }

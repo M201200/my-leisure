@@ -7,7 +7,7 @@ module.exports = {
   ],
   theme: {
     minHeight: {
-      '12': '192px',
+      '48': '192px',
     },
     extend: {
     },

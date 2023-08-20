@@ -10,16 +10,16 @@ export default function Navigation() {
       <SearchBar />
       <ul className="flex gap-4">
         <li>
-          <Link href={"/movies/1"}>Movies</Link>
+          <Link href={"/list/movies/1"}>Movies</Link>
         </li>
         <li>
-          <Link href={"/tvshows/1"}>TV Shows</Link>
+          <Link href={"/list/tvseries/1"}>TV Shows</Link>
         </li>
         <li>
           <Link href={"#"}>Books</Link>
         </li>
         <li>
-          <Link href={"#"}>Login</Link>
+          <Link href={"#"}>Guest</Link>
         </li>
       </ul>
     </nav>

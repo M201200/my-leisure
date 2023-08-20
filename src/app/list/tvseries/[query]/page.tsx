@@ -1,18 +1,18 @@
 import type { Metadata } from "next"
 import { MediaPagesTMDB, TotalPagesTMDB } from "@/api/DATA_TMDB"
-import Card from "../../components/Card"
+import Card from "../../../components/Card"
 import PagesNavigation from "../../components/PagesNavigation"
 
 type Props = {
-  params: { page: string }
+  params: { query: string }
 }
 
 export const metadata: Metadata = {
-  title: "TV Shows",
+  title: "TV Series",
 }
 
 export default async function TVShows({ params }: Props) {
-  const series = (await MediaPagesTMDB(+params.page)).pageSeries
+  const series = (await MediaPagesTMDB(+params.query)).pageSeries
   if (series === undefined) return <section>Not found</section>
   const totalPages = (await TotalPagesTMDB()).totalPagesSeries
   const seriesList = series.map((TVShow) => {
@@ -20,7 +20,7 @@ export default async function TVShows({ params }: Props) {
       <Card
         key={TVShow.id}
         id={TVShow.id}
-        catalog="movie"
+        catalog="tvshow"
         folderPath="https://image.tmdb.org/t/p/w342"
         coverPath={TVShow.poster_path}
         title={TVShow.name}
@@ -32,8 +32,8 @@ export default async function TVShows({ params }: Props) {
     <>
       <section className="flex flex-wrap gap-4 px-4">{seriesList}</section>
       <PagesNavigation
-        path="movies"
-        currentPage={+params.page}
+        path="tvseries"
+        currentPage={+params.query}
         totalPages={totalPages}
       />
     </>
