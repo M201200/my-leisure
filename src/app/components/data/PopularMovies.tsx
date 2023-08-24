@@ -1,11 +1,10 @@
-import { HomePageTMDB } from "@/api/DATA_TMDB"
-import Card from "../Card"
+import { popularMovies } from "@/api/DATA_TMDB"
+import CardMainPage from "../CardMainPage"
 
 export default async function MoviesList() {
-  const { popularMovies } = await HomePageTMDB()
-  const moviesList = popularMovies.map((movie) => {
+  return (await popularMovies()).map((movie) => {
     return (
-      <Card
+      <CardMainPage
         key={movie.id}
         id={movie.id}
         catalog="movie"
@@ -13,9 +12,9 @@ export default async function MoviesList() {
         coverPath={movie.poster_path}
         title={movie.title}
         score={movie.vote_average}
+        genreIDs={movie.genre_ids}
+        date={movie.release_date}
       />
     )
   })
-
-  return moviesList
 }

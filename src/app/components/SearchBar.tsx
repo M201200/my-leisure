@@ -12,11 +12,11 @@ export default function SearchBar() {
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            window.open(query ? `/list/search/${query}` : "#", "_self")
+            window.open(query ? `/category/search/${query}` : "#", "_self")
           }
         }}
       />
-      <Link href={query ? `/list/search/${query}` : "#"}>Search</Link>
+      <Link href={query ? `/category/search/${query}` : "#"}>Search</Link>
     </div>
   )
 }

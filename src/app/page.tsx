@@ -1,4 +1,4 @@
-import CardContainer from "./components/CardContainer"
+import CardContainer from "./components/CardMPContainer"
 import MoviesList from "./components/data/PopularMovies"
 import SeriesList from "./components/data/PopularTVShows"
 

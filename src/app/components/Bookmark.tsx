@@ -1,25 +1,23 @@
 "use client"
 import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs"
-import useToggle from "../hooks/useToggle"
+import useInitialAndToggle from "./hooks/useInitialAndToggle"
 
-type Props = {
-  id: number
-  catalog: string
-}
-
-export default function AddToList({ id, catalog }: Props) {
-  const [isListed, setAction] = useToggle({
-    key: catalog,
-    value: id.toString(),
-  })
-
+export default function Bookmark({
+  props,
+  className,
+}: {
+  props: Entry
+  className?: string
+}) {
+  const [isListed, setAction] = useInitialAndToggle({ details: props })
   return (
     <button
+      className={className}
       onClick={() => {
         if (isListed) {
-          return setAction("remove")
+          setAction("remove")
         } else {
-          return setAction("add")
+          setAction("add")
         }
       }}
     >

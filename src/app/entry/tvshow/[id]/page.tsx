@@ -1,13 +1,13 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { EntryTMDB } from "@/api/DATA_TMDB"
+import { currentTVShow } from "@/api/DATA_TMDB"
 
 type Props = {
   params: { id: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const title = (await EntryTMDB(+params.id)).currentTVShow?.name || "No title"
+  const title = (await currentTVShow(+params.id)).name || "No title"
 
   return {
     title: title,
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function MoviePage({ params }: Props) {
-  const TVShow = (await EntryTMDB(+params.id)).currentTVShow
+  const TVShow = await currentTVShow(+params.id)
   if (TVShow === undefined)
     return <h1>Movie with id:{params.id} do not exist.</h1>
 

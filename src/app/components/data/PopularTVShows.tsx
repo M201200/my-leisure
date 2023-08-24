@@ -1,11 +1,10 @@
-import { HomePageTMDB } from "@/api/DATA_TMDB"
-import Card from "../Card"
+import { popularSeries } from "@/api/DATA_TMDB"
+import CardMainPage from "../CardMainPage"
 
 export default async function SeriesList() {
-  const { popularSeries } = await HomePageTMDB()
-  const seriesList = popularSeries.map((entry) => {
+  return (await popularSeries()).map((entry) => {
     return (
-      <Card
+      <CardMainPage
         key={entry.id}
         id={entry.id}
         catalog="tvshow"
@@ -13,9 +12,9 @@ export default async function SeriesList() {
         coverPath={entry.poster_path}
         title={entry.name}
         score={entry.vote_average}
+        genreIDs={entry.genre_ids}
+        date={entry.first_air_date}
       />
     )
   })
-
-  return seriesList
 }
