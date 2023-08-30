@@ -1,5 +1,17 @@
 {
   "cSpell.words": ["tailwindcss", "tmdb"],
   "cSpell.enableFiletypes": ["tailwindcss"],
-  "cSpell.ignoreWords": ["tvseries", "tvshow", "tvshows", "watchlist", "webp"]
+  "cSpell.ignoreWords": [
+    "antd",
+    "cssinjs",
+    "fakeimg",
+    "flowbite",
+    "nextui",
+    "toolcool",
+    "tvseries",
+    "tvshow",
+    "tvshows",
+    "watchlist",
+    "webp"
+  ]
 }

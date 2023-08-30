@@ -1,5 +1,5 @@
-import { popularSeries } from "@/api/DATA_TMDB"
-import CardMainPage from "../CardMainPage"
+import { popularSeries } from "@/api/FETCH_TMDB"
+import CardMainPage from "../common/CardMainPage"
 
 export default async function SeriesList() {
   return (await popularSeries()).map((entry) => {
@@ -12,6 +12,7 @@ export default async function SeriesList() {
         coverPath={entry.poster_path}
         title={entry.name}
         score={entry.vote_average}
+        votesAmount={entry.vote_count}
         genreIDs={entry.genre_ids}
         date={entry.first_air_date}
       />

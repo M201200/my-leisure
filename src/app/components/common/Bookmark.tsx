@@ -1,18 +1,12 @@
 "use client"
 import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs"
-import useInitialAndToggle from "./hooks/useInitialAndToggle"
+import useInitialAndToggle from "../hooks/useInitialAndToggle"
 
-export default function Bookmark({
-  props,
-  className,
-}: {
-  props: Entry
-  className?: string
-}) {
+export default function Bookmark({ props }: { props: Entry }) {
   const [isListed, setAction] = useInitialAndToggle({ details: props })
   return (
     <button
-      className={className}
+      className="p-1 border-2 border-black rounded"
       onClick={() => {
         if (isListed) {
           setAction("remove")

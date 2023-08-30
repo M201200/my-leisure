@@ -1,16 +1,16 @@
-import CardContainer from "./components/CardMPContainer"
-import MoviesList from "./components/data/PopularMovies"
-import SeriesList from "./components/data/PopularTVShows"
+import CardPopularContainer from "./components/CardPopularContainer"
+import MoviesList from "./components/lists/PopularMovies"
+import SeriesList from "./components/lists/PopularTVShows"
 
 export default function HomePage() {
   return (
     <div className="grid gap-y-4">
-      <CardContainer>
+      <CardPopularContainer label="Random movies:">
         <MoviesList />
-      </CardContainer>
-      <CardContainer>
+      </CardPopularContainer>
+      <CardPopularContainer label="Random series:">
         <SeriesList />
-      </CardContainer>
+      </CardPopularContainer>
     </div>
   )
 }

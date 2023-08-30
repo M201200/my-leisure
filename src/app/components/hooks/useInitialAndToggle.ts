@@ -1,5 +1,5 @@
 import { hasEntry, addEntry, removeEntry } from "@/api/LocalStorageActions"
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 
 type Props = {
   details: Entry

@@ -1,5 +1,5 @@
-import { popularMovies } from "@/api/DATA_TMDB"
-import CardMainPage from "../CardMainPage"
+import { popularMovies } from "@/api/FETCH_TMDB"
+import CardMainPage from "../common/CardMainPage"
 
 export default async function MoviesList() {
   return (await popularMovies()).map((movie) => {
@@ -12,6 +12,7 @@ export default async function MoviesList() {
         coverPath={movie.poster_path}
         title={movie.title}
         score={movie.vote_average}
+        votesAmount={movie.vote_count}
         genreIDs={movie.genre_ids}
         date={movie.release_date}
       />

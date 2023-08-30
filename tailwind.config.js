@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -6,11 +7,17 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    minHeight: {
-      '48': '192px',
-    },
     extend: {
+      minHeight: {
+      '48': '12rem',
+      },
+      maxHeight: {
+        '125': '31.25rem',
+        },
+      gridTemplateColumns: {
+        "card-details": "8rem, 1fr "
+      },
     },
   },
-  plugins: [require('tailwind-scrollbar-hide'),],
+  plugins: [require('tailwind-scrollbar-hide'),]
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { currentMovie } from "@/api/DATA_TMDB"
+import { currentMovie } from "@/api/FETCH_TMDB"
 
 type Props = {
   params: { id: string }

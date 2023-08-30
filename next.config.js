@@ -13,7 +13,7 @@ module.exports = {
         },
         {
           protocol: 'https',
-          hostname: 'upload.wikimedia.org',
+          hostname: 'fakeimg.pl',
           port: '',
         },
       ],
