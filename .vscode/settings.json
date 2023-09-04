@@ -5,7 +5,9 @@
     "antd",
     "cssinjs",
     "fakeimg",
+    "flatrate",
     "flowbite",
+    "justwatch",
     "nextui",
     "toolcool",
     "tvseries",
@@ -13,5 +15,7 @@
     "tvshows",
     "watchlist",
     "webp"
-  ]
+  ],
+  "i18n-ally.localesPaths": ["messages"], // E.g. "messages"
+  "i18n-ally.keystyle": "nested"
 }

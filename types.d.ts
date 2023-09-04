@@ -1,13 +1,26 @@
 type Entry = {
   id: number
+  locale: Locale
+  catalog: "movie" | "tvshow"
+  folderPath: string
+  coverPath: string
+  title: string
+  score: number
+  votes: number
+  genreIds: number[]
+  date: string
+}
+
+type CardPopular = {
+  id: number
+  locale: Locale
   catalog: "movie" | "tvshow"
   folderPath: string
   coverPath: string
   title: string
   score: number
   votesAmount: number
-  genreIDs: number[]
-  date: string
+  bookmark: React.ReactNode
 }
 
 type DiscoverQuery = {
@@ -23,8 +36,8 @@ type DiscoverQuery = {
 }
 
 type Genre = {
-  id: number
-  name: string
+  id?: number
+  name?: string
 }
 
 type SortBy =
@@ -38,6 +51,7 @@ type SortBy =
 
 type SearchQuery = {
   query: string
-  moviePage: number
-  seriesPage: number
+  page: number
 }
+
+type Locale = "en" | "ro" | "ru"

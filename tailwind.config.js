@@ -7,6 +7,9 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    fluidTypography: {
+      maxScreenSize: 2560,
+  },
     extend: {
       minHeight: {
       '48': '12rem',
@@ -14,10 +17,7 @@ module.exports = {
       maxHeight: {
         '125': '31.25rem',
         },
-      gridTemplateColumns: {
-        "card-details": "8rem, 1fr "
-      },
     },
   },
-  plugins: [require('tailwind-scrollbar-hide'),]
+  plugins: [require('tailwind-scrollbar-hide'), require("tailwind-fluid-typography")]
 }

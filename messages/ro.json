@@ -1,0 +1,61 @@
+{
+  "MainPage": {
+    "labelMovies": "Filme aleatorii:",
+    "labelSeries": "Serii aleatorii:"
+  },
+  "Header": {
+    "Movies": "Filme",
+    "Series": "Serie",
+    "Books": "Cărți",
+    "Guest": "Oaspete",
+    "Eng": "Engleză",
+    "Roman": "Română",
+    "Rus": "Rusă",
+    "Change": "Schimbare",
+    "Search": "Căutare",
+    "SearchPlaceholder": "caută...",
+    "Movie": "Film",
+    "TV Show": "Serie"
+    },
+  "Details": {
+    "Not found pt1": "Filmul cu id:",
+    "Not found pt2": " nu a fost găsit.",
+    "Date": "Data de lansare:",
+    "Genres": "Genuri:",
+    "Actors": "Actori:",
+    "Direction": "Director:",
+    "Production": "Producător:",
+    "Budget": "Budget:",
+    "Revenue": "Venituri:",
+    "Runtime": "Timp de rulare:",
+    "Score": "Scor:",
+    "Votes": "Voturi:",
+    "Countries": "Țări:",
+    "Companies": "Companii:",
+    "Available": "Disponibil pe",
+    "Overview": "Prezentare generală:",
+    "Status": "Statutul curent:",
+    "Episodes": "Total episoade:",
+    "Seasons": "Sezoane:",
+    "Episode time": "Durata medie de rulare a episodului:",
+    "Min": "min.",
+    "Unknown": "Necunoscut",
+    "Disclaimer": "Informații despre serviciile de streaming furnizate de justwatch.com"
+
+  },
+  "Profile": {
+    "DisclaimerHead": "Nu sunteți autentificat.",
+    "DisclaimerBody": "În timpul sesiunii pentru invitați, marcajele sunt stocate în stocarea locală a browserului curent și sunt disponibile pentru oricine care au acces la browserul dat.",
+    "Bookmarks": "Marcaje:",
+    "Movies": "Filme",
+    "Series": "Series",
+    "Nothing": "Nimic pentru moment",
+    "Entries": "intrări"
+  },
+  "SearchResults": {
+    "Search": "Rezultatele căutării de",
+    "NotFound": "Fara coincidente",
+    "Movies": "Filme",
+    "Series": "Seriale"
+  }
+}
