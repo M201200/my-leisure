@@ -5,7 +5,7 @@ import Pagination from "../../../components/Pagination"
 import CardDetails from "../../../components/common/CardDetails"
 import CardDetailsContainer from "../../../components/CardDetailsContainer"
 import MediaFilter from "../../../components/MediaFilter"
-import { TV } from "tmdb-ts"
+import { TVShowListResult } from "@/api/tmdb-ts-wrapper/src/types"
 import { getTranslator } from "next-intl/server"
 import pickGenres from "@/data/tmdbGenres"
 import Bookmark from "@/app/[locale]/components/common/Bookmark"
@@ -29,7 +29,7 @@ export default async function TVShows({ params }: Props) {
     formattedQuery,
     "results",
     params.locale
-  )) as TV[]
+  )) as TVShowListResult[]
   const totalPages = (await pageSeries(
     formattedQuery,
     "totalPages",
@@ -45,16 +45,16 @@ export default async function TVShows({ params }: Props) {
     series && series.length ? (
       series.map((TVShow) => {
         const props: Entry = {
-          id: TVShow.id,
+          id: TVShow.id!,
           catalog: "tvshow",
           locale: params.locale,
           folderPath: "https://image.tmdb.org/t/p/w342",
-          coverPath: TVShow.poster_path,
-          title: TVShow.name,
-          score: TVShow.vote_average,
-          votes: TVShow.vote_count,
-          genreIds: TVShow.genre_ids,
-          date: TVShow.first_air_date,
+          coverPath: TVShow.poster_path || "",
+          title: TVShow.name || "No title",
+          score: TVShow.vote_average || 0,
+          votes: TVShow.vote_count || 0,
+          genreIds: TVShow.genre_ids || [],
+          date: TVShow.first_air_date || "Unknown",
         }
         return (
           <CardDetails

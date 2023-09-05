@@ -5,7 +5,7 @@ import Pagination from "../../../components/Pagination"
 import CardDetailsContainer from "../../../components/CardDetailsContainer"
 import CardDetails from "../../../components/common/CardDetails"
 import MediaFilter from "../../../components/MediaFilter"
-import { Movie } from "tmdb-ts"
+import { MovieListResult } from "@/api/tmdb-ts-wrapper/src/types"
 import { getTranslator } from "next-intl/server"
 import pickGenres from "@/data/tmdbGenres"
 import Bookmark from "@/app/[locale]/components/common/Bookmark"
@@ -29,7 +29,7 @@ export default async function Movies({ params }: Props) {
     formattedQuery,
     "results",
     params.locale
-  )) as Movie[]
+  )) as MovieListResult[]
   const totalPages = (await pageMovies(
     formattedQuery,
     "totalPages",
@@ -45,16 +45,16 @@ export default async function Movies({ params }: Props) {
     movies && movies.length ? (
       movies.map((movie) => {
         const props: Entry = {
-          id: movie.id,
+          id: movie.id!,
           locale: params.locale,
           catalog: "movie",
           folderPath: "https://image.tmdb.org/t/p/w342",
-          coverPath: movie.poster_path,
-          title: movie.title,
-          score: movie.vote_average,
-          votes: movie.vote_count,
-          genreIds: movie.genre_ids,
-          date: movie.release_date,
+          coverPath: movie.poster_path || "",
+          title: movie.title || "No title",
+          score: movie.vote_average || 0,
+          votes: movie.vote_count || 0,
+          genreIds: movie.genre_ids || [],
+          date: movie.release_date || "Unknown",
         }
         return (
           <CardDetails
