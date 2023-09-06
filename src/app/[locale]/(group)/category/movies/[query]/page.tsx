@@ -5,9 +5,7 @@ import Pagination from "../../../components/Pagination"
 import CardDetailsContainer from "../../../components/CardDetailsContainer"
 import CardDetails from "../../../components/common/CardDetails"
 import MediaFilter from "../../../components/MediaFilter"
-import { MovieListResult } from "@/api/tmdb-ts-wrapper/src/types"
 import { getTranslator } from "next-intl/server"
-import pickGenres from "@/data/tmdbGenres"
 import Bookmark from "@/app/[locale]/components/common/Bookmark"
 
 type Props = {
@@ -22,51 +20,45 @@ export const metadata: Metadata = {
 }
 
 export default async function Movies({ params }: Props) {
-  const genres = (await genresMovie(params.locale)) || pickGenres("movie")
-  const t = await getTranslator(params.locale, "SearchResults")
   const formattedQuery: DiscoverQuery = parseQuery(params.query)
-  const movies = (await pageMovies(
-    formattedQuery,
-    "results",
-    params.locale
-  )) as MovieListResult[]
-  const totalPages = (await pageMovies(
-    formattedQuery,
-    "totalPages",
-    params.locale
-  )) as number
-  const totalResults = (await pageMovies(
-    formattedQuery,
-    "totalResults",
-    params.locale
-  )) as number
-  const totalAmount = totalResults > 10000 ? 10000 : totalResults
-  const moviesList =
-    movies && movies.length ? (
-      movies.map((movie) => {
-        const props: Entry = {
-          id: movie.id!,
-          locale: params.locale,
-          catalog: "movie",
-          folderPath: "https://image.tmdb.org/t/p/w342",
-          coverPath: movie.poster_path || "",
-          title: movie.title || "No title",
-          score: movie.vote_average || 0,
-          votes: movie.vote_count || 0,
-          genreIds: movie.genre_ids || [],
-          date: movie.release_date || "Unknown",
-        }
-        return (
-          <CardDetails
-            key={movie.id}
-            props={props}
-            button={<Bookmark props={props} />}
-          />
-        )
-      })
-    ) : (
-      <section>{t("NotFound")}</section>
-    )
+  const genresData = genresMovie(params.locale)
+  const tData = getTranslator(params.locale, "SearchResults")
+  const moviesData = pageMovies(formattedQuery, params.locale)
+  const [t, genres, moviesResponse] = await Promise.all([
+    tData,
+    genresData,
+    moviesData,
+  ])
+  const movies = moviesResponse.results
+  const totalPages = moviesResponse.total_pages
+  const totalAmount =
+    moviesResponse.total_results > 10000 ? 10000 : moviesResponse.total_results
+
+  const moviesList = movies?.length ? (
+    movies.map((movie) => {
+      const props: Entry = {
+        id: movie.id!,
+        locale: params.locale,
+        catalog: "movie",
+        folderPath: "https://image.tmdb.org/t/p/w342",
+        coverPath: movie.poster_path || "",
+        title: movie.title || "No title",
+        score: movie.vote_average || 0,
+        votes: movie.vote_count || 0,
+        genreIds: movie.genre_ids || [],
+        date: movie.release_date || "Unknown",
+      }
+      return (
+        <CardDetails
+          key={movie.id}
+          props={props}
+          button={<Bookmark props={props} />}
+        />
+      )
+    })
+  ) : (
+    <section>{t("NotFound")}</section>
+  )
   return (
     <>
       <MediaFilter

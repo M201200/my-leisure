@@ -1,9 +1,5 @@
 import type { Metadata } from "next"
-import {
-  searchTVShowResults,
-  searchTVShowTotalPages,
-  searchTVShowTotalResults,
-} from "@/api/FETCH_TMDB"
+import { searchTVShow } from "@/api/FETCH_TMDB"
 import { parseQuery } from "@/api/QueryActions"
 import CardDetailsContainer from "@/app/[locale]/(group)/components/CardDetailsContainer"
 import CardDetails from "@/app/[locale]/(group)/components/common/CardDetails"
@@ -24,26 +20,19 @@ export const metadata: Metadata = {
 
 export default async function SearchTVPage({ params }: Props) {
   const queryObject: SearchQuery = parseQuery(params.query)
-  const t = await getTranslator(params.locale, "SearchResults")
   const formattedQuery: SearchQuery = parseQuery(params.query)
   const searchQuery = formattedQuery.query
   const searchPage = formattedQuery.page
-  const mediaResult = await searchTVShowResults(
-    searchQuery,
-    params.locale,
-    searchPage
-  )
-  const totalPages = await searchTVShowTotalPages(
-    searchQuery,
-    params.locale,
-    searchPage
-  )
-  const totalResults = await searchTVShowTotalResults(
-    searchQuery,
-    params.locale,
-    searchPage
-  )
+
+  const tData = getTranslator(params.locale, "SearchResults")
+  const mediaData = searchTVShow(searchQuery, params.locale, searchPage)
+  const [t, mediaResponse] = await Promise.all([tData, mediaData])
+
+  const mediaResult = mediaResponse.results
+  const totalPages = mediaResponse.total_pages
+  const totalResults = mediaResponse.total_results
   const totalAmount = totalResults! > 10000 ? 10000 : totalResults
+
   const mediaList =
     mediaResult && mediaResult.length ? (
       mediaResult.map((entry) => {

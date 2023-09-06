@@ -5,7 +5,6 @@ import {
   currentTVShowDetails,
   currentTVShowCredits,
   currentTVShowProviders,
-  currentTVShowProvidersLink,
 } from "@/api/FETCH_TMDB"
 import { getTranslator } from "next-intl/server"
 
@@ -26,8 +25,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function TVShowPage({ params }: Props) {
-  const t = await getTranslator(params.locale, "Details")
-  const TVShow = await currentTVShowDetails(+params.id, params.locale)
+  const tData = getTranslator(params.locale, "Details")
+  const TVShowData = currentTVShowDetails(+params.id, params.locale)
+  const creditsData = currentTVShowCredits(+params.id, params.locale)
+  const providersData = currentTVShowProviders(+params.id, params.locale)
+
+  const [t, TVShow, credits, providers] = await Promise.all([
+    tData,
+    TVShowData,
+    creditsData,
+    providersData,
+  ])
+
+  const providersLink = providers.providerLink
+
   if (TVShow === undefined)
     return (
       <section>
@@ -37,12 +48,6 @@ export default async function TVShowPage({ params }: Props) {
       </section>
     )
 
-  const credits = await currentTVShowCredits(+params.id, params.locale)
-  const providers = await currentTVShowProviders(+params.id, params.locale)
-  const providersLink = await currentTVShowProvidersLink(
-    +params.id,
-    params.locale
-  )
   const actors = credits?.cast
     ?.slice(0, 6)
     ?.filter((cast) => cast.known_for_department === "Acting")
@@ -76,16 +81,16 @@ export default async function TVShowPage({ params }: Props) {
               {TVShow.name}/{TVShow.original_name}
             </h2>
           )}
-          {TVShow.tagline ? <span>{TVShow.tagline}</span> : null}
+          {TVShow?.tagline ? <span>{TVShow.tagline}</span> : null}
 
-          {TVShow.first_air_date ? (
+          {TVShow?.first_air_date ? (
             <div className="flex gap-x-2">
               <h5>{t("Date")}</h5>
               {TVShow.first_air_date}
             </div>
           ) : null}
 
-          {TVShow.genres ? (
+          {TVShow?.genres ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Genres")}</h5>
               <span>
@@ -112,7 +117,7 @@ export default async function TVShowPage({ params }: Props) {
             </div>
           ) : null}
 
-          {actors && actors.length ? (
+          {actors?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Actors")}</h5>
               {actors.map((cast, id, arr) =>
@@ -125,7 +130,7 @@ export default async function TVShowPage({ params }: Props) {
             </div>
           ) : null}
 
-          {direction && direction.length ? (
+          {direction?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Direction")}</h5>
               {direction.map((cast, id) =>
@@ -138,7 +143,7 @@ export default async function TVShowPage({ params }: Props) {
             </div>
           ) : null}
 
-          {production && production.length ? (
+          {production?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Production")}</h5>
               {production.map((cast, id) =>
@@ -151,26 +156,26 @@ export default async function TVShowPage({ params }: Props) {
             </div>
           ) : null}
 
-          {TVShow.status ? (
+          {TVShow?.status ? (
             <div className="flex gap-x-2">
               <h5>{t("Status")}</h5> {TVShow.status}
             </div>
           ) : null}
 
-          {TVShow.number_of_episodes ? (
+          {TVShow?.number_of_episodes ? (
             <div className="flex gap-x-2">
               <h5>{t("Episodes")}</h5> {TVShow.number_of_episodes}
             </div>
           ) : null}
 
-          {TVShow.number_of_seasons ? (
+          {TVShow?.number_of_seasons ? (
             <div className="flex gap-x-2">
               <h5>{t("Seasons")}</h5>
               {TVShow.number_of_seasons}{" "}
             </div>
           ) : null}
 
-          {TVShow.episode_run_time ? (
+          {TVShow?.episode_run_time ? (
             <div className="flex gap-x-2">
               <h5>{t("Episode time")}</h5>
               {TVShow.episode_run_time} {t("Min")}
@@ -187,7 +192,7 @@ export default async function TVShowPage({ params }: Props) {
             {TVShow.vote_count?.toLocaleString()}
           </div>
 
-          {TVShow.production_countries ? (
+          {TVShow?.production_countries ? (
             <div className="flex gap-x-2">
               <h5>{t("Countries")}</h5>
               {TVShow.production_countries.map((country, id, arr) =>
@@ -203,7 +208,7 @@ export default async function TVShowPage({ params }: Props) {
             </div>
           ) : null}
 
-          {TVShow.production_companies ? (
+          {TVShow?.production_companies ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Companies")}</h5>
               {TVShow.production_companies.map((company, id, arr) =>
@@ -219,7 +224,7 @@ export default async function TVShowPage({ params }: Props) {
             </div>
           ) : null}
 
-          {providers && providers.length ? (
+          {providers?.watchProviders?.length ? (
             <div className="flex flex-wrap items-center gap-x-2">
               <span>
                 {t("Available")}
@@ -230,7 +235,7 @@ export default async function TVShowPage({ params }: Props) {
               </span>
 
               <span className="flex gap-x-4">
-                {providers?.map((item) => (
+                {providers.watchProviders?.map((item) => (
                   <Link
                     href={providersLink || "https://www.justwatch.com/"}
                     key={item.provider_id}

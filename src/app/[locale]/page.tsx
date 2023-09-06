@@ -1,6 +1,6 @@
+import CardPopularContainer from "./components/CardPopularContainer"
 import { popularMovies, popularSeries } from "@/api/FETCH_TMDB"
 import { getTranslator } from "next-intl/server"
-import CardPopularContainer from "./components/CardPopularContainer"
 import CardPopular from "./components/common/CardPopular"
 import Bookmark from "./components/common/Bookmark"
 
@@ -11,10 +11,19 @@ type Params = {
 }
 
 export default async function HomePage({ params: { locale } }: Params) {
-  const t = await getTranslator(locale, "MainPage")
   const coverFolderPath = "https://image.tmdb.org/t/p/w342"
 
-  const movies = await popularMovies(locale)
+  const tData = getTranslator(locale, "MainPage")
+  const moviesData = popularMovies(locale)
+  const seriesData = popularSeries(locale)
+
+  const [t, moviesResponse, seriesResponse] = await Promise.all([
+    tData,
+    moviesData,
+    seriesData,
+  ])
+
+  const movies = moviesResponse.results
   const movieCatalog = "movie"
   const movieList = movies?.map((movie) => ({
     id: movie.id!,
@@ -26,7 +35,7 @@ export default async function HomePage({ params: { locale } }: Params) {
     date: movie.release_date || "Unknown",
   }))
 
-  const series = await popularSeries(locale)
+  const series = seriesResponse.results
   const seriesCatalog = "tvshow"
   const seriesList = series?.map((tv) => ({
     id: tv.id!,

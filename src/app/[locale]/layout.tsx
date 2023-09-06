@@ -5,6 +5,7 @@ import { useLocale } from "next-intl"
 import { notFound } from "next/navigation"
 import SearchBar from "./components/common/SearchBar"
 import LanguageSwitcher from "./components/common/LanguageSwitcher"
+import Favicon from "/public/images/favicon/favicon-16.png"
 
 type Params = {
   children: string
@@ -16,6 +17,7 @@ type Params = {
 export const metadata: Metadata = {
   title: "My Leisure",
   description: "Search for movies, series and books you interested in",
+  icons: [{ rel: "icon", url: Favicon.src }],
 }
 
 export default function LocaleLayout({ children, params }: Params) {

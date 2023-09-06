@@ -1,47 +1,44 @@
-import { TMDB } from "tmdb-ts"
 import {
   Credits,
   Movie,
   MovieDetails,
+  MovieDiscoverResult,
   PopularMovies,
   PopularTvShows,
+  Search,
   SortOption,
   TV,
   TvShowDetails,
+  TvShowDiscoverResult,
   WatchProviders,
 } from "./typesTMDB"
 
-const tmdb = new TMDB(process.env.TMDB_ACCESS_TOKEN!)
-
-type Headers = {
+type FetchTmdbData = {
+  baseURL?: URL
+  additionURL?: string
+  queryList?: Query[]
   method?: "GET" | "POST" | "PUT"
   accept?: "application/json"
 }
 
-type FetchLanguage = {
-  language: Locale
-}
+type Query = [string, string | number | boolean | null | undefined]
 
-type FetchPage = {
-  page: number
-}
+const BASE_TMDB_URL = new URL("https://api.themoviedb.org/3/")
 
-type FetchMedia = Headers &
-  FetchLanguage &
-  FetchPage & {
-    initialFolder: string
-    secondaryFolder: string | number
-  }
-
-async function fetchMedia({
-  initialFolder,
-  secondaryFolder,
-  language,
-  page,
+export async function fetchTmdbData({
+  baseURL = BASE_TMDB_URL,
+  additionURL,
+  queryList,
   method = "GET",
   accept = "application/json",
-}: FetchMedia) {
-  const url = `https://api.themoviedb.org/3/${initialFolder}/${secondaryFolder}?language=${language}&page=${page}`
+}: FetchTmdbData) {
+  const url = additionURL ? new URL(additionURL, baseURL) : baseURL
+  if (queryList?.length)
+    queryList.forEach((query) => {
+      if (query[1] !== null || query[1] !== undefined)
+        /* @ts-ignore */
+        url.searchParams.set(query[0], query[1])
+    })
   const options = {
     method: method,
     headers: {
@@ -49,114 +46,44 @@ async function fetchMedia({
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN!}`,
     },
   }
-
   const response = await fetch(url, options)
-  return response
+  return response.json()
 }
 
 export async function popularMovies(language: Locale) {
-  const page = (Math.random() * 20 + 1).toFixed()
+  const page = +(Math.random() * 20 + 1).toFixed()
+  const popularMoviesURL = "movie/popular/"
 
-  // const url = `https://api.themoviedb.org/3/movie/popular?language=${language}&page=${page}`
-  // const options = {
-  //   method: "GET",
-  //   headers: {
-  //     accept: "application/json",
-  //     Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN!}`,
-  //   },
-  // }
-
-  const response = await fetchMedia({
-    initialFolder: "movie",
-    secondaryFolder: "popular",
-    language: language,
-    page: +page,
+  const response = await fetchTmdbData({
+    additionURL: popularMoviesURL,
+    queryList: [
+      ["language", language],
+      ["page", page],
+    ],
   })
-  const result: PopularMovies = await response.json()
 
-  // const results = (
-  //   await tmdb.movies.nowPlaying({
-  //     language: language,
-  //     page: +page,
-  //   })
-  // ).results
+  const result: PopularMovies = await response
   return result
 }
 
 export async function popularSeries(language: Locale) {
-  const page = (Math.random() * 20 + 1).toFixed()
+  const page = +(Math.random() * 20 + 1).toFixed()
+  const popularSeriesURL = "tv/popular/"
 
-  // const url = `https://api.themoviedb.org/3/tv/popular?language=${language}&page=${page}`
-  // const options = {
-  //   method: "GET",
-  //   headers: {
-  //     accept: "application/json",
-  //     Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN!}`,
-  //   },
-  // }
-
-  const response = await fetchMedia({
-    initialFolder: "tv",
-    secondaryFolder: "popular",
-    language: language,
-    page: +page,
+  const response = await fetchTmdbData({
+    additionURL: popularSeriesURL,
+    queryList: [
+      ["language", language],
+      ["page", page],
+    ],
   })
-  const result: PopularTvShows = await response.json()
-  // const results = (
-  //   await tmdb.tvShows.popular({ language: language, page: +page })
-  // ).results
+
+  const result: PopularTvShows = await response
 
   return result
 }
 
-type FetchDiscover = Headers &
-  FetchLanguage &
-  FetchPage & {
-    folder: "movie" | "tv"
-    adult?: boolean
-    video?: boolean
-    date_gte?: string
-    date_lte?: string
-    sortBy?: SortOption
-    vote_gte?: number
-    vote_lte?: number
-    withGenres?: string
-    withoutGenres?: string
-  }
-
-async function fetchDiscover({
-  folder,
-  language,
-  page = 1,
-  method = "GET",
-  accept = "application/json",
-  adult = false,
-  video = false,
-  date_gte = "1900-01-01",
-  date_lte = new Date().toISOString().slice(0, 10),
-  sortBy = "popularity.desc",
-  vote_gte = 0,
-  vote_lte = 10,
-  withGenres = "",
-  withoutGenres = "",
-}: FetchDiscover) {
-  const url = `https://api.themoviedb.org/3/discover/${folder}?include_adult=${adult}&include_video=${video}&language=${language}&page=${page}&primary_release_date.gte=${date_gte}&primary_release_date.lte=${date_lte}&sort_by=${sortBy}&vote_average.gte=${vote_gte}&vote_average.lte=${vote_lte}&with_genres=${withGenres}&without_genres=${withoutGenres}`
-  const options = {
-    method: method,
-    headers: {
-      accept: accept,
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN!}`,
-    },
-  }
-
-  const response = await fetch(url, options)
-  return response
-}
-export async function pageMovies(
-  props: DiscoverQuery,
-  // returnValue: "results" | "totalPages" | "totalResults",
-  locale: Locale
-) {
+export async function pageMovies(props: DiscoverQuery, locale: Locale) {
   const sortBy = `${props.sort_by}.${props.sort_order}` as SortOption
   const withGenres = props.with_genres?.length
     ? props.with_genres.join(",")
@@ -172,77 +99,29 @@ export async function pageMovies(
   const dateMin = `${props.minYear}-01-01`
   const dateMax = `${maxYear}`
 
-  const response = await fetchDiscover({
-    folder: "movie",
-    language: locale,
-    page: 1,
-    date_gte: dateMin,
-    date_lte: dateMax,
-    sortBy: sortBy,
-    withGenres: withGenres,
-    withoutGenres: withoutGenres,
+  const discoverMoviesURL = "discover/movie/"
+
+  const response = await fetchTmdbData({
+    additionURL: discoverMoviesURL,
+    queryList: [
+      ["language", locale],
+      ["page", 1],
+      ["primary_release_date.gte", dateMin],
+      ["primary_release_date.lte", dateMax],
+      ["vote_average.gte", props.minScore ?? 0],
+      ["vote_average.lte", props.maxScore ?? 10],
+      ["sort_by", sortBy],
+      ["with_genres", withGenres],
+      ["without_genres", withoutGenres],
+    ],
   })
 
-  const result: Movie[] = await response.json()
+  const result: MovieDiscoverResult = await response
 
   return result
-
-  // switch (returnValue) {
-  //   case "results":
-  //     const results = (
-  //       await tmdb.discover.movie({
-  //         language: locale,
-  //         page: props.page,
-  //         "primary_release_date.gte": `${props.minYear}-01-01`,
-  //         "primary_release_date.lte": maxYear,
-  //         "vote_average.gte": props.minScore,
-  //         "vote_average.lte": props.maxScore,
-  //         sort_by: sortBy,
-  //         with_genres: withGenres,
-  //         without_genres: withoutGenres,
-  //       })
-  //     ).results
-  //     return results
-  //   case "totalPages":
-  //     const totalPages = (
-  //       await tmdb.discover.movie({
-  //         language: locale,
-  //         page: props.page,
-  //         "primary_release_date.gte": `${props.minYear}-01-01`,
-  //         "primary_release_date.lte": maxYear,
-  //         "vote_average.gte": props.minScore,
-  //         "vote_average.lte": props.maxScore,
-  //         sort_by: sortBy,
-  //         with_genres: withGenres,
-  //         without_genres: withoutGenres,
-  //       })
-  //     ).total_pages
-  //     return totalPages
-  //   case "totalResults":
-  //     const totalResults = (
-  //       await tmdb.discover.movie({
-  //         language: locale,
-  //         page: props.page,
-  //         "primary_release_date.gte": `${props.minYear}-01-01`,
-  //         "primary_release_date.lte": maxYear,
-  //         "vote_average.gte": props.minScore,
-  //         "vote_average.lte": props.maxScore,
-  //         sort_by: sortBy,
-  //         with_genres: withGenres,
-  //         without_genres: withoutGenres,
-  //       })
-  //     ).total_results
-  //     return totalResults
-  //   default:
-  //     return new Error("Enter requested value!")
-  // }
 }
 
-export async function pageSeries(
-  props: DiscoverQuery,
-  // returnValue: "results" | "totalPages" | "totalResults",
-  locale: Locale
-) {
+export async function pageSeries(props: DiscoverQuery, locale: Locale) {
   const sortBy = `${props.sort_by}.${props.sort_order}` as SortOption
   const withGenres = props.with_genres?.length
     ? props.with_genres.join(",")
@@ -258,158 +137,62 @@ export async function pageSeries(
   const dateMin = `${props.minYear}-01-01`
   const dateMax = `${maxYear}`
 
-  const response = await fetchDiscover({
-    folder: "tv",
-    language: locale,
-    page: 1,
-    date_gte: dateMin,
-    date_lte: dateMax,
-    sortBy: sortBy,
-    withGenres: withGenres,
-    withoutGenres: withoutGenres,
+  const discoverSeriesURL = "discover/tv/"
+
+  const response = await fetchTmdbData({
+    additionURL: discoverSeriesURL,
+    queryList: [
+      ["language", locale],
+      ["page", 1],
+      ["first_air_date.gte", dateMin],
+      ["first_air_date.lte", dateMax],
+      ["vote_average.gte", props.minScore ?? 0],
+      ["vote_average.lte", props.maxScore ?? 10],
+      ["sort_by", sortBy],
+      ["with_genres", withGenres],
+      ["without_genres", withoutGenres],
+    ],
   })
 
-  const result: TV[] = await response.json()
+  const result: TvShowDiscoverResult = await response
 
   return result
-
-  // switch (returnValue) {
-  //   case "results":
-  //     const results = (
-  //       await tmdb.discover.tvShow({
-  //         language: locale,
-  //         page: props.page,
-  //         "first_air_date.gte": `${props.minYear}-01-01`,
-  //         "first_air_date.lte": maxYear,
-  //         "vote_average.gte": props.minScore,
-  //         "vote_average.lte": props.maxScore,
-  //         sort_by: sortBy,
-  //         with_genres: withGenres,
-  //         without_genres: withoutGenres,
-  //       })
-  //     ).results
-  //     return results
-  //   case "totalPages":
-  //     const totalPages = (
-  //       await tmdb.discover.tvShow({
-  //         language: locale,
-  //         page: props.page,
-  //         "first_air_date.gte": `${props.minYear}-01-01`,
-  //         "first_air_date.lte": maxYear,
-  //         "vote_average.gte": props.minScore,
-  //         "vote_average.lte": props.maxScore,
-  //         sort_by: sortBy,
-  //         with_genres: withGenres,
-  //         without_genres: withoutGenres,
-  //       })
-  //     ).total_pages
-  //     return totalPages
-  //   case "totalResults":
-  //     const totalResults = (
-  //       await tmdb.discover.tvShow({
-  //         language: locale,
-  //         page: props.page,
-  //         "first_air_date.gte": `${props.minYear}-01-01`,
-  //         "first_air_date.lte": maxYear,
-  //         "vote_average.gte": props.minScore,
-  //         "vote_average.lte": props.maxScore,
-  //         sort_by: sortBy,
-  //         with_genres: withGenres,
-  //         without_genres: withoutGenres,
-  //       })
-  //     ).total_results
-  //     return totalResults
-  //   default:
-  //     return new Error("Enter requested value!")
-  // }
-}
-
-type FetchDetails = Headers &
-  FetchLanguage &
-  FetchLanguage & {
-    folder: "movie" | "tv"
-    id: number
-    isCredits?: boolean
-  }
-
-async function fetchDetailsAndCredits({
-  folder,
-  id,
-  language,
-  isCredits = false,
-  method = "GET",
-  accept = "application/json",
-}: FetchDetails) {
-  const credits = isCredits ? "/credits" : ""
-  const url = `https://api.themoviedb.org/3/${folder}/${id}${credits}?language=${language}`
-  const options = {
-    method: method,
-    headers: {
-      accept: accept,
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN!}`,
-    },
-  }
-
-  const response = await fetch(url, options)
-  return response
 }
 
 export async function currentMovieDetails(id: number, locale: Locale) {
-  const response = await fetchDetailsAndCredits({
-    folder: "movie",
-    id: id,
-    language: locale,
+  const detailsMovieURL = `movie/${id}/`
+
+  const response = await fetchTmdbData({
+    additionURL: detailsMovieURL,
+    queryList: [["language", locale]],
   })
 
-  const result: MovieDetails = await response.json()
+  const result: MovieDetails = await response
 
   return result
-  // return await tmdb.movies.details(id, locale)
 }
 
 export async function currentMovieCredits(id: number, locale: Locale) {
-  const response = await fetchDetailsAndCredits({
-    folder: "movie",
-    id: id,
-    language: locale,
-    isCredits: true,
+  const creditsMovieURL = `movie/${id}/credits/`
+
+  const response = await fetchTmdbData({
+    additionURL: creditsMovieURL,
+    queryList: [["language", locale]],
   })
 
-  const result: Credits = await response.json()
+  const result: Credits = await response
 
   return result
-  // return await tmdb.movies.credits(id, locale)
-}
-
-type FetchProviders = Headers & {
-  folder: "movie" | "tv"
-  id: number
-}
-async function fetchProviders({
-  folder,
-  id,
-  method = "GET",
-  accept = "application/json",
-}: FetchProviders) {
-  const url = `https://api.themoviedb.org/3/${folder}/${id}/watch/providers`
-  const options = {
-    method: method,
-    headers: {
-      accept: accept,
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN!}`,
-    },
-  }
-
-  const response = await fetch(url, options)
-  return response
 }
 
 export async function currentMovieProviders(id: number, locale: Locale) {
-  // const results = (await tmdb.movies.watchProviders(id)).results
+  const providerMovieURL = `movie/${id}/watch/providers/`
 
-  const response = await fetchProviders({ folder: "movie", id: id })
+  const response = await fetchTmdbData({
+    additionURL: providerMovieURL,
+  })
 
-  const result: WatchProviders = await response.json()
+  const result: WatchProviders = await response
 
   const results = result.results
   const defaultLink = results?.US?.link
@@ -446,59 +229,40 @@ export async function currentMovieProviders(id: number, locale: Locale) {
   return { providerLink, watchProviders }
 }
 
-// export async function currentMovieProviders(id: number, locale: Locale) {
-//   const results = (await tmdb.movies.watchProviders(id)).results
-
-//   const watchProviders =
-//     locale === "en"
-//       ? results?.US
-//       : locale === "ro"
-//       ? results?.RO
-//       : locale === "ru"
-//       ? results?.RU
-//       : results?.US
-
-//   const defaultProviders = results?.US?.buy
-//     ? results?.US?.buy
-//     : results?.US?.rent
-//     ? results?.US?.rent
-//     : results?.US?.flatrate
-//     ? results?.US?.flatrate
-//     : watchProviders?.flatrate
-//   return watchProviders?.flatrate || defaultProviders
-// }
-
 export async function currentTVShowDetails(id: number, locale: Locale) {
-  const response = await fetchDetailsAndCredits({
-    folder: "tv",
-    id: id,
-    language: locale,
+  const detailsTVShowURL = `movie/${id}/`
+
+  const response = await fetchTmdbData({
+    additionURL: detailsTVShowURL,
+    queryList: [["language", locale]],
   })
 
-  const result: TvShowDetails = await response.json()
+  const result: TvShowDetails = await response
 
   return result
-  // return await tmdb.tvShows.details(id, locale)
 }
 
 export async function currentTVShowCredits(id: number, locale: Locale) {
-  const response = await fetchDetailsAndCredits({
-    folder: "tv",
-    id: id,
-    language: locale,
-    isCredits: true,
+  const creditsTVShowURL = `movie/${id}/credits/`
+
+  const response = await fetchTmdbData({
+    additionURL: creditsTVShowURL,
+    queryList: [["language", locale]],
   })
 
-  const result: Credits = await response.json()
+  const result: Credits = await response
 
   return result
-  // return await tmdb.tvShows.credits(id, locale)
 }
 
-export async function currentTVShowProvidersLink(id: number, locale: Locale) {
-  const response = await fetchProviders({ folder: "tv", id: id })
+export async function currentTVShowProviders(id: number, locale: Locale) {
+  const providerTVShowURL = `tv/${id}/watch/providers/`
 
-  const result: WatchProviders = await response.json()
+  const response = await fetchTmdbData({
+    additionURL: providerTVShowURL,
+  })
+
+  const result: WatchProviders = await response
 
   const results = result.results
   const defaultLink = results?.US?.link
@@ -533,133 +297,69 @@ export async function currentTVShowProvidersLink(id: number, locale: Locale) {
   }
 
   return { providerLink, watchProviders }
-  //   const results = (await tmdb.tvShows.watchProviders(id)).results
-  //   return locale === "en"
-  //     ? results?.US?.link
-  //     : locale === "ro"
-  //     ? results?.RO?.link
-  //     : locale === "ru"
-  //     ? results?.RU?.link
-  //     : results?.US?.link
 }
 
-// export async function currentTVShowProviders(id: number, locale: Locale) {
-//   const results = (await tmdb.tvShows.watchProviders(id))?.results
-
-//   const watchProviders =
-//     locale === "en"
-//       ? results?.US
-//       : locale === "ro"
-//       ? results?.RO
-//       : locale === "ru"
-//       ? results?.RU
-//       : results?.US
-
-//   const defaultProviders = results?.US?.buy
-//     ? results?.US?.buy
-//     : results?.US?.rent
-//     ? results?.US?.rent
-//     : results?.US?.flatrate
-//     ? results?.US?.flatrate
-//     : watchProviders?.flatrate
-//   return watchProviders?.flatrate || defaultProviders
-// }
-
-export async function searchMovieResults(
+export async function searchMovie(
   query: string,
   locale: Locale,
   page?: number
 ) {
-  const results = (
-    await tmdb.search.movies({
-      query: encodeURIComponent(query),
-      page: page,
-      language: locale,
-    })
-  ).results
-  return results
+  const searchMovieURL = `search/movie/`
+
+  const response = await fetchTmdbData({
+    additionURL: searchMovieURL,
+    queryList: [
+      ["language", locale],
+      ["query", encodeURIComponent(query)],
+      ["page", page],
+    ],
+  })
+
+  const result: Search<Movie> = await response
+
+  return result
 }
 
-export async function searchMovieTotalPages(
+export async function searchTVShow(
   query: string,
   locale: Locale,
   page?: number
 ) {
-  const totalPages = (
-    await tmdb.search.movies({
-      query: encodeURIComponent(query),
-      page: page,
-      language: locale,
-    })
-  ).total_pages
-  return totalPages
-}
+  const searchTVShowURL = `search/tv/`
 
-export async function searchMovieTotalResults(
-  query: string,
-  locale: Locale,
-  page?: number
-) {
-  const totalResults = (
-    await tmdb.search.movies({
-      query: encodeURIComponent(query),
-      page: page,
-      language: locale,
-    })
-  ).total_results
-  return totalResults
-}
+  const response = await fetchTmdbData({
+    additionURL: searchTVShowURL,
+    queryList: [
+      ["language", locale],
+      ["query", encodeURIComponent(query)],
+      ["page", page],
+    ],
+  })
 
-export async function searchtvShowResults(
-  query: string,
-  locale: Locale,
-  page?: number
-) {
-  const results = (
-    await tmdb.search.tvShows({
-      query: encodeURIComponent(query),
-      page: page,
-      language: locale,
-    })
-  ).results
-  return results
-}
+  const result: Search<TV> = await response
 
-export async function searchTVShowTotalPages(
-  query: string,
-  locale: Locale,
-  page?: number
-) {
-  const totalPages = (
-    await tmdb.search.tvShows({
-      query: encodeURIComponent(query),
-      page: page,
-      language: locale,
-    })
-  ).total_pages
-  return totalPages
-}
-
-export async function searchTVShowTotalResults(
-  query: string,
-  locale: Locale,
-  page?: number
-) {
-  const totalResults = (
-    await tmdb.search.tvShows({
-      query: encodeURIComponent(query),
-      page: page,
-      language: locale,
-    })
-  ).total_results
-  return totalResults
+  return result
 }
 
 export async function genresMovie(locale: Locale) {
-  const genres = (await tmdb.genres.movies(locale)).genres
-  return genres
+  const genreMovieURL = `genre/movie/list/`
+
+  const response = await fetchTmdbData({
+    additionURL: genreMovieURL,
+    queryList: [["language", locale]],
+  })
+
+  const result: Genre[] = await response
+  return result
 }
-export async function genresSeries(locale: Locale) {
-  const genres = (await tmdb.genres.tvShows(locale)).genres
-  return genres
+export async function genresTVShow(locale: Locale) {
+  const genreMovieURL = `genre/tv/list/`
+
+  const response = await fetchTmdbData({
+    additionURL: genreMovieURL,
+    queryList: [["language", locale]],
+  })
+
+  const result: Genre[] = await response
+  return result
 }

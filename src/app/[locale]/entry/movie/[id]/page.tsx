@@ -5,7 +5,6 @@ import {
   currentMovieCredits,
   currentMovieDetails,
   currentMovieProviders,
-  currentMovieProvidersLink,
 } from "@/api/FETCH_TMDB"
 import { getTranslator } from "next-intl/server"
 
@@ -26,8 +25,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function MoviePage({ params }: Props) {
-  const t = await getTranslator(params.locale, "Details")
-  const movie = await currentMovieDetails(+params.id, params.locale)
+  const tData = getTranslator(params.locale, "Details")
+  const movieData = currentMovieDetails(+params.id, params.locale)
+
+  const creditsData = currentMovieCredits(+params.id, params.locale)
+  const providersData = currentMovieProviders(+params.id, params.locale)
+  const [t, movie, credits, providers] = await Promise.all([
+    tData,
+    movieData,
+    creditsData,
+    providersData,
+  ])
+  const providersLink = providers.providerLink
+
   if (movie === undefined)
     return (
       <section>
@@ -36,12 +46,7 @@ export default async function MoviePage({ params }: Props) {
         {t("Not found pt2")}
       </section>
     )
-  const credits = await currentMovieCredits(+params.id, params.locale)
-  const providers = await currentMovieProviders(+params.id, params.locale)
-  const providersLink = await currentMovieProvidersLink(
-    +params.id,
-    params.locale
-  )
+
   const actors = credits.cast
     ?.slice(0, 6)
     ?.filter((cast) => cast.known_for_department === "Acting")
@@ -75,7 +80,7 @@ export default async function MoviePage({ params }: Props) {
               {movie.title}/{movie.original_title}
             </h2>
           )}
-          {movie.tagline ? <span>{movie.tagline}</span> : null}
+          {movie?.tagline ? <span>{movie.tagline}</span> : null}
 
           {movie.release_date ? (
             <div className="flex gap-x-2">
@@ -84,7 +89,7 @@ export default async function MoviePage({ params }: Props) {
             </div>
           ) : null}
 
-          {movie.genres ? (
+          {movie?.genres ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Genres")}</h5>
               <span>
@@ -111,7 +116,7 @@ export default async function MoviePage({ params }: Props) {
             </div>
           ) : null}
 
-          {actors && actors.length ? (
+          {actors?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Actors")}</h5>
               {actors.map((cast, id, arr) =>
@@ -124,7 +129,7 @@ export default async function MoviePage({ params }: Props) {
             </div>
           ) : null}
 
-          {direction && direction.length ? (
+          {direction?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Direction")} </h5>
               {direction.map((cast, id) =>
@@ -137,7 +142,7 @@ export default async function MoviePage({ params }: Props) {
             </div>
           ) : null}
 
-          {production && production.length ? (
+          {production?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Production")}</h5>
               {production.map((cast, id) =>
@@ -150,19 +155,19 @@ export default async function MoviePage({ params }: Props) {
             </div>
           ) : null}
 
-          {movie.budget ? (
+          {movie?.budget ? (
             <div className="flex gap-x-2">
               <h5>{t("Budget")}</h5> ${movie.budget.toLocaleString()}
             </div>
           ) : null}
 
-          {movie.revenue ? (
+          {movie?.revenue ? (
             <div className="flex gap-x-2">
               <h5>{t("Revenue")}</h5>${movie.revenue.toLocaleString()}{" "}
             </div>
           ) : null}
 
-          {movie.runtime ? (
+          {movie?.runtime ? (
             <div className="flex gap-x-2">
               <h5>{t("Runtime")}</h5>
               {movie.runtime}
@@ -179,7 +184,7 @@ export default async function MoviePage({ params }: Props) {
             {movie.vote_count?.toLocaleString()}
           </div>
 
-          {movie.production_countries ? (
+          {movie?.production_countries ? (
             <div className="flex gap-x-2">
               <h5>{t("Countries")}</h5>
               {movie.production_countries.map((country, id, arr) =>
@@ -195,7 +200,7 @@ export default async function MoviePage({ params }: Props) {
             </div>
           ) : null}
 
-          {movie.production_companies ? (
+          {movie?.production_companies ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Companies")}</h5>
               {movie.production_companies.map((company, id, arr) =>
@@ -211,7 +216,7 @@ export default async function MoviePage({ params }: Props) {
             </div>
           ) : null}
 
-          {providers && providers.length ? (
+          {providers?.watchProviders?.length ? (
             <div className="flex flex-wrap items-center gap-x-2">
               <span>
                 {t("Available")}
@@ -222,7 +227,7 @@ export default async function MoviePage({ params }: Props) {
               </span>
 
               <span className="flex gap-x-4">
-                {providers?.map((item) => (
+                {providers?.watchProviders?.map((item) => (
                   <Link
                     href={providersLink || "https://www.justwatch.com/"}
                     key={item.provider_id}
