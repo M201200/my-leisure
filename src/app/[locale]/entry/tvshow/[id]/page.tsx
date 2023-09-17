@@ -2,11 +2,12 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next-intl/link"
 import {
-  currentTVShowDetails,
-  currentTVShowCredits,
-  currentTVShowProviders,
+  currentMediaDetails,
+  currentMediaCredits,
+  currentMediaProviders,
 } from "@/api/FETCH_TMDB"
 import { getTranslator } from "next-intl/server"
+import Bookmark from "@/app/[locale]/_components/common/Bookmark"
 
 type Props = {
   params: {
@@ -16,8 +17,8 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const name =
-    (await currentTVShowDetails(+params.id, params.locale)).name || "No name"
+  const tvShow = await currentMediaDetails(+params.id, params.locale, "tv")
+  const name = "name" in tvShow ? tvShow?.name || "No name" : ""
 
   return {
     title: name,
@@ -26,9 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function TVShowPage({ params }: Props) {
   const tData = getTranslator(params.locale, "Details")
-  const TVShowData = currentTVShowDetails(+params.id, params.locale)
-  const creditsData = currentTVShowCredits(+params.id, params.locale)
-  const providersData = currentTVShowProviders(+params.id, params.locale)
+  const TVShowData = currentMediaDetails(+params.id, params.locale, "tv")
+  const creditsData = currentMediaCredits(+params.id, params.locale, "tv")
+  const providersData = currentMediaProviders(+params.id, params.locale, "tv")
 
   const [t, TVShow, credits, providers] = await Promise.all([
     tData,
@@ -37,7 +38,7 @@ export default async function TVShowPage({ params }: Props) {
     providersData,
   ])
 
-  const providersLink = providers.providerLink
+  const providersLink = providers?.providerLink
 
   if (TVShow === undefined)
     return (
@@ -47,6 +48,19 @@ export default async function TVShowPage({ params }: Props) {
         {t("Not found pt2")}
       </section>
     )
+
+  const tvBookmark: MediaEntry = {
+    id: TVShow.id!,
+    title: "name" in TVShow ? TVShow.name || t("Unknown") : "",
+    coverPath: TVShow.poster_path || "",
+    score: TVShow.vote_average || 0,
+    votes: TVShow.vote_count || 0,
+    genreIds: TVShow.genres.map((genre) => genre.id) || [],
+    date:
+      "first_air_date" in TVShow ? TVShow.first_air_date || t("Unknown") : "",
+    catalog: "tvshow",
+    folderPath: "https://image.tmdb.org/t/p/w342",
+  }
 
   const actors = credits?.cast
     ?.slice(0, 6)
@@ -61,7 +75,7 @@ export default async function TVShowPage({ params }: Props) {
     ?.filter((cast) => cast.known_for_department === "Production")
     ?.sort((a, b) => b.popularity! - a.popularity!)
 
-  return (
+  return "name" in TVShow ? (
     <>
       <section className="md:grid gap-4 md:grid-cols-[28.75rem_1fr] flex flex-wrap">
         <div>
@@ -74,11 +88,14 @@ export default async function TVShowPage({ params }: Props) {
         </div>
 
         <section>
-          {TVShow.name === TVShow.original_name ? (
-            <h2>{TVShow.name}</h2>
+          {TVShow?.name === TVShow?.original_name ? (
+            <h2>
+              {TVShow?.name} <Bookmark props={tvBookmark} />
+            </h2>
           ) : (
             <h2>
-              {TVShow.name}/{TVShow.original_name}
+              {TVShow?.name}/{TVShow?.original_name}{" "}
+              <Bookmark props={tvBookmark} />
             </h2>
           )}
           {TVShow?.tagline ? <span>{TVShow.tagline}</span> : null}
@@ -86,7 +103,7 @@ export default async function TVShowPage({ params }: Props) {
           {TVShow?.first_air_date ? (
             <div className="flex gap-x-2">
               <h5>{t("Date")}</h5>
-              {TVShow.first_air_date}
+              {TVShow?.first_air_date}
             </div>
           ) : null}
 
@@ -97,19 +114,19 @@ export default async function TVShowPage({ params }: Props) {
                 {TVShow.genres.map((genre, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
-                      key={genre.id}
-                      href={`/category/tvseries/"page":1,"minYear":1900,"maxYear":2023,"minScore":0,"maxScore":10,"sort_by":"popularity","sort_order":"desc","with_genres":[${genre.id}],"without_genres":[]`}
+                      key={genre?.id}
+                      href={`/category/discover/tvseries?with_genres=${genre?.id}`}
                       locale={params.locale}
                     >
-                      {genre.name},{" "}
+                      {genre?.name},{" "}
                     </Link>
                   ) : (
                     <Link
-                      key={genre.id}
-                      href={`/category/tvseries/"page":1,"minYear":1900,"maxYear":2023,"minScore":0,"maxScore":10,"sort_by":"popularity","sort_order":"desc","with_genres":[${genre.id}],"without_genres":[]`}
+                      key={genre?.id}
+                      href={`/category/discover/tvseries?with_genres=${genre?.id}`}
                       locale={params.locale}
                     >
-                      {genre.name}
+                      {genre?.name}
                     </Link>
                   )
                 )}
@@ -231,7 +248,7 @@ export default async function TVShowPage({ params }: Props) {
                 <Link href={"#remark"} title={t("Disclaimer")}>
                   *
                 </Link>
-                :
+                :{" "}
               </span>
 
               <span className="flex gap-x-4">
@@ -256,9 +273,9 @@ export default async function TVShowPage({ params }: Props) {
         </section>
         <section className="col-span-2">
           <h5>{t("Overview")}</h5>
-          <p>{TVShow.overview ? TVShow.overview : "Not available"}</p>
+          <p>{TVShow.overview ? TVShow.overview : t("NA")}</p>
         </section>
       </section>
     </>
-  )
+  ) : null
 }

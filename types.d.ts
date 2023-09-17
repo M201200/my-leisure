@@ -1,6 +1,5 @@
-type Entry = {
+type MediaEntry = {
   id: number
-  locale: Locale
   catalog: "movie" | "tvshow"
   folderPath: string
   coverPath: string
@@ -11,7 +10,19 @@ type Entry = {
   date: string
 }
 
-type CardPopular = {
+type BookEntry = {
+  id: string
+  catalog: "book"
+  folderPath: string
+  coverPath?: number | null
+  title: string
+  author?: string[] | null
+  editions: number
+  languages?: string[] | null
+  date?: number | null
+}
+
+type CardPopularMedia = {
   id: number
   locale: Locale
   catalog: "movie" | "tvshow"
@@ -23,21 +34,32 @@ type CardPopular = {
   bookmark: React.ReactNode
 }
 
+type CardPopularBook = {
+  id: string
+  locale: Locale
+  catalog: "book"
+  folderPath: string
+  coverPath: number
+  title: string
+  author?: string
+  bookmark: React.ReactNode
+}
+
 type DiscoverQuery = {
-  page: number
-  minYear: number
-  maxYear: number
-  maxScore: number
-  minScore: number
-  sort_by: SortBy
-  sort_order: "desc" | "asc"
-  with_genres: number[]
-  without_genres: number[]
+  page?: number
+  min_year?: number
+  max_year?: number
+  max_score?: number
+  min_score?: number
+  sort_by?: SortBy
+  sort_order?: "desc" | "asc"
+  with_genres?: string
+  without_genres?: string
 }
 
 type Genre = {
-  id?: number
-  name?: string
+  id: number
+  name: string
 }
 
 type SortBy =

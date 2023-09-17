@@ -2,11 +2,12 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next-intl/link"
 import {
-  currentMovieCredits,
-  currentMovieDetails,
-  currentMovieProviders,
+  currentMediaCredits,
+  currentMediaDetails,
+  currentMediaProviders,
 } from "@/api/FETCH_TMDB"
 import { getTranslator } from "next-intl/server"
+import Bookmark from "@/app/[locale]/_components/common/Bookmark"
 
 type Props = {
   params: {
@@ -16,8 +17,8 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const movie = await currentMovieDetails(+params.id, params.locale)
-  const title = movie.title || "No title"
+  const movie = await currentMediaDetails(+params.id, params.locale, "movie")
+  const title = "title" in movie ? movie?.title || "No title" : ""
 
   return {
     title: title,
@@ -26,16 +27,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function MoviePage({ params }: Props) {
   const tData = getTranslator(params.locale, "Details")
-  const movieData = currentMovieDetails(+params.id, params.locale)
 
-  const creditsData = currentMovieCredits(+params.id, params.locale)
-  const providersData = currentMovieProviders(+params.id, params.locale)
+  const movieData = currentMediaDetails(+params.id, params.locale, "movie")
+  const creditsData = currentMediaCredits(+params.id, params.locale, "movie")
+  const providersData = currentMediaProviders(
+    +params.id,
+    params.locale,
+    "movie"
+  )
+
   const [t, movie, credits, providers] = await Promise.all([
     tData,
     movieData,
     creditsData,
     providersData,
   ])
+
   const providersLink = providers.providerLink
 
   if (movie === undefined)
@@ -46,6 +53,18 @@ export default async function MoviePage({ params }: Props) {
         {t("Not found pt2")}
       </section>
     )
+
+  const movieBookmark: MediaEntry = {
+    id: movie.id,
+    title: "title" in movie ? movie.title || t("Unknown") : "",
+    coverPath: movie.poster_path || "",
+    score: movie.vote_average || 0,
+    votes: movie.vote_count || 0,
+    genreIds: movie.genres.map((genre) => genre.id) || [],
+    date: "release_date" in movie ? movie.release_date || t("Unknown") : "",
+    catalog: "movie",
+    folderPath: "https://image.tmdb.org/t/p/w342",
+  }
 
   const actors = credits.cast
     ?.slice(0, 6)
@@ -60,12 +79,12 @@ export default async function MoviePage({ params }: Props) {
     ?.filter((cast) => cast.known_for_department === "Production")
     ?.sort((a, b) => b.popularity! - a.popularity!)
 
-  return (
+  return "title" in movie ? (
     <>
       <section className="md:grid gap-4 md:grid-cols-[28.75rem_1fr] flex flex-wrap">
         <div>
           <Image
-            src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
             alt="backdrop"
             width={460}
             height={690}
@@ -73,14 +92,20 @@ export default async function MoviePage({ params }: Props) {
         </div>
 
         <section>
-          {movie.title === movie.original_title ? (
-            <h2>{movie.title}</h2>
+          {movie?.title === movie?.original_title ? (
+            <>
+              <h2>{movie.title}</h2>
+              <Bookmark props={movieBookmark} />
+            </>
           ) : (
-            <h2>
-              {movie.title}/{movie.original_title}
-            </h2>
+            <>
+              <h2>
+                {movie?.title}/{movie?.original_title}{" "}
+                <Bookmark props={movieBookmark} />
+              </h2>
+            </>
           )}
-          {movie?.tagline ? <span>{movie.tagline}</span> : null}
+          {movie?.tagline ? <span>{movie?.tagline}</span> : null}
 
           {movie.release_date ? (
             <div className="flex gap-x-2">
@@ -93,22 +118,22 @@ export default async function MoviePage({ params }: Props) {
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Genres")}</h5>
               <span>
-                {movie.genres.map((genre, id, arr) =>
+                {movie?.genres.map((genre, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
-                      key={genre.id}
-                      href={`/category/movies/"page":1,"minYear":1900,"maxYear":2023,"minScore":0,"maxScore":10,"sort_by":"popularity","sort_order":"desc","with_genres":[${genre.id}],"without_genres":[]`}
+                      key={genre?.id}
+                      href={`/category/discover/movies?with_genres=${genre?.id}`}
                       locale={params.locale}
                     >
-                      {genre.name},{" "}
+                      {genre?.name},{" "}
                     </Link>
                   ) : (
                     <Link
-                      key={genre.id}
-                      href={`/category/movies/"page":1,"minYear":1900,"maxYear":2023,"minScore":0,"maxScore":10,"sort_by":"popularity","sort_order":"desc","with_genres":[${genre.id}],"without_genres":[]`}
-                      locale={params.locale}
+                      key={genre?.id}
+                      href={`/category/discover/movies?with_genres=${genre?.id}`}
+                      locale={params?.locale}
                     >
-                      {genre.name}
+                      {genre?.name}
                     </Link>
                   )
                 )}
@@ -132,8 +157,8 @@ export default async function MoviePage({ params }: Props) {
           {direction?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Direction")} </h5>
-              {direction.map((cast, id) =>
-                id < 4 ? (
+              {direction.map((cast, id, arr) =>
+                id < arr.length - 1 ? (
                   <span key={cast.id}>{cast.name},</span>
                 ) : (
                   <span key={cast.id}>{cast.name}</span>
@@ -145,8 +170,8 @@ export default async function MoviePage({ params }: Props) {
           {production?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <h5>{t("Production")}</h5>
-              {production.map((cast, id) =>
-                id < 4 ? (
+              {production.map((cast, id, arr) =>
+                id < arr.length - 1 ? (
                   <span key={cast.id}>{cast.name},</span>
                 ) : (
                   <span key={cast.id}>{cast.name}</span>
@@ -223,7 +248,7 @@ export default async function MoviePage({ params }: Props) {
                 <Link href={"#remark"} title={t("Disclaimer")}>
                   *
                 </Link>
-                :
+                :{" "}
               </span>
 
               <span className="flex gap-x-4">
@@ -248,9 +273,9 @@ export default async function MoviePage({ params }: Props) {
         </section>
         <section className="col-span-2">
           <h5>{t("Overview")}</h5>
-          <p>{movie.overview ? movie.overview : "Not available"}</p>
+          <p>{movie.overview ? movie.overview : t("NA")}</p>
         </section>
       </section>
     </>
-  )
+  ) : null
 }

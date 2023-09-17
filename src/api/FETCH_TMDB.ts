@@ -35,7 +35,7 @@ export async function fetchTmdbData({
   const url = additionURL ? new URL(additionURL, baseURL) : baseURL
   if (queryList?.length)
     queryList.forEach((query) => {
-      if (query[1] !== null || query[1] !== undefined)
+      if (query[1] !== undefined && query[1] !== null)
         /* @ts-ignore */
         url.searchParams.set(query[0], query[1])
     })
@@ -50,9 +50,9 @@ export async function fetchTmdbData({
   return response.json()
 }
 
-export async function popularMovies(language: Locale) {
+export async function popularMedia(language: Locale, media: "movie" | "tv") {
   const page = +(Math.random() * 20 + 1).toFixed()
-  const popularMoviesURL = "movie/popular/"
+  const popularMoviesURL = `${media}/popular`
 
   const response = await fetchTmdbData({
     additionURL: popularMoviesURL,
@@ -62,118 +62,81 @@ export async function popularMovies(language: Locale) {
     ],
   })
 
-  const result: PopularMovies = await response
+  const result: PopularMovies | PopularTvShows = await response
   return result
 }
 
-export async function popularSeries(language: Locale) {
-  const page = +(Math.random() * 20 + 1).toFixed()
-  const popularSeriesURL = "tv/popular/"
-
-  const response = await fetchTmdbData({
-    additionURL: popularSeriesURL,
-    queryList: [
-      ["language", language],
-      ["page", page],
-    ],
-  })
-
-  const result: PopularTvShows = await response
-
-  return result
-}
-
-export async function pageMovies(props: DiscoverQuery, locale: Locale) {
-  const sortBy = `${props.sort_by}.${props.sort_order}` as SortOption
-  const withGenres = props.with_genres?.length
-    ? props.with_genres.join(",")
-    : ""
-  const withoutGenres = props.without_genres?.length
-    ? props.without_genres.join(",")
-    : ""
+export async function pageMedia(
+  {
+    page,
+    min_year,
+    max_year,
+    max_score,
+    min_score,
+    sort_by,
+    sort_order,
+    with_genres,
+    without_genres,
+  }: DiscoverQuery,
+  locale: Locale,
+  media: "movie" | "tvshow"
+) {
+  const sortBy =
+    sort_by && sort_order ? (`${sort_by}.${sort_order}` as SortOption) : null
   const currentYear = +new Date().toISOString().slice(0, 4)
   const maxYear =
-    props.maxYear === currentYear
+    max_year === currentYear
       ? new Date().toISOString().slice(0, 10)
-      : `${props.maxYear}-01-01`
-  const dateMin = `${props.minYear}-01-01`
-  const dateMax = `${maxYear}`
+      : max_year
+      ? `${max_year}-01-01`
+      : null
+  const dateMin = min_year ? `${min_year}-01-01` : null
 
-  const discoverMoviesURL = "discover/movie/"
+  const discoverMoviesURL = media === "movie" ? "discover/movie" : "discover/tv"
 
   const response = await fetchTmdbData({
     additionURL: discoverMoviesURL,
     queryList: [
       ["language", locale],
-      ["page", 1],
+      ["page", page || 1],
       ["primary_release_date.gte", dateMin],
-      ["primary_release_date.lte", dateMax],
-      ["vote_average.gte", props.minScore ?? 0],
-      ["vote_average.lte", props.maxScore ?? 10],
+      ["primary_release_date.lte", maxYear],
+      ["vote_average.gte", min_score],
+      ["vote_average.lte", max_score],
       ["sort_by", sortBy],
-      ["with_genres", withGenres],
-      ["without_genres", withoutGenres],
+      ["with_genres", with_genres],
+      ["without_genres", without_genres],
     ],
   })
 
-  const result: MovieDiscoverResult = await response
+  const result: MovieDiscoverResult | TvShowDiscoverResult = await response
 
   return result
 }
 
-export async function pageSeries(props: DiscoverQuery, locale: Locale) {
-  const sortBy = `${props.sort_by}.${props.sort_order}` as SortOption
-  const withGenres = props.with_genres?.length
-    ? props.with_genres.join(",")
-    : undefined
-  const withoutGenres = props.without_genres?.length
-    ? props.without_genres.join(",")
-    : undefined
-  const currentYear = +new Date().toISOString().slice(0, 4)
-  const maxYear =
-    props.maxYear === currentYear
-      ? new Date().toISOString().slice(0, 10)
-      : `${props.maxYear}-01-01`
-  const dateMin = `${props.minYear}-01-01`
-  const dateMax = `${maxYear}`
-
-  const discoverSeriesURL = "discover/tv/"
-
-  const response = await fetchTmdbData({
-    additionURL: discoverSeriesURL,
-    queryList: [
-      ["language", locale],
-      ["page", 1],
-      ["first_air_date.gte", dateMin],
-      ["first_air_date.lte", dateMax],
-      ["vote_average.gte", props.minScore ?? 0],
-      ["vote_average.lte", props.maxScore ?? 10],
-      ["sort_by", sortBy],
-      ["with_genres", withGenres],
-      ["without_genres", withoutGenres],
-    ],
-  })
-
-  const result: TvShowDiscoverResult = await response
-
-  return result
-}
-
-export async function currentMovieDetails(id: number, locale: Locale) {
-  const detailsMovieURL = `movie/${id}/`
+export async function currentMediaDetails(
+  id: number,
+  locale: Locale,
+  media: "movie" | "tv"
+) {
+  const detailsMovieURL = `${media}/${id}`
 
   const response = await fetchTmdbData({
     additionURL: detailsMovieURL,
     queryList: [["language", locale]],
   })
 
-  const result: MovieDetails = await response
+  const result: MovieDetails | TvShowDetails = await response
 
   return result
 }
 
-export async function currentMovieCredits(id: number, locale: Locale) {
-  const creditsMovieURL = `movie/${id}/credits/`
+export async function currentMediaCredits(
+  id: number,
+  locale: Locale,
+  media: "movie" | "tv"
+) {
+  const creditsMovieURL = `${media}/${id}/credits`
 
   const response = await fetchTmdbData({
     additionURL: creditsMovieURL,
@@ -185,8 +148,12 @@ export async function currentMovieCredits(id: number, locale: Locale) {
   return result
 }
 
-export async function currentMovieProviders(id: number, locale: Locale) {
-  const providerMovieURL = `movie/${id}/watch/providers/`
+export async function currentMediaProviders(
+  id: number,
+  locale: Locale,
+  media: "movie" | "tv"
+) {
+  const providerMovieURL = `${media}/${id}/watch/providers`
 
   const response = await fetchTmdbData({
     additionURL: providerMovieURL,
@@ -197,7 +164,7 @@ export async function currentMovieProviders(id: number, locale: Locale) {
   const results = result.results
   const defaultLink = results?.US?.link
   const defaultProviders =
-    results?.US.buy || results?.US?.rent || results?.US?.flatrate
+    results?.US?.buy || results?.US?.rent || results?.US?.flatrate
   let providerLink
   let watchProviders
 
@@ -218,9 +185,9 @@ export async function currentMovieProviders(id: number, locale: Locale) {
       {
         providerLink = results?.RU?.link || defaultLink
         watchProviders =
-          results?.RU.buy ||
-          results?.RU.flatrate ||
-          results?.RU.rent ||
+          results?.RU?.buy ||
+          results?.RU?.flatrate ||
+          results?.RU?.rent ||
           defaultProviders
       }
       break
@@ -229,82 +196,13 @@ export async function currentMovieProviders(id: number, locale: Locale) {
   return { providerLink, watchProviders }
 }
 
-export async function currentTVShowDetails(id: number, locale: Locale) {
-  const detailsTVShowURL = `movie/${id}/`
-
-  const response = await fetchTmdbData({
-    additionURL: detailsTVShowURL,
-    queryList: [["language", locale]],
-  })
-
-  const result: TvShowDetails = await response
-
-  return result
-}
-
-export async function currentTVShowCredits(id: number, locale: Locale) {
-  const creditsTVShowURL = `movie/${id}/credits/`
-
-  const response = await fetchTmdbData({
-    additionURL: creditsTVShowURL,
-    queryList: [["language", locale]],
-  })
-
-  const result: Credits = await response
-
-  return result
-}
-
-export async function currentTVShowProviders(id: number, locale: Locale) {
-  const providerTVShowURL = `tv/${id}/watch/providers/`
-
-  const response = await fetchTmdbData({
-    additionURL: providerTVShowURL,
-  })
-
-  const result: WatchProviders = await response
-
-  const results = result.results
-  const defaultLink = results?.US?.link
-  const defaultProviders =
-    results?.US.buy || results?.US?.rent || results?.US?.flatrate
-  let providerLink
-  let watchProviders
-
-  switch (locale) {
-    case "en":
-      {
-        providerLink = defaultLink
-        watchProviders = defaultProviders
-      }
-      break
-    case "ro":
-      {
-        providerLink = results?.RO?.link || defaultLink
-        watchProviders = results?.RO?.flatrate || defaultProviders
-      }
-      break
-    case "ru":
-      {
-        providerLink = results?.RU?.link || defaultLink
-        watchProviders =
-          results?.RU.buy ||
-          results?.RU.flatrate ||
-          results?.RU.rent ||
-          defaultProviders
-      }
-      break
-  }
-
-  return { providerLink, watchProviders }
-}
-
-export async function searchMovie(
+export async function searchMedia(
   query: string,
   locale: Locale,
+  media: "movie" | "tv",
   page?: number
 ) {
-  const searchMovieURL = `search/movie/`
+  const searchMovieURL = `search/${media}`
 
   const response = await fetchTmdbData({
     additionURL: searchMovieURL,
@@ -315,51 +213,23 @@ export async function searchMovie(
     ],
   })
 
-  const result: Search<Movie> = await response
+  const result: Search<Movie> | Search<TV> = await response
 
   return result
 }
 
-export async function searchTVShow(
-  query: string,
-  locale: Locale,
-  page?: number
-) {
-  const searchTVShowURL = `search/tv/`
-
-  const response = await fetchTmdbData({
-    additionURL: searchTVShowURL,
-    queryList: [
-      ["language", locale],
-      ["query", encodeURIComponent(query)],
-      ["page", page],
-    ],
-  })
-
-  const result: Search<TV> = await response
-
-  return result
+type Genres = {
+  genres: Genre[]
 }
 
-export async function genresMovie(locale: Locale) {
-  const genreMovieURL = `genre/movie/list/`
+export async function genresMedia(locale: Locale, media: "movie" | "tv") {
+  const genreMovieURL = `genre/${media}/list`
 
   const response = await fetchTmdbData({
     additionURL: genreMovieURL,
     queryList: [["language", locale]],
   })
 
-  const result: Genre[] = await response
-  return result
-}
-export async function genresTVShow(locale: Locale) {
-  const genreMovieURL = `genre/tv/list/`
-
-  const response = await fetchTmdbData({
-    additionURL: genreMovieURL,
-    queryList: [["language", locale]],
-  })
-
-  const result: Genre[] = await response
+  const result: Genres = await response
   return result
 }

@@ -1,11 +1,10 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import Header from "./components/Header"
+import Header from "./_components/Header"
 import { useLocale } from "next-intl"
 import { notFound } from "next/navigation"
-import SearchBar from "./components/common/SearchBar"
-import LanguageSwitcher from "./components/common/LanguageSwitcher"
 import Favicon from "/public/images/favicon/favicon-16.png"
+import Footer from "./_components/Footer"
 
 type Params = {
   children: string
@@ -28,12 +27,11 @@ export default function LocaleLayout({ children, params }: Params) {
   return (
     <html lang={locale}>
       <body className="grid grid-cols-12 ">
-        <Header
-          locale={locale}
-          searchBar={<SearchBar locale={params.locale} />}
-          languageSwitcher={<LanguageSwitcher locale={params.locale} />}
-        />
-        <main className="col-start-2 col-end-12 row-start-2">{children}</main>
+        <Header locale={locale} />
+        <main className="col-start-2 col-end-12 row-start-2 row-end-3">
+          {children}
+        </main>
+        <Footer locale={locale} />
       </body>
     </html>
   )

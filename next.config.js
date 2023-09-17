@@ -22,6 +22,11 @@ module.exports = withNextIntl({
           hostname: 'fakeimg.pl',
           port: '',
         },
+        {
+          protocol: 'https',
+          hostname: 'covers.openlibrary.org',
+          port: '',
+        },
       ],
     },
   })

@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
-import BookmarkedContainer from "../../components/BookmarkedContainer"
+import BookmarkedContainer from "../../_components/BookmarkedContainer"
 import { getTranslator } from "next-intl/server"
 
 type Props = {
   params: {
     profile: string
-    locale: string
+    locale: Locale
   }
 }
 
@@ -19,8 +19,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProfilePage({ params }: Props) {
   const t = await getTranslator(params.locale, "Profile")
-  const containerTranslation = [t("Movies"), t("Series"), t("Nothing")]
-
+  const translation = {
+    delete: t("Delete"),
+    nothing: t("Nothing"),
+  }
   return (
     <div>
       <section>
@@ -30,12 +32,22 @@ export default async function ProfilePage({ params }: Props) {
       <section className="grid gap-4">
         <h1>{t("Bookmarks")}</h1>
         <BookmarkedContainer
+          label={t("Movies")}
           storageKey="movie"
-          translation={containerTranslation}
+          translation={translation}
+          locale={params.locale}
         />
         <BookmarkedContainer
+          label={t("Series")}
           storageKey="tvshow"
-          translation={containerTranslation}
+          translation={translation}
+          locale={params.locale}
+        />
+        <BookmarkedContainer
+          label={t("Books")}
+          storageKey="book"
+          translation={translation}
+          locale={params.locale}
         />
       </section>
     </div>
