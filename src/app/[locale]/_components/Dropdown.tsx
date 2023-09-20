@@ -6,6 +6,7 @@ type Props = {
   children: React.ReactNode
   additionalContainerStyles?: string
   buttonStyles?: string
+  buttonContainerStyles?: string
   initialOpen?: boolean
   additionalDropdownStyles?: string
   hasArrow?: boolean
@@ -19,6 +20,7 @@ export default function Dropdown({
   buttonStyles,
   initialOpen = false,
   hasArrow = true,
+  buttonContainerStyles,
 }: Props) {
   const [isOpen, setOpen] = useState(initialOpen)
   const ref = useRef<HTMLDivElement | null>(null)
@@ -36,24 +38,31 @@ export default function Dropdown({
   }, [setOpen])
 
   return (
-    <div ref={ref} className={`relative z-10 ${additionalContainerStyles}`}>
-      <div className="flex">
+    <div ref={ref} className={`relative ${additionalContainerStyles}`}>
+      <div className={`flex ${buttonContainerStyles}`}>
         <button
-          className={`${buttonStyles} px-2`}
+          className={`${buttonStyles} pr-2`}
           onClick={() => setOpen(!isOpen)}
         >
           {buttonLabel}
         </button>
         {hasArrow ? (
-          <button className="translate-y-0.5" onClick={() => setOpen(!isOpen)}>
-            {isOpen ? <SlArrowUp /> : <SlArrowDown />}
+          <button
+            className={`${buttonStyles} translate-y-0.5`}
+            onClick={() => setOpen(!isOpen)}
+          >
+            {isOpen ? (
+              <SlArrowUp className="pointer-events-none" />
+            ) : (
+              <SlArrowDown className="pointer-events-none" />
+            )}
           </button>
         ) : null}
       </div>
 
       <div
-        className={`overflow-hidden absolute z-10 transition-all ease-in-out ${
-          isOpen ? "max-h-max  opacity-100" : "max-h-0  opacity-0"
+        className={`absolute transition origin-top duration-150 ease-in-out ${
+          isOpen ? "scale-100 opacity-100" : "scale-0 opacity-0"
         } ${additionalDropdownStyles}`}
       >
         {children}

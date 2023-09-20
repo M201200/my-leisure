@@ -45,6 +45,12 @@ export default async function Movies({ params, searchParams }: Props) {
       sort_order: search_sort_order || "desc",
       with_genres: search_with_genres,
       without_genres: search_without_genres,
+      with_people:
+        (searchParams.with_people as string | undefined) || undefined,
+      with_companies:
+        (searchParams.with_companies as string | undefined) || undefined,
+      with_origin_country:
+        (searchParams.with_origin_country as string | undefined) || undefined,
     },
     params.locale,
     "movie"

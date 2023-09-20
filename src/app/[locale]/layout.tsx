@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import Header from "./_components/Header"
 import { useLocale } from "next-intl"
 import { notFound } from "next/navigation"
-import Favicon from "/public/images/favicon/favicon-16.png"
+import Favicon from "/public/images/favicon/favicon-32x32.png"
 import Footer from "./_components/Footer"
 
 type Params = {
@@ -26,9 +26,9 @@ export default function LocaleLayout({ children, params }: Params) {
   }
   return (
     <html lang={locale}>
-      <body className="grid grid-cols-12 ">
+      <body className="grid grid-cols-12 bg-background">
         <Header locale={locale} />
-        <main className="col-start-2 col-end-12 row-start-2 row-end-3">
+        <main className="grid col-start-2 col-end-12 row-start-2 row-end-3">
           {children}
         </main>
         <Footer locale={locale} />

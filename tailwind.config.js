@@ -16,7 +16,18 @@ module.exports = {
       },
       maxHeight: {
         '125': '31.25rem',
-        },
+      },
+      colors: {
+        textPrimary: 'var(--text-primary)',
+        textHoverPrimary: 'var(--text-hover-primary)',
+        textSecondary: 'var(--text-secondary)',
+        textHoverSecondary: 'var(--text-hover-secondary)',
+        background: 'var(--background)',
+        primary: 'var(--primary)',
+        secondary: 'var(--secondary)',
+        accent: 'var(--accent)',
+        hoverAccent: 'var(--hover-accent)',
+      }
     },
   },
   plugins: [require('tailwind-scrollbar-hide'), require("tailwind-fluid-typography")]

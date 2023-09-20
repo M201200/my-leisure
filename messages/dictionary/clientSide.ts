@@ -42,11 +42,11 @@ export function dictionaryMediaFilter(locale: Locale) {
   switch (locale) {
     case "en":
       return {
-        ReleaseDate: "Release date: ",
-        Genres: "Genres: ",
-        Sort: "Sort by: ",
-        Score: "Score: ",
-        Votes: "Vote count: ",
+        ReleaseDate: "Release date",
+        Genres: "Genres",
+        Sort: "Sort by",
+        Score: "Score",
+        Votes: "Vote count",
         Popularity: "Popularity",
         Order: "Descend/Ascend",
         Submit: "Submit",
@@ -55,11 +55,11 @@ export function dictionaryMediaFilter(locale: Locale) {
 
     case "ro":
       return {
-        ReleaseDate: "Data de lansare: ",
-        Genres: "Genuri: ",
-        Sort: "Filtrează după: ",
-        Score: "Scor: ",
-        Votes: "Număr de voturi: ",
+        ReleaseDate: "Data de lansare",
+        Genres: "Genuri",
+        Sort: "Filtrează după",
+        Score: "Scor",
+        Votes: "Număr de voturi",
         Popularity: "Popularitate",
         Order: "Coborâre/Urcare",
         Submit: "A confirma",
@@ -68,11 +68,11 @@ export function dictionaryMediaFilter(locale: Locale) {
 
     case "ru":
       return {
-        ReleaseDate: "Дата выхода: ",
-        Genres: "Жанры: ",
-        Sort: "Сортировать по: ",
-        Score: "Рейтинг: ",
-        Votes: "Количество голосов: ",
+        ReleaseDate: "Дата выхода",
+        Genres: "Жанры",
+        Sort: "Сортировать по",
+        Score: "Рейтинг",
+        Votes: "Количество голосов",
         Popularity: "Популярность",
         Order: "Уменьшение/Возрастание",
         Submit: "Подтвердить",
@@ -85,7 +85,7 @@ export function dictionaryBookFilter(locale: Locale) {
   switch (locale) {
     case "en":
       return {
-        Sort: "Sort by: ",
+        Sort: "Sort by",
         Popularity: "Popularity",
         Order: "Descend/Ascend",
         Submit: "Submit",
@@ -109,7 +109,7 @@ export function dictionaryBookFilter(locale: Locale) {
 
     case "ro":
       return {
-        Sort: "Filtrează după: ",
+        Sort: "Filtrează după",
         Popularity: "Popularitate",
         Order: "Coborâre/Urcare",
         Submit: "A confirma",
@@ -133,7 +133,7 @@ export function dictionaryBookFilter(locale: Locale) {
 
     case "ru":
       return {
-        Sort: "Сортировать по: ",
+        Sort: "Сортировать по",
         Popularity: "Популярность",
         Order: "Уменьшение/Возрастание",
         Submit: "Подтвердить",
@@ -141,7 +141,7 @@ export function dictionaryBookFilter(locale: Locale) {
         Any: "Общий поиск",
         ByTitle: "По заголовку",
         ByAuthor: "По автору",
-        BySubject: "По субъекту",
+        BySubject: "По теме",
         ByPlace: "По локации",
         ByPerson: "По персонажу",
         ByLanguage: "По языку",

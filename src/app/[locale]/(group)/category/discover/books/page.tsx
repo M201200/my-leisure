@@ -38,8 +38,7 @@ export default async function Books({ params, searchParams }: Props) {
     searchPlace ||
     searchPerson ||
     searchLanguage ||
-    searchPublisher ||
-    sort
+    searchPublisher
 
   const tData = getTranslator(params.locale, "SearchResults")
   const bookData = isFiltered
@@ -55,7 +54,7 @@ export default async function Books({ params, searchParams }: Props) {
         publisher: searchPublisher,
         sort: sort,
       })
-    : popularBooks(searchPage)
+    : popularBooks(searchPage, sort)
   const [t, bookResponse] = await Promise.all([tData, bookData])
 
   const bookResult =

@@ -35,6 +35,7 @@ export default function BookmarkedContainer({
       maxHeight="max-h-125"
       hasCount={amount}
       locale={locale}
+      labelSize="fluid-xl"
     >
       {media.map((entry) =>
         "genreIds" in entry ? (
@@ -45,7 +46,7 @@ export default function BookmarkedContainer({
             button={
               <button
                 title={t.delete}
-                className="p-1 border-2 border-black rounded"
+                className="p-1 transition-colors bg-red-600 rounded-md fluid-base h-max hover:bg-red-500 text-slate-200"
                 onClick={() => {
                   /* @ts-ignore */
                   setMedia((prev: MediaEntry[] | null) =>
@@ -66,7 +67,7 @@ export default function BookmarkedContainer({
             button={
               <button
                 title={t.delete}
-                className="p-1 border-2 border-black rounded"
+                className="p-1 transition-colors bg-red-600 rounded-md fluid-base h-max hover:bg-red-500 text-slate-200"
                 onClick={() => {
                   /* @ts-ignore */
                   setMedia((prev: BookEntry[] | null) =>
@@ -83,8 +84,8 @@ export default function BookmarkedContainer({
       )}
     </CardDetailsContainer>
   ) : (
-    <CardDetailsContainer label={label} locale={locale}>
-      <p>{t.nothing}</p>
+    <CardDetailsContainer label={label} locale={locale} labelSize="fluid-xl">
+      <p className="fluid-lg text-textSecondary">{t.nothing}</p>
     </CardDetailsContainer>
   )
 }

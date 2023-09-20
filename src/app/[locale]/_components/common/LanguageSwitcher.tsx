@@ -10,17 +10,17 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
   const router = useRouter()
   const url = `${currentPath}?${searchParams}`
   return (
-    <div>
-      <select
-        defaultValue={locale}
-        onChange={(e) => {
-          router.replace(url, { locale: e.target.value })
-        }}
-      >
-        <option value={"en"}>{t.Eng}</option>
-        <option value={"ro"}>{t.Roman}</option>
-        <option value={"ru"}>{t.Rus}</option>
-      </select>
-    </div>
+    <select
+      className="cursor-pointer bg-secondary text-textColor"
+      title={locale}
+      defaultValue={locale}
+      onChange={(e) => {
+        router.replace(url, { locale: e.target.value })
+      }}
+    >
+      <option value={"en"}>{t.Eng}</option>
+      <option value={"ro"}>{t.Roman}</option>
+      <option value={"ru"}>{t.Rus}</option>
+    </select>
   )
 }

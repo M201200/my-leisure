@@ -1,108 +1,99 @@
 import { genresMedia } from "@/api/FETCH_TMDB"
 import Link from "next-intl/link"
+import { getTranslator } from "next-intl/server"
 
 export default async function Footer({ locale }: { locale: Locale }) {
+  const tData = getTranslator(locale, "Footer")
   const movieGenresData = genresMedia(locale, "movie")
   const tvGenresData = genresMedia(locale, "tv")
-  const [movieGenres, tvGenres] = await Promise.all([
+  const [t, movieGenres, tvGenres] = await Promise.all([
+    tData,
     movieGenresData,
     tvGenresData,
   ])
   const someBookSubjects = [
     "Fantasy",
     "Historical Fiction",
-    "Horror",
-    "Humor",
-    "Literature",
-    "Magic",
-    "Detective",
-    "Poetry",
-    "Romance",
     "Science Fiction",
+    "Horror",
     "Thriller",
+    "Detective",
+    "Humor",
+    "Romance",
+    "Literature",
+    "Poetry",
+    "Comic books",
+    "Manga",
+    "Science",
+    "Business",
+    "Finance",
+    "History",
+    "Textbooks",
   ]
 
   return (
-    <footer className="grid grid-cols-3 col-start-2 col-end-12 row-start-3">
-      {movieGenres ? (
-        <section className="flex flex-wrap gap-x-2">
-          <h2>{"Movie genres: "}</h2>
+    <>
+      <div className="col-start-1 col-end-2 row-start-3 row-end-4 bg-primary" />
+      <footer className="grid col-start-2 col-end-12 row-start-3 row-end-4 py-4 bg-primary text-textSecondary lg:grid-cols-3">
+        {movieGenres ? (
+          <section className="grid content-start gap-4 p-4 border-b-2 border-secondary lg:border-r-2 gap-x-2 lg:border-b-0">
+            <h2>{t("Movie genres")}</h2>
 
-          <span>
-            {movieGenres.genres.map((genre, id, arr) =>
-              id < arr.length - 1 ? (
+            <div className="grid grid-cols-2 gap-x-4 p-x-4">
+              {movieGenres.genres.map((genre) => (
                 <Link
                   key={genre.id}
                   href={`/category/discover/movies?with_genres=${genre.id}`}
                   locale={locale}
-                >
-                  {genre.name},{" "}
-                </Link>
-              ) : (
-                <Link
-                  key={genre.id}
-                  href={`/category/discover/movies?with_genres=${genre.id}`}
-                  locale={locale}
+                  className="truncate transition duration-150 hover:scale-105"
+                  title={genre.name}
                 >
                   {genre.name}
                 </Link>
-              )
-            )}
-          </span>
-        </section>
-      ) : null}
+              ))}
+            </div>
+          </section>
+        ) : null}
 
-      {tvGenres ? (
-        <section className="flex flex-wrap gap-x-2">
-          <h2>{"Series genres: "}</h2>
-          <span>
-            {tvGenres.genres.map((genre, id, arr) =>
-              id < arr.length - 1 ? (
+        {tvGenres ? (
+          <section className="grid content-start gap-4 p-4">
+            <h2>{t("Series genres")}</h2>
+
+            <div className="grid grid-cols-2 gap-x-4 p-x-4">
+              {tvGenres.genres.map((genre) => (
                 <Link
                   key={genre.id}
                   href={`/category/discover/tvseries?with_genres=${genre.id}`}
                   locale={locale}
-                >
-                  {genre.name},{" "}
-                </Link>
-              ) : (
-                <Link
-                  key={genre.id}
-                  href={`/category/discover/tvseries?with_genres=${genre.id}`}
-                  locale={locale}
+                  className="truncate transition duration-150 hover:scale-105"
+                  title={genre.name}
                 >
                   {genre.name}
                 </Link>
-              )
-            )}
-          </span>
-        </section>
-      ) : null}
+              ))}
+            </div>
+          </section>
+        ) : null}
 
-      <section>
-        <h2>{"Some book subjects: "}</h2>
-        <span>
-          {someBookSubjects.map((subject, id, arr) =>
-            id < arr.length - 1 ? (
+        <section className="grid content-start gap-4 p-4 border-t-2 border-secondary lg:border-l-2 lg:border-t-0">
+          <h2>{t("Book subjects")}</h2>
+
+          <div className="grid grid-cols-2 gap-x-4">
+            {someBookSubjects.map((subject) => (
               <Link
                 key={subject + "key"}
                 href={`/category/discover/books?subject=${subject}`}
                 locale={locale}
-              >
-                {subject},{" "}
-              </Link>
-            ) : (
-              <Link
-                key={subject + "key"}
-                href={`/category/discover/books?subject=${subject}`}
-                locale={locale}
+                className="truncate transition duration-150 hover:scale-105"
+                title={subject}
               >
                 {subject}
               </Link>
-            )
-          )}
-        </span>
-      </section>
-    </footer>
+            ))}
+          </div>
+        </section>
+      </footer>
+      <div className="col-start-12 col-end-13 row-start-3 row-end-4 bg-primary" />
+    </>
   )
 }

@@ -3,14 +3,14 @@ import Image from "next/image"
 
 export default function CardPopularMedia(props: CardPopularMedia) {
   return (
-    <div className="w-32 bg-gray-200 shrink-0 snap-start">
+    <div className="w-32 transition duration-300 shrink-0 snap-start text-textPrimary hover:scale-105">
       <Link
         href={`/entry/${props.catalog}/${props.id}`}
         title={props.title}
         locale={props.locale}
       >
         <Image
-          className="aspect-auto min-h-48"
+          className="rounded-t-md min-h-48"
           src={
             props.coverPath
               ? `${props.folderPath}${props.coverPath}`
@@ -23,13 +23,20 @@ export default function CardPopularMedia(props: CardPopularMedia) {
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAADACAYAAADMZmunAAABQUlEQVR42u3SAQ0AAAQAMPLaVFBdD/4Mz66e4K0UQAABBEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAAAQQQQAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEEAAAQQQQAAEQAAEQAAEQAAEQAAEQAAEQAAEQAAEQACuWBc9VVCGM5sbAAAAAElFTkSuQmCC"
         />
       </Link>
-      <section className="px-1">
-        <h4 className="truncate" title={props.title}>
-          {props.title}
-        </h4>
+      <section className="p-1 truncate rounded-b-md bg-secondary">
+        <label className="truncate text-accent fluid-sm" title={props.title}>
+          <Link
+            href={`/entry/${props.catalog}/${props.id}`}
+            title={props.title}
+            locale={props.locale}
+            className="truncate"
+          >
+            {props.title}
+          </Link>
+        </label>
         <div className="flex justify-between">
           <span>
-            <span>☆{props.score.toFixed(1)}/</span>
+            <span className="fluid-sm">☆{props.score.toFixed(1)}/</span>
             <span className="fluid-xs">
               {props.votesAmount.toLocaleString()}
             </span>

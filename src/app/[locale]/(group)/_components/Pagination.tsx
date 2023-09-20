@@ -2,6 +2,12 @@
 import Link from "next-intl/link"
 import { usePathname } from "next-intl/client"
 import { useSearchParams } from "next/navigation"
+import {
+  BsChevronDoubleLeft,
+  BsChevronDoubleRight,
+  BsChevronLeft,
+  BsChevronRight,
+} from "react-icons/bs"
 
 type Props = {
   totalPages: number
@@ -22,7 +28,10 @@ export default function Pagination({ totalPages }: Props) {
   const prevPages = []
   const nextPages = []
   const activePage = (
-    <span className=" min-w-[1rem] bg-slate-300 flex align-middle justify-center rounded p-2 text-slate-500 ">
+    <span
+      className="min-w-[2rem] bg-secondary flex align-middle justify-center rounded px-2 py-1 text-textPrimary"
+      title={currentPage.toString()}
+    >
       {currentPage}
     </span>
   )
@@ -34,9 +43,10 @@ export default function Pagination({ totalPages }: Props) {
   ) {
     prevPages.unshift(
       <Link
+        title={page.toString()}
         key={page}
         href={setPage(page)}
-        className=" bg-slate-500 hover:bg-slate-950 min-w-[1rem] rounded p-2 text-slate-100 flex align-middle justify-center"
+        className=" bg-accent hover:bg-hoverAccent min-w-[2rem] transition-color rounded px-2 py-1 text-textSecondary flex align-middle justify-center"
       >
         {page}
       </Link>
@@ -50,9 +60,10 @@ export default function Pagination({ totalPages }: Props) {
   ) {
     nextPages.push(
       <Link
+        title={page.toString()}
         key={page}
         href={setPage(page)}
-        className=" bg-slate-500 hover:bg-slate-950 min-w-[1rem] rounded p-2 text-slate-100 flex align-middle justify-center"
+        className=" bg-accent hover:bg-hoverAccent min-w-[2rem] transition-color rounded px-2 py-1 text-textSecondary flex align-middle justify-center"
       >
         {page}
       </Link>
@@ -60,13 +71,23 @@ export default function Pagination({ totalPages }: Props) {
   }
 
   return (
-    <div className="flex justify-center h-8 gap-2">
+    <div className="flex justify-center gap-2 m-4 fluid-base gap-x-2 h-max">
       {currentPage === 1 ? null : (
         <Link
-          href={setPage(1)}
-          className=" bg-slate-500 hover:bg-slate-950 min-w-[1rem] rounded p-2 text-slate-100 flex align-middle justify-center"
+          title={(currentPage - 1).toString()}
+          href={setPage(currentPage - 1)}
+          className=" bg-accent hover:bg-hoverAccent min-w-[2rem] items-center transition-color rounded px-2 py-1 text-textSecondary flex align-middle justify-center"
         >
-          1
+          <BsChevronLeft />
+        </Link>
+      )}
+      {currentPage === 1 ? null : (
+        <Link
+          title="1"
+          href={setPage(1)}
+          className=" bg-accent hover:bg-hoverAccent min-w-[2rem] items-center transition-color rounded px-2 py-1 text-textSecondary flex align-middle justify-center"
+        >
+          <BsChevronDoubleLeft />
         </Link>
       )}
 
@@ -78,10 +99,22 @@ export default function Pagination({ totalPages }: Props) {
 
       {currentPage === lastPage ? null : (
         <Link
+          title={lastPage.toString()}
           href={setPage(lastPage)}
-          className=" bg-slate-500 hover:bg-slate-950 min-w-[1rem] rounded p-2 text-slate-100 flex align-middle justify-center"
+          aria-disabled={currentPage === lastPage}
+          className=" bg-accent hover:bg-hoverAccent items-center min-w-[2rem] transition-color rounded px-2 py-1 text-textSecondary flex align-middle justify-center"
         >
-          {lastPage}
+          <BsChevronDoubleRight />
+        </Link>
+      )}
+      {currentPage === lastPage ? null : (
+        <Link
+          title={(currentPage + 1).toString()}
+          href={setPage(currentPage + 1)}
+          aria-disabled={currentPage === lastPage}
+          className=" bg-accent hover:bg-hoverAccent items-center min-w-[2rem] transition-color rounded px-2 py-1 text-textSecondary flex align-middle justify-center"
+        >
+          <BsChevronRight />
         </Link>
       )}
     </div>

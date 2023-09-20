@@ -7,6 +7,7 @@
       "Error": "Something went wrong"
     },
     "Header": {
+    "Home": "Home Page",
     "Movies": "Movies",
     "Series": "Series",
     "Books": "Books",
@@ -43,6 +44,7 @@
       "Episodes": "Total episodes: ",
       "Seasons": "Seasons: ",
       "Episode time": "Episode average runtime: ",
+      "Hour": "h.",
       "Min": "min.",
       "Unknown": "Unknown",
       "Disclaimer": "Information about streaming services provided by justwatch.com"
@@ -67,11 +69,11 @@
     },
     "Profile": {
       "DisclaimerHead": "You are not login in.",
-      "DisclaimerBody": "During guest session bookmarks are stored in current browser&apos;s local storage and available to anyone with access to current browser.",
-      "Bookmarks": "Bookmarks: ",
-      "Movies": "Movies: ",
-      "Series": "Series: ",
-      "Books": "Books: ",
+      "DisclaimerBody": "During guest session bookmarks are stored in current browser's local storage and available to anyone with access to current browser.",
+      "Bookmarks": "Bookmarks",
+      "Movies": "Movies",
+      "Series": "Series",
+      "Books": "Books",
       "Nothing": "Nothing for now",
       "Entries": "entries",
       "Delete": "Delete bookmark"
@@ -82,5 +84,10 @@
       "Movies": "Movies",
       "Series": "Series",
       "Books": "Books"
+    },
+    "Footer": {
+      "Movie genres": "Movie genres: ",
+      "Series genres": "Series genres: ",
+      "Book subjects": "Book subjects: "
     }
   }

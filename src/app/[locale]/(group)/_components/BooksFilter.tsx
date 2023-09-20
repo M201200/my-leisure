@@ -34,85 +34,97 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
 
   /* @ts-ignore */
   newQuery.set("page", 1)
-  if (any) newQuery.set("query", any)
-  if (title) newQuery.set("title", title)
-  if (author) newQuery.set("author", author)
-  if (subject) newQuery.set("subject", subject)
-  if (place) newQuery.set("place", place)
-  if (person) newQuery.set("person", person)
-  if (language) newQuery.set("language", language)
-  if (publisher) newQuery.set("publisher", publisher)
-  if (sort) newQuery.set("sort", sort)
+  newQuery.set("query", any)
+  newQuery.set("title", title)
+  newQuery.set("author", author)
+  newQuery.set("subject", subject)
+  newQuery.set("place", place)
+  newQuery.set("person", person)
+  newQuery.set("language", language)
+  newQuery.set("publisher", publisher)
+  newQuery.set("sort", sort)
   return (
-    <div className="grid justify-items-center md:grid-cols-2 2xl:grid-cols-4">
-      <div>
-        <h5>{t.Any}</h5>
-        <input
-          type="text"
-          value={any}
-          onChange={(e) => setAny(e.target.value)}
-        />
+    <div className="grid gap-4 p-2 justify-items-center bg-secondary text-textPrimary fluid-base rounded-b-md">
+      <div className="grid gap-4 p-2 justify-items-center md:grid-cols-2 2xl:grid-cols-4">
+        <div className="grid gap-1">
+          <label className="font-bold text-accent">{t.Any}</label>
+          <input
+            className="p-2 rounded bg-background text-textPrimary"
+            type="text"
+            value={any}
+            onChange={(e) => setAny(e.target.value)}
+          />
+        </div>
+        <div className="grid gap-1">
+          <label className="font-bold text-accent">{t.ByTitle}</label>
+          <input
+            className="p-2 rounded bg-background text-textPrimary"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className="grid gap-1">
+          <label className="font-bold text-accent">{t.ByAuthor}</label>
+          <input
+            className="p-2 rounded bg-background text-textPrimary"
+            type="text"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+        </div>
+        <div className="grid gap-1">
+          <label className="font-bold text-accent">{t.BySubject}</label>
+          <input
+            className="p-2 rounded bg-background text-textPrimary"
+            type="text"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+        </div>
+        <div className="grid gap-1">
+          <label className="font-bold text-accent">{t.ByPlace}</label>
+          <input
+            className="p-2 rounded bg-background text-textPrimary"
+            type="text"
+            value={place}
+            onChange={(e) => setPlace(e.target.value)}
+          />
+        </div>
+        <div className="grid gap-1">
+          <label className="font-bold text-accent">{t.ByPerson}</label>
+          <input
+            className="p-2 rounded bg-background text-textPrimary"
+            type="text"
+            value={person}
+            onChange={(e) => setPerson(e.target.value)}
+          />
+        </div>
+        <div className="grid gap-1">
+          <label className="font-bold text-accent">{t.ByLanguage}</label>
+          <input
+            className="p-2 rounded bg-background text-textPrimary"
+            type="text"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          />
+        </div>
+        <div className="grid gap-1">
+          <label className="font-bold text-accent">{t.ByPublisher}</label>
+          <input
+            className="p-2 rounded bg-background text-textPrimary"
+            type="text"
+            value={publisher}
+            onChange={(e) => setPublisher(e.target.value)}
+          />
+        </div>
       </div>
-      <div>
-        <h5>{t.ByTitle}</h5>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
-      <div>
-        <h5>{t.ByAuthor}</h5>
-        <input
-          type="text"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-      </div>
-      <div>
-        <h5>{t.BySubject}</h5>
-        <input
-          type="text"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-        />
-      </div>
-      <div>
-        <h5>{t.ByPlace}</h5>
-        <input
-          type="text"
-          value={place}
-          onChange={(e) => setPlace(e.target.value)}
-        />
-      </div>
-      <div>
-        <h5>{t.ByPerson}</h5>
-        <input
-          type="text"
-          value={person}
-          onChange={(e) => setPerson(e.target.value)}
-        />
-      </div>
-      <div>
-        <h5>{t.ByLanguage}</h5>
-        <input
-          type="text"
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-        />
-      </div>
-      <div>
-        <h5>{t.ByPublisher}</h5>
-        <input
-          type="text"
-          value={publisher}
-          onChange={(e) => setPublisher(e.target.value)}
-        />
-      </div>
-      <div>
-        <h5>{t.Sort}</h5>
+
+      <div className="grid">
+        <label className="font-bold text-accent">{t.Sort}</label>
         <div className="flex">
           <select
+            className="p-2 rounded cursor-pointer bg-primary text-textSecondary"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortBooks)}
           >
@@ -120,7 +132,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             <option value="editions">
               {t.Editions} ({t.Desc})
             </option>
-            <option value="ols">
+            <option value="old">
               {t.Date} ({t.Asc})
             </option>
             <option value="new">
@@ -133,12 +145,33 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
           </select>
         </div>
       </div>
-      <Link href={currentPath + "?" + newQuery} locale={locale}>
-        {t.Submit}
-      </Link>
-      <Link href={currentPath + "?page=1"} locale={locale}>
-        {t.Reset}
-      </Link>
+      <div className="grid items-end grid-cols-2 gap-4 p-2 fluid-base">
+        <Link
+          href={currentPath + "?" + newQuery}
+          locale={locale}
+          className="p-2 bg-green-700 rounded-md h-max hover:bg-green-600 text-slate-200"
+        >
+          {t.Submit}
+        </Link>
+        <Link
+          href={currentPath}
+          locale={locale}
+          className="p-2 bg-red-700 rounded-md h-max hover:bg-red-600 text-slate-200"
+          onClick={() => {
+            setAny("")
+            setTitle("")
+            setAuthor("")
+            setSubject("")
+            setPlace("")
+            setPerson("")
+            setLanguage("")
+            setPublisher("")
+            setSort("")
+          }}
+        >
+          {t.Reset}
+        </Link>
+      </div>
     </div>
   )
 }

@@ -20,18 +20,26 @@ export default function CardPopularContainer({ children, label }: Props) {
   }
   return (
     <div className="grid">
-      <h2>{label}</h2>
+      <h2 className="p-2 font-bold fluid-lg text-accent">{label}</h2>
       <section
         ref={ref}
-        className="flex flex-row gap-2 px-2 overflow-auto bg-gray-500 snap-x scroll-pl-2 justify-items-center max-h-96 scrollbar-hide flex-nowrap"
+        className="flex flex-row gap-2 p-2 overflow-auto border rounded-lg bg-primary snap-x scroll-pl-2 justify-items-center max-h-96 scrollbar-hide flex-nowrap"
       >
         {children}
       </section>
-      <div className="flex justify-center h-8 gap-2">
-        <button onClick={() => onClickScroll(-0.9)}>
+      <div className="flex justify-center h-8 gap-4 mt-2">
+        <button
+          className="px-4 py-2 transition-colors bg-accent text-background rounded-xl hover:bg-hoverAccent"
+          onClick={() => onClickScroll(-0.9)}
+          title="Previous"
+        >
           <BsChevronDoubleLeft />
         </button>
-        <button onClick={() => onClickScroll(0.9)}>
+        <button
+          className="px-4 py-2 transition-colors bg-accent text-background rounded-xl hover:bg-hoverAccent"
+          onClick={() => onClickScroll(0.9)}
+          title="Next"
+        >
           <BsChevronDoubleRight />
         </button>
       </div>

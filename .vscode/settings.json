@@ -2,6 +2,7 @@
   "cSpell.words": ["tailwindcss", "tmdb"],
   "cSpell.enableFiletypes": ["tailwindcss"],
   "cSpell.ignoreWords": [
+    "Bookicon",
     "Fpage",
     "alibris",
     "antd",

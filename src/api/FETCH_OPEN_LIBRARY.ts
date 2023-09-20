@@ -43,7 +43,7 @@ export async function fetchOpenLibraryData({
   return response.json()
 }
 
-export async function popularBooks(page?: number) {
+export async function popularBooks(page?: number, sort?: SortBooks) {
   const randomPage = +(Math.random() * 20 + 1).toFixed()
   const popularBooksURL = "trending/daily.json"
 
@@ -51,6 +51,7 @@ export async function popularBooks(page?: number) {
     additionURL: popularBooksURL,
     queryList: [
       ["page", page || randomPage],
+      ["sort", sort || ""],
       ["limit", 20],
     ],
   })

@@ -6,7 +6,8 @@ export default function Bookmark({ props }: { props: MediaEntry | BookEntry }) {
   const [isListed, setAction] = useInitialAndToggle({ details: props })
   return (
     <button
-      className="p-1 border-2 border-black rounded"
+      title="Add to bookmarks"
+      className="p-1 transition-colors fluid-base hover:text-green-500"
       onClick={() => {
         if (isListed) {
           setAction("remove")

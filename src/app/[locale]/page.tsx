@@ -63,7 +63,7 @@ export default async function HomePage({ params: { locale } }: Params) {
     languages: book?.language,
   }))
   return (
-    <div className="grid gap-y-4">
+    <div className="grid py-4 gap-y-4">
       <CardPopularContainer label={t("labelMovies")}>
         {movieList
           ? movieList.map((movie) => (

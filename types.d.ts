@@ -55,6 +55,9 @@ type DiscoverQuery = {
   sort_order?: "desc" | "asc"
   with_genres?: string
   without_genres?: string
+  with_people?: string
+  with_companies?: string
+  with_origin_country?: string
 }
 
 type Genre = {

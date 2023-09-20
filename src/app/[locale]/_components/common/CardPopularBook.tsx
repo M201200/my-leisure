@@ -3,14 +3,14 @@ import Image from "next/image"
 
 export default function CardPopularBook(props: CardPopularBook) {
   return (
-    <div className="w-32 bg-gray-200 shrink-0 snap-start">
+    <div className="w-32 transition duration-300 text-textPrimary hover:scale-105 shrink-0 snap-start">
       <Link
         href={`/entry/${props.catalog}/${props.id}`}
         title={props.title}
         locale={props.locale}
       >
         <Image
-          className="aspect-auto min-h-48"
+          className="aspect-[0.615] rounded-t-md"
           src={
             props.coverPath
               ? `${props.folderPath}${props.coverPath}-M.jpg`
@@ -18,17 +18,24 @@ export default function CardPopularBook(props: CardPopularBook) {
           }
           alt="Cover"
           width={128}
-          height={192}
+          height={208}
           placeholder="blur"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAADACAYAAADMZmunAAABQUlEQVR42u3SAQ0AAAQAMPLaVFBdD/4Mz66e4K0UQAABBEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAAAQQQQAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEEAAAQQQQAAEQAAEQAAEQAAEQAAEQAAEQAAEQAAEQACuWBc9VVCGM5sbAAAAAElFTkSuQmCC"
         />
       </Link>
-      <section className="px-1">
-        <h4 className="truncate" title={props.title}>
-          {props.title}
-        </h4>
+      <section className="p-1 truncate rounded-b-md bg-secondary">
+        <label className="truncate text-accent fluid-sm" title={props.title}>
+          <Link
+            href={`/entry/${props.catalog}/${props.id}`}
+            title={props.title}
+            locale={props.locale}
+            className="truncate"
+          >
+            {props.title}
+          </Link>
+        </label>
         <div className="flex justify-between">
-          <span className="truncate" title={props.author}>
+          <span className="truncate fluid-sm" title={props.author}>
             {props.author}
           </span>
           {props.bookmark}

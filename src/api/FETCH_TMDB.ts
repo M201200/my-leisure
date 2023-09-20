@@ -77,6 +77,9 @@ export async function pageMedia(
     sort_order,
     with_genres,
     without_genres,
+    with_people,
+    with_companies,
+    with_origin_country,
   }: DiscoverQuery,
   locale: Locale,
   media: "movie" | "tvshow"
@@ -106,6 +109,9 @@ export async function pageMedia(
       ["sort_by", sortBy],
       ["with_genres", with_genres],
       ["without_genres", without_genres],
+      ["with_people", with_people],
+      ["with_companies", with_companies],
+      ["with_origin_country", with_origin_country],
     ],
   })
 

@@ -24,13 +24,15 @@ export default async function ProfilePage({ params }: Props) {
     nothing: t("Nothing"),
   }
   return (
-    <div>
-      <section>
-        <h2>{t("DisclaimerHead")}</h2>
+    <div className="grid gap-4 pb-4">
+      <section className="p-2 bg-secondary text-textPrimary fluid-base rounded-b-md">
+        <h2 className="font-semibold fluid-lg">{t("DisclaimerHead")}</h2>
         <p>{t("DisclaimerBody")}</p>
       </section>
-      <section className="grid gap-4">
-        <h1>{t("Bookmarks")}</h1>
+      <section className="grid gap-5 py-5">
+        <h1 className="font-extrabold fluid-xl text-textPrimary">
+          {t("Bookmarks")}
+        </h1>
         <BookmarkedContainer
           label={t("Movies")}
           storageKey="movie"

@@ -22,6 +22,8 @@ export default function CardMediaDetails({
           key={genre.id}
           href={`/category/discover/${path}?with_genres=${genre.id}`}
           locale={locale}
+          title={genre.name}
+          className="truncate transition cursor-pointer hover:text-textHoverPrimary"
         >
           {genre.name}
         </Link>
@@ -37,7 +39,7 @@ export default function CardMediaDetails({
       )
     )
   return (
-    <div className="grid bg-gray-200 grid-cols-[8rem_1fr] min-h-48">
+    <div className="grid bg-secondary text-textPrimary rounded-md fluid-base grid-cols-[8rem_1fr] min-h-48">
       <Link
         title={props.title}
         href={`/entry/${props.catalog}/${props.id}`}
@@ -45,7 +47,7 @@ export default function CardMediaDetails({
         className="col-start-1 col-end-2"
       >
         <Image
-          className="aspect-auto min-h-48"
+          className="aspect-auto rounded-l-md min-h-48"
           src={
             props.coverPath
               ? `${props.folderPath}${props.coverPath}`
@@ -65,27 +67,48 @@ export default function CardMediaDetails({
             className="truncate"
             locale={locale}
           >
-            <h5 className="truncate" title={props.title}>
+            <label
+              className="font-semibold truncate transition cursor-pointer text-accent fluid-lg hover:text-hoverAccent"
+              title={props.title}
+            >
               {props.title}
-            </h5>
+            </label>
           </Link>
           {button}
         </div>
         <ol>
-          <li className="flex truncate gap-x-2">
-            <h5>{t.Date}</h5>
-            {props.date}
+          <li className="flex truncate gap-x-2" title={props.date}>
+            <label className="font-semibold truncate">{t.Date}</label>
+            <Link
+              key={props.date + "key"}
+              href={`/category/discover/${path}?min_year=${
+                +props.date.slice(0, 4) - 1 < 1900
+                  ? 1900
+                  : +props.date.slice(0, 4) - 1
+              }&max_year=${
+                +props.date.slice(0, 4) === 1900
+                  ? 1901
+                  : +props.date.slice(0, 4)
+              }`}
+              locale={locale}
+              className="truncate transition cursor-pointer hover:text-textHoverPrimary"
+            >
+              {props.date}
+            </Link>
           </li>
           <li className="flex flex-wrap gap-x-2">
-            <h5>{t.Genres}</h5>
+            <label className="font-semibold truncate">{t.Genres}</label>
             {genres ? genres : <span>{t.Unknown}</span>}
           </li>
-          <li className="flex truncate gap-x-2">
-            {t.Score}
+          <li
+            className="flex truncate gap-x-2"
+            title={`${props.score.toFixed(1)}/10`}
+          >
+            <label className="font-semibold truncate">{t.Score}</label>
             {props.score.toFixed(1)}/10
           </li>
-          <li className="flex truncate gap-x-2">
-            {t.Votes}
+          <li className="flex truncate gap-x-2" title={props.votes.toString()}>
+            <label className="font-semibold truncate">{t.Votes}</label>
             {props.votes.toLocaleString()}
           </li>
         </ol>

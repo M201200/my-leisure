@@ -7,6 +7,7 @@
     "Error": "Ceva n-a mers bine"
   },
   "Header": {
+    "Home": "Pagina principala",
     "Movies": "Filme",
     "Series": "Serie",
     "Books": "Cărți",
@@ -43,6 +44,7 @@
     "Episodes": "Total episoade: ",
     "Seasons": "Sezoane: ",
     "Episode time": "Durata medie de rulare a episodului: ",
+    "Hour": "o.",
     "Min": "min.",
     "Unknown": "Necunoscut",
     "Disclaimer": "Informații despre serviciile de streaming furnizate de justwatch.com"
@@ -68,10 +70,10 @@
   "Profile": {
     "DisclaimerHead": "Nu sunteți autentificat.",
     "DisclaimerBody": "În timpul sesiunii pentru invitați, marcajele sunt stocate în stocarea locală a browserului curent și sunt disponibile pentru oricine care au acces la browserul dat.",
-    "Bookmarks": "Marcaje: ",
-    "Movies": "Filme: ",
-    "Series": "Serie: ",
-    "Books": "Cărți: ",
+    "Bookmarks": "Marcaje",
+    "Movies": "Filme",
+    "Series": "Serie",
+    "Books": "Cărți",
     "Nothing": "Nimic pentru moment",
     "Entries": "intrări",
     "Delete": "Ștergeți marcajul"
@@ -82,5 +84,10 @@
     "Movies": "Filme",
     "Series": "Seriale",
     "Books": "Cărți"
+  },
+  "Footer": {
+    "Movie genres": "Genuri de film: ",
+    "Series genres": "Genuri seriale: ",
+    "Book subjects": "Subiecte de carte: "
   }
 }
