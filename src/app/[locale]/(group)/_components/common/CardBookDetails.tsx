@@ -48,6 +48,7 @@ export default function CardBookDetails({
       >
         <Image
           className="aspect-auto rounded-l-md min-h-[13rem]"
+          unoptimized={true}
           src={
             props.coverPath
               ? `${props.folderPath}${props.coverPath}-M.jpg`

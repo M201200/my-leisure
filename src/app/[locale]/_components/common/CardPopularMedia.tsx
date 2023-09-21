@@ -11,6 +11,7 @@ export default function CardPopularMedia(props: CardPopularMedia) {
       >
         <Image
           className="rounded-t-md min-h-48"
+          unoptimized={true}
           src={
             props.coverPath
               ? `${props.folderPath}${props.coverPath}`

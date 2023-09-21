@@ -48,6 +48,7 @@ export default function CardMediaDetails({
       >
         <Image
           className="aspect-auto rounded-l-md min-h-48"
+          unoptimized={true}
           src={
             props.coverPath
               ? `${props.folderPath}${props.coverPath}`

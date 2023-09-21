@@ -11,6 +11,7 @@ export default function CardPopularBook(props: CardPopularBook) {
       >
         <Image
           className="aspect-[0.615] rounded-t-md"
+          unoptimized={true}
           src={
             props.coverPath
               ? `${props.folderPath}${props.coverPath}-M.jpg`
