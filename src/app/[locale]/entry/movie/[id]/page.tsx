@@ -103,7 +103,7 @@ export default async function MoviePage({ params }: Props) {
         />
       </div>
 
-      <section className="grid content-between gap-y-2">
+      <section className="grid content-start gap-y-6">
         <section className="grid gap-y-2">
           {movie?.title === movie?.original_title ? (
             <div className="flex items-start gap-2 pt-2">

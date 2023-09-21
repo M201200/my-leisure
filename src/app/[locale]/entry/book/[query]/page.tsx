@@ -100,7 +100,7 @@ export default async function BookPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <section className="md:grid gap-4 fluid-base lg:justify-self-center lg:max-w-[120ch] text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
+      <section className="md:grid gap-y-6 gap-x-4 fluid-base lg:justify-self-center lg:max-w-[120ch] text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
         <div>
           <Image
             className="relative z-10 transition duration-300 delay-300 rounded lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"

@@ -91,7 +91,7 @@ export default async function TVShowPage({ params }: Props) {
         />
       </div>
 
-      <section className="grid content-between gap-y-2">
+      <section className="grid content-start gap-y-6">
         <section className="grid gap-y-2">
           {TVShow?.name === TVShow?.original_name ? (
             <div className="flex items-start gap-2 pt-2">

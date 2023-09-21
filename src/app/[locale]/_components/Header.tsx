@@ -21,8 +21,8 @@ export default async function Header({ locale }: Props) {
   const t = await getTranslator(locale, "Header")
   return (
     <>
-      <div className="col-start-1 col-end-2 row-start-1 row-end-2 bg-secondary" />
-      <nav className="grid justify-between z-20 bg-secondary grid-cols-3 lg:grid-cols-[6rem_1fr_6rem] text-textPrimary fluid-base col-start-2 col-end-12 row-start-1 row-end-2 py-8 gap-x-4">
+      <div className="col-start-1 col-end-12 row-start-1 row-end-2 bg-secondary" />
+      <nav className="grid justify-between self-start z-20 bg-secondary grid-cols-3 lg:grid-cols-[6rem_1fr_6rem] text-textPrimary fluid-base col-start-2 col-end-12 row-start-1 row-end-2 py-8 gap-x-4">
         <div className="grid items-center gap-x-2 content-center row-start-1 grid-cols-[2rem_2rem] lg:grid-cols-[3rem_1fr_1fr] row-end-2 translate-y-0.5 lg:translate-y-0 2xl:grid-cols-3 lg:col-start-2 lg:col-end-3">
           <Dropdown
             buttonLabel={<AiOutlineMenu className="w-5 h-5" />}

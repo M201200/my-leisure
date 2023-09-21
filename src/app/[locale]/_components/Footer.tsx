@@ -33,8 +33,8 @@ export default async function Footer({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <div className="col-start-1 col-end-2 row-start-3 row-end-4 bg-secondary" />
-      <footer className="grid col-start-2 col-end-12 row-start-3 row-end-4 py-4 bg-secondary fluid-base text-textPrimary lg:grid-cols-3">
+      <div className="col-start-1 col-end-2 row-start-3 bg-secondary" />
+      <footer className="grid col-start-2 col-end-12 row-start-3 py-4 bg-secondary content-start min-h-[35vh] fluid-base text-textPrimary lg:grid-cols-3">
         {movieGenres ? (
           <section className="grid content-start gap-4 p-4 border-b-2 border-primary lg:border-r-2 gap-x-2 lg:border-b-0">
             <h2>{t("Movie genres")}</h2>
@@ -93,7 +93,7 @@ export default async function Footer({ locale }: { locale: Locale }) {
           </div>
         </section>
       </footer>
-      <div className="col-start-12 col-end-13 row-start-3 row-end-4 bg-secondary" />
+      <div className="col-start-12 col-end-13 row-start-3 bg-secondary" />
     </>
   )
 }

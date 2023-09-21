@@ -33,10 +33,10 @@ export default function LocaleLayout({ children, params }: Params) {
     <html lang={locale}>
       <body className="dark">
         <div
-          className={`grid grid-cols-12 min-h-screen content-start bg-background ${sofia_Sans.className}`}
+          className={`grid grid-cols-12 bg-background ${sofia_Sans.className}`}
         >
           <Header locale={locale} />
-          <main className="grid col-start-2 col-end-12 row-start-2 row-end-3">
+          <main className="grid col-start-2 col-end-12 min-h-[60vh] row-start-2 row-end-3">
             {children}
           </main>
           <Footer locale={locale} />
