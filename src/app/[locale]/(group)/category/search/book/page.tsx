@@ -23,7 +23,7 @@ export default async function SearchBookPage({ params, searchParams }: Props) {
   const tData = getTranslator(params.locale, "SearchResults")
   const bookData = searchBook({ query: searchQuery, page: searchPage })
   const [t, bookResponse] = await Promise.all([tData, bookData])
-  console.log(bookResponse)
+
   const bookResult = bookResponse?.docs
   const totalResults = bookResponse?.numFound
   const totalPages = Math.ceil(totalResults / 20) || 1 // 20 is a limit of books per page
@@ -52,16 +52,18 @@ export default async function SearchBookPage({ params, searchParams }: Props) {
       )
     })
   ) : (
-    <section>{t("NotFound")}.</section>
+    <section className="col-span-4 p-2 rounded fluid-lg text-textPrimary bg-secondary">
+      {t("NotFound")}.
+    </section>
   )
   return (
-    <div className="grid gap-4">
-      <h1>
+    <div className="grid content-start min-h-screen gap-4">
+      <h1 className="py-2 rounded fluid-lg text-textPrimary">
         {t("Search")} &rdquo;{searchQuery}&rdquo;:
       </h1>
 
       <CardDetailsContainer
-        label={`Books:`}
+        label={t("Books")}
         hasCount={totalAmount}
         locale={params.locale}
       >

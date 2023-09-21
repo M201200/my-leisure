@@ -77,7 +77,7 @@ export default function MediaFilter({
   newQuery.set("without_genres", without_genres.join(",").replace(/^\,/, ""))
 
   return (
-    <div className="grid gap-4 p-2 justify-items-center bg-secondary text-textPrimary fluid-base rounded-b-md">
+    <div className="grid gap-4 p-2 justify-items-center bg-hoverSecondary text-textPrimary fluid-base rounded-b-md">
       <div className="grid items-end gap-4 p-2 justify-items-center fluid-base sm:grid-cols-2 lg:grid-cols-4">
         <SelectMinMaxNumber
           firstNumber={1900}

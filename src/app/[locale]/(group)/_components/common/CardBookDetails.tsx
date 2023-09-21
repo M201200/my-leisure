@@ -81,8 +81,8 @@ export default function CardBookDetails({
             <label className="font-semibold">{t.Author}</label>
             {authors}
           </li>
-          <li title={props.date?.toString()} className="flex truncate gap-x-2">
-            <label className="font-semibold">{t.Date}</label>
+          <li title={t.Date} className="flex truncate gap-x-2">
+            <label className="font-semibold truncate">{t.Date}</label>
             {props.date}
           </li>
           <li

@@ -4,7 +4,9 @@
       "labelSeries": "Random series: ",
       "labelBooks": "Random books: ",
       "Unknown": "Unknown",
-      "Error": "Something went wrong"
+      "Error": "Something went wrong",
+      "Next": "Next",
+      "Prev": "Previous"
     },
     "Header": {
     "Home": "Home Page",

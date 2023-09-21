@@ -211,3 +211,26 @@ export function dictionaryLanguageSwitcher(locale: Locale) {
       }
   }
 }
+
+export function dictionaryThemeToggle(locale: Locale) {
+  switch (locale) {
+    case "en":
+      return {
+        Theme: "Theme",
+        Dark: "Dark",
+        Light: "Light",
+      }
+    case "ro":
+      return {
+        Theme: "Temă",
+        Dark: "Întuneri",
+        Light: "Ușoară",
+      }
+    case "ru":
+      return {
+        Theme: "Тема",
+        Dark: "Темная",
+        Light: "Светлая",
+      }
+  }
+}

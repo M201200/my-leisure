@@ -53,16 +53,18 @@ export default async function SearchMoviePage({ params, searchParams }: Props) {
       )
     })
   ) : (
-    <section>{t("NotFound")}.</section>
+    <section className="col-span-4 p-2 rounded fluid-lg text-textPrimary bg-secondary">
+      {t("NotFound")}.
+    </section>
   )
   return (
-    <div className="grid gap-4">
-      <h1>
+    <div className="grid content-start min-h-screen gap-4">
+      <h1 className="py-2 rounded fluid-lg text-textPrimary">
         {t("Search")} &rdquo;{searchQuery}&rdquo;:
       </h1>
 
       <CardDetailsContainer
-        label={`${t("Movies")}:`}
+        label={t("Movies")}
         hasCount={totalAmount}
         locale={params.locale}
       >

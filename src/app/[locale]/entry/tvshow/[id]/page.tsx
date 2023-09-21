@@ -165,9 +165,9 @@ export default async function TVShowPage({ params }: Props) {
           ) : null}
 
           {actors?.length ? (
-            <div className="flex flex-wrap gap-x-2">
+            <div className="grid gap-2">
               <label className="font-semibold">{t("Actors")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {actors.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -196,7 +196,7 @@ export default async function TVShowPage({ params }: Props) {
           {direction?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <label className="font-semibold">{t("Direction")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {direction.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -225,7 +225,7 @@ export default async function TVShowPage({ params }: Props) {
           {production?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <label className="font-semibold">{t("Production")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {production.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -272,10 +272,11 @@ export default async function TVShowPage({ params }: Props) {
             </div>
           ) : null}
 
-          {TVShow?.episode_run_time ? (
+          {TVShow?.episode_run_time?.length ? (
             <div className="flex gap-x-2">
               <label className="font-semibold">{t("Episode time")}</label>
-              {TVShow.episode_run_time} {t("Min")}
+              {TVShow.episode_run_time.map((time) => `${time} `)}
+              {t("Min")}
             </div>
           ) : null}
 
@@ -376,7 +377,7 @@ export default async function TVShowPage({ params }: Props) {
         </section>
         <section className="grid gap-2 py-2">
           <label className="font-semibold fluid-lg">{t("Overview")}</label>
-          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-secondary">
+          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-primary">
             {TVShow.overview ? TVShow.overview : t("NA")}
           </p>
         </section>

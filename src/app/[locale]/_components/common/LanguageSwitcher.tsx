@@ -11,8 +11,7 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
   const url = `${currentPath}?${searchParams}`
   return (
     <select
-      className="cursor-pointer bg-secondary text-textColor"
-      title={locale}
+      className="cursor-pointer bg-primary"
       defaultValue={locale}
       onChange={(e) => {
         router.replace(url, { locale: e.target.value })

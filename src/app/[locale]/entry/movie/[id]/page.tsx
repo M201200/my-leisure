@@ -89,7 +89,7 @@ export default async function MoviePage({ params }: Props) {
     <section className="md:grid gap-4 fluid-base lg:justify-self-center lg:max-w-[120ch] text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
       <div>
         <Image
-          className="relative z-10 transition duration-300 delay-300 rounded lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"
+          className="relative transition duration-300 delay-300 rounded lg:z-10 lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"
           src={
             movie?.poster_path
               ? `https://image.tmdb.org/t/p/original${movie?.poster_path}`
@@ -178,9 +178,9 @@ export default async function MoviePage({ params }: Props) {
           ) : null}
 
           {actors?.length ? (
-            <div className="flex flex-wrap gap-x-2">
+            <div className="grid gap-2">
               <label className="font-semibold">{t("Actors")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {actors.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -209,7 +209,7 @@ export default async function MoviePage({ params }: Props) {
           {direction?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <label className="font-semibold">{t("Direction")} </label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {direction.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -238,7 +238,7 @@ export default async function MoviePage({ params }: Props) {
           {production?.length ? (
             <div className="flex flex-wrap gap-x-2">
               <label className="font-semibold">{t("Production")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {production.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -386,7 +386,7 @@ export default async function MoviePage({ params }: Props) {
 
         <section className="grid gap-2 py-2">
           <h1 className="font-semibold fluid-lg">{t("Overview")}</h1>
-          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-secondary">
+          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-primary">
             {movie.overview ? movie.overview : t("NA")}
           </p>
         </section>

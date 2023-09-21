@@ -27,6 +27,7 @@ export default async function HomePage({ params: { locale } }: Params) {
     booksData,
   ])
 
+  const buttonLabels: [string, string] = [t("Prev"), t("Next")]
   const movies = moviesResponse?.results
   const movieCatalog = "movie"
   const movieList = movies?.map((movie) => ({
@@ -64,7 +65,10 @@ export default async function HomePage({ params: { locale } }: Params) {
   }))
   return (
     <div className="grid py-4 gap-y-4">
-      <CardPopularContainer label={t("labelMovies")}>
+      <CardPopularContainer
+        label={t("labelMovies")}
+        buttonLabels={buttonLabels}
+      >
         {movieList
           ? movieList.map((movie) => (
               <CardPopularMedia
@@ -90,7 +94,10 @@ export default async function HomePage({ params: { locale } }: Params) {
             ))
           : t("Error")}
       </CardPopularContainer>
-      <CardPopularContainer label={t("labelSeries")}>
+      <CardPopularContainer
+        label={t("labelSeries")}
+        buttonLabels={buttonLabels}
+      >
         {seriesList
           ? seriesList.map((tv) => (
               <CardPopularMedia
@@ -116,7 +123,7 @@ export default async function HomePage({ params: { locale } }: Params) {
             ))
           : t("Error")}
       </CardPopularContainer>
-      <CardPopularContainer label={t("labelBooks")}>
+      <CardPopularContainer label={t("labelBooks")} buttonLabels={buttonLabels}>
         {bookList
           ? bookList.map((book) => (
               <CardPopularBook

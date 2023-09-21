@@ -25,7 +25,7 @@ export default async function ProfilePage({ params }: Props) {
   }
   return (
     <div className="grid gap-4 pb-4">
-      <section className="p-2 bg-secondary text-textPrimary fluid-base rounded-b-md">
+      <section className="p-2 rounded-b bg-hoverSecondary text-textPrimary fluid-base">
         <h2 className="font-semibold fluid-lg">{t("DisclaimerHead")}</h2>
         <p>{t("DisclaimerBody")}</p>
       </section>

@@ -24,7 +24,9 @@ module.exports = {
         textHoverSecondary: 'var(--text-hover-secondary)',
         background: 'var(--background)',
         primary: 'var(--primary)',
+        hoverPrimary: 'var(--hover-primary)',
         secondary: 'var(--secondary)',
+        hoverSecondary: 'var(--hover-secondary)',
         accent: 'var(--accent)',
         hoverAccent: 'var(--hover-accent)',
       }

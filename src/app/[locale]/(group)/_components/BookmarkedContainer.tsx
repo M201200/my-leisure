@@ -85,7 +85,9 @@ export default function BookmarkedContainer({
     </CardDetailsContainer>
   ) : (
     <CardDetailsContainer label={label} locale={locale} labelSize="fluid-xl">
-      <p className="fluid-lg text-textSecondary">{t.nothing}</p>
+      <div className="col-span-4 p-1 rounded fluid-lg text-textPrimary bg-secondary">
+        {t.nothing}
+      </div>
     </CardDetailsContainer>
   )
 }

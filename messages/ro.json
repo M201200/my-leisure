@@ -4,7 +4,9 @@
     "labelSeries": "Serii aleatorii: ",
     "labelBooks": "Cărți aleatorii: ",
     "Unknown": "Necunoscut",
-    "Error": "Ceva n-a mers bine"
+    "Error": "Ceva n-a mers bine",
+    "Next": "Următorul",
+    "Prev": "Anterior"
   },
   "Header": {
     "Home": "Pagina principala",

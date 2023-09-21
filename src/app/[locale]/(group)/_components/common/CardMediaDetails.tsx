@@ -77,9 +77,10 @@ export default function CardMediaDetails({
           {button}
         </div>
         <ol>
-          <li className="flex truncate gap-x-2" title={props.date}>
+          <li className="flex flex-wrap truncate gap-x-2" title={t.Date}>
             <label className="font-semibold truncate">{t.Date}</label>
             <Link
+              title={props.date}
               key={props.date + "key"}
               href={`/category/discover/${path}?min_year=${
                 +props.date.slice(0, 4) - 1 < 1900

@@ -163,7 +163,7 @@ export default async function BookPage({ params, searchParams }: Props) {
           {works?.subjects ? (
             <div className="grid gap-x-2">
               <label className="font-semibold">{t("Subjects")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-primary">
                 {works.subjects.map((subject, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -192,7 +192,7 @@ export default async function BookPage({ params, searchParams }: Props) {
           {works?.subject_people ? (
             <div className="grid gap-x-2">
               <label className="font-semibold">{t("Characters")} </label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-primary">
                 {works?.subject_people.map((person, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -221,7 +221,7 @@ export default async function BookPage({ params, searchParams }: Props) {
           {works?.subject_places ? (
             <div className="grid gap-x-2">
               <label className="font-semibold">{t("Places")} </label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-primary">
                 {works?.subject_places.map((place, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -250,7 +250,7 @@ export default async function BookPage({ params, searchParams }: Props) {
           {works?.subject_times ? (
             <div className="grid gap-x-2">
               <label className="font-semibold">{t("Period")} </label>
-              <span className="max-w-lg gap-2 p-1 overflow-auto border rounded-md max-h-28 border-secondary">
+              <span className="max-w-lg gap-2 p-1 overflow-auto border rounded-md max-h-28 border-primary">
                 {works?.subject_times.map((period, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -279,7 +279,7 @@ export default async function BookPage({ params, searchParams }: Props) {
           {editions.entries ? (
             <div className="grid gap-x-2">
               <label className="font-semibold">{t("Editions")} </label>
-              <span className="flex flex-wrap max-w-lg gap-2 p-1 overflow-auto border rounded-md max-h-28 border-secondary">
+              <span className="flex flex-wrap max-w-lg gap-2 p-1 overflow-auto border rounded-md max-h-28 border-primary">
                 {editions?.entries.map((entry, id) => (
                   <Link
                     className="transition drop-shadow-md hover:scale-110"
@@ -369,7 +369,7 @@ export default async function BookPage({ params, searchParams }: Props) {
           {works?.links ? (
             <div className="grid gap-x-2">
               <label className="font-semibold">{t("Links")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-secondary">
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-primary">
                 {works.links.map((link, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
@@ -397,7 +397,7 @@ export default async function BookPage({ params, searchParams }: Props) {
         </section>
         <section className="col-span-2">
           <h1 className="font-semibold fluid-lg">{t("Overview")}</h1>
-          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-secondary">
+          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-primary">
             {description ? description : t("NA")}
           </p>
         </section>

@@ -24,7 +24,10 @@ export default function CardPopularMedia(props: CardPopularMedia) {
         />
       </Link>
       <section className="p-1 truncate rounded-b-md bg-secondary">
-        <label className="truncate text-accent fluid-sm" title={props.title}>
+        <label
+          className="truncate text-accent hover:text-hoverAccent fluid-sm"
+          title={props.title}
+        >
           <Link
             href={`/entry/${props.catalog}/${props.id}`}
             title={props.title}

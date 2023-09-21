@@ -44,7 +44,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
   newQuery.set("publisher", publisher)
   newQuery.set("sort", sort)
   return (
-    <div className="grid gap-4 p-2 justify-items-center bg-secondary text-textPrimary fluid-base rounded-b-md">
+    <div className="grid gap-4 p-2 justify-items-center bg-hoverSecondary text-textPrimary fluid-base rounded-b-md">
       <div className="grid gap-4 p-2 justify-items-center md:grid-cols-2 2xl:grid-cols-4">
         <div className="grid gap-1">
           <label className="font-bold text-accent">{t.Any}</label>
@@ -52,6 +52,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={any}
+            onFocus={(e) => setAny("")}
             onChange={(e) => setAny(e.target.value)}
           />
         </div>
@@ -61,6 +62,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={title}
+            onFocus={(e) => setTitle("")}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -70,6 +72,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={author}
+            onFocus={(e) => setAuthor("")}
             onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
@@ -79,6 +82,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={subject}
+            onFocus={(e) => setSubject("")}
             onChange={(e) => setSubject(e.target.value)}
           />
         </div>
@@ -88,6 +92,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={place}
+            onFocus={(e) => setPlace("")}
             onChange={(e) => setPlace(e.target.value)}
           />
         </div>
@@ -97,6 +102,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={person}
+            onFocus={(e) => setPerson("")}
             onChange={(e) => setPerson(e.target.value)}
           />
         </div>
@@ -106,6 +112,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={language}
+            onFocus={(e) => setLanguage("")}
             onChange={(e) => setLanguage(e.target.value)}
           />
         </div>
@@ -115,6 +122,7 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={publisher}
+            onFocus={(e) => setPublisher("")}
             onChange={(e) => setPublisher(e.target.value)}
           />
         </div>

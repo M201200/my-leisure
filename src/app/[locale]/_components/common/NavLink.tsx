@@ -23,7 +23,7 @@ export default function NavLink({
       href={href}
       locale={locale}
       title={title}
-      className={`fluid-base relative after:transition after:origin-center after:duration-100 hover:after:scale-100 after:rounded-sm after:bg-accent after:h-1 after:content-[' '] after:absolute after:left-[5%] after:right-[5%] after:-bottom-2 ${
+      className={`relative after:transition after:origin-center after:duration-100 hover:after:scale-100 after:rounded-sm after:bg-accent after:h-1 after:content-[' '] after:absolute after:left-[5%] after:right-[5%] after:-bottom-2 ${
         currentPath === href ? "after:scale-100" : "after:scale-0"
       } ${className}`}
     >

@@ -15,12 +15,12 @@ type Props = {
 export default function Dropdown({
   buttonLabel,
   children,
-  additionalContainerStyles,
-  additionalDropdownStyles,
-  buttonStyles,
+  additionalContainerStyles = "",
+  additionalDropdownStyles = "",
+  buttonStyles = "",
   initialOpen = false,
   hasArrow = true,
-  buttonContainerStyles,
+  buttonContainerStyles = "",
 }: Props) {
   const [isOpen, setOpen] = useState(initialOpen)
   const ref = useRef<HTMLDivElement | null>(null)
@@ -61,7 +61,7 @@ export default function Dropdown({
       </div>
 
       <div
-        className={`absolute transition origin-top duration-150 ease-in-out ${
+        className={`absolute transition z-30 origin-top duration-150 ease-in-out ${
           isOpen ? "scale-100 opacity-100" : "scale-0 opacity-0"
         } ${additionalDropdownStyles}`}
       >
