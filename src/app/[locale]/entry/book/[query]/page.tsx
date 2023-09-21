@@ -288,6 +288,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     scroll={false}
                   >
                     <Image
+                      unoptimized={true}
                       src={
                         entry?.covers?.find((cover) => cover !== undefined) ||
                         works?.covers?.find((cover) => cover !== undefined)
@@ -356,6 +357,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     )}`}
                   >
                     <Image
+                      unoptimized={true}
                       src={`/images/BWBookicon_400x400.png`}
                       alt="Better World Books logo"
                       width={28}

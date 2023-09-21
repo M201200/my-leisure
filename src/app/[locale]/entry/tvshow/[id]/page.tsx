@@ -76,6 +76,7 @@ export default async function TVShowPage({ params }: Props) {
     <section className="md:grid gap-4 lg:justify-self-center lg:max-w-[120ch] fluid-base text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
       <div>
         <Image
+          unoptimized={true}
           className="relative z-10 transition duration-300 delay-300 rounded lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"
           src={
             TVShow?.poster_path
@@ -362,6 +363,7 @@ export default async function TVShowPage({ params }: Props) {
                     className="transition drop-shadow-md hover:scale-110"
                   >
                     <Image
+                      unoptimized={true}
                       src={`https://image.tmdb.org/t/p/w45/${item.logo_path}`}
                       width={45}
                       height={45}

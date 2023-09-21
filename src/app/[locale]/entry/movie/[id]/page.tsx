@@ -370,6 +370,7 @@ export default async function MoviePage({ params }: Props) {
                     className="transition drop-shadow-md hover:scale-110"
                   >
                     <Image
+                      unoptimized={true}
                       src={`https://image.tmdb.org/t/p/w45/${item.logo_path}`}
                       width={45}
                       height={45}
