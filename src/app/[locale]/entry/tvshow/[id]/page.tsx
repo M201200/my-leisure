@@ -80,7 +80,7 @@ export default async function TVShowPage({ params }: Props) {
           className="relative z-10 transition duration-300 delay-300 rounded lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"
           src={
             TVShow?.poster_path
-              ? `https://image.tmdb.org/t/p/original${TVShow.poster_path}`
+              ? `https://image.tmdb.org/t/p/w780${TVShow.poster_path}`
               : "https://fakeimg.pl/460x690/d1d1d1/878787?text=No+image"
           }
           alt="backdrop"

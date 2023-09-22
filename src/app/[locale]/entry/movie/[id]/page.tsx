@@ -92,7 +92,7 @@ export default async function MoviePage({ params }: Props) {
           className="relative transition duration-300 delay-300 rounded lg:z-10 lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"
           src={
             movie?.poster_path
-              ? `https://image.tmdb.org/t/p/original${movie?.poster_path}`
+              ? `https://image.tmdb.org/t/p/w780${movie?.poster_path}`
               : "https://fakeimg.pl/460x690/d1d1d1/878787?text=No+image"
           }
           alt="backdrop"
