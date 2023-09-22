@@ -15,7 +15,7 @@ type Params = {
 }
 
 export default async function HomePage({ params: { locale } }: Params) {
-  const coverTMDBFolderPath = "https://image.tmdb.org/t/p/w342"
+  const coverTMDBFolderPath = "https://image.tmdb.org/t/p/w154"
   const coverOpenLibraryFolderPath = "https://covers.openlibrary.org/b/id/"
   const tData = getTranslator(locale, "MainPage")
   const moviesData = popularMedia(locale, "movie")
