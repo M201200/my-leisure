@@ -14,7 +14,7 @@ export default function CardPopularSkeleton() {
       <section className="p-1 rounded-b-md bg-secondary">
         <label className="truncate h-[2ch] w-[10ch] rounded bg-slate-700 fluid-sm" />
 
-        <div className="flex justify-between gap-2 rounded">
+        <div className="grid justify-between gap-2 rounded">
           <span className="flex gap-1">
             <span className="h-[1ch] w-[5ch] rounded bg-slate-700" />
             <span className="h-[1ch] w-[3ch] rounded bg-slate-700" />

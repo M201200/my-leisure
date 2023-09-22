@@ -290,14 +290,18 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Image
                       unoptimized={true}
                       src={
-                        entry?.covers?.find((cover) => cover !== undefined) ||
-                        works?.covers?.find((cover) => cover !== undefined)
+                        entry?.covers?.find(
+                          (cover) => cover !== -1 && cover !== undefined
+                        ) ||
+                        works?.covers?.find(
+                          (cover) => cover !== -1 && cover !== undefined
+                        )
                           ? `https://covers.openlibrary.org/b/id/${
                               entry?.covers?.find(
-                                (cover) => cover !== undefined
+                                (cover) => cover !== -1 && cover !== undefined
                               ) ||
                               works?.covers?.find(
-                                (cover) => cover !== undefined
+                                (cover) => cover !== -1 && cover !== undefined
                               )
                             }-M.jpg`
                           : "https://fakeimg.pl/64x96/d1d1d1/878787?text=No+image"

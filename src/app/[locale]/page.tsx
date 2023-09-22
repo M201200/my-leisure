@@ -5,6 +5,8 @@ import CardPopularMedia from "./_components/common/CardPopularMedia"
 import Bookmark from "./_components/common/Bookmark"
 import { popularBooks } from "@/api/FETCH_OPEN_LIBRARY"
 import CardPopularBook from "./_components/common/CardPopularBook"
+import { Suspense } from "react"
+import MainPageFallback from "./_components/MainPageFallback"
 
 type Params = {
   params: {
@@ -64,90 +66,95 @@ export default async function HomePage({ params: { locale } }: Params) {
     languages: book?.language,
   }))
   return (
-    <div className="grid py-4 gap-y-4">
-      <CardPopularContainer
-        label={t("labelMovies")}
-        buttonLabels={buttonLabels}
-      >
-        {movieList
-          ? movieList.map((movie) => (
-              <CardPopularMedia
-                key={movie.id}
-                id={movie.id!}
-                locale={locale}
-                catalog={movieCatalog}
-                folderPath={coverTMDBFolderPath}
-                coverPath={movie.coverPath}
-                title={movie.title}
-                score={movie.score}
-                votesAmount={movie.votes}
-                bookmark={
-                  <Bookmark
-                    props={{
-                      ...movie,
-                      catalog: movieCatalog,
-                      folderPath: coverTMDBFolderPath,
-                    }}
-                  />
-                }
-              />
-            ))
-          : t("Error")}
-      </CardPopularContainer>
-      <CardPopularContainer
-        label={t("labelSeries")}
-        buttonLabels={buttonLabels}
-      >
-        {seriesList
-          ? seriesList.map((tv) => (
-              <CardPopularMedia
-                key={tv.id}
-                id={tv.id!}
-                locale={locale}
-                catalog={seriesCatalog}
-                folderPath={coverTMDBFolderPath}
-                coverPath={tv.coverPath}
-                title={tv.title}
-                score={tv.score}
-                votesAmount={tv.votes}
-                bookmark={
-                  <Bookmark
-                    props={{
-                      ...tv,
-                      catalog: seriesCatalog,
-                      folderPath: coverTMDBFolderPath,
-                    }}
-                  />
-                }
-              />
-            ))
-          : t("Error")}
-      </CardPopularContainer>
-      <CardPopularContainer label={t("labelBooks")} buttonLabels={buttonLabels}>
-        {bookList
-          ? bookList.map((book) => (
-              <CardPopularBook
-                key={book.id}
-                id={book.id!}
-                locale={locale}
-                catalog={booksCatalog}
-                folderPath={coverOpenLibraryFolderPath}
-                coverPath={book.coverPath}
-                title={book.title}
-                author={book?.author ? book?.author[0] : t("Unknown")}
-                bookmark={
-                  <Bookmark
-                    props={{
-                      ...book,
-                      catalog: booksCatalog,
-                      folderPath: coverOpenLibraryFolderPath,
-                    }}
-                  />
-                }
-              />
-            ))
-          : t("Error")}
-      </CardPopularContainer>
-    </div>
+    <Suspense fallback={<MainPageFallback />}>
+      <section className="grid py-4 gap-y-4">
+        <CardPopularContainer
+          label={t("labelMovies")}
+          buttonLabels={buttonLabels}
+        >
+          {movieList
+            ? movieList.map((movie) => (
+                <CardPopularMedia
+                  key={movie.id}
+                  id={movie.id!}
+                  locale={locale}
+                  catalog={movieCatalog}
+                  folderPath={coverTMDBFolderPath}
+                  coverPath={movie.coverPath}
+                  title={movie.title}
+                  score={movie.score}
+                  votesAmount={movie.votes}
+                  bookmark={
+                    <Bookmark
+                      props={{
+                        ...movie,
+                        catalog: movieCatalog,
+                        folderPath: coverTMDBFolderPath,
+                      }}
+                    />
+                  }
+                />
+              ))
+            : t("Error")}
+        </CardPopularContainer>
+        <CardPopularContainer
+          label={t("labelSeries")}
+          buttonLabels={buttonLabels}
+        >
+          {seriesList
+            ? seriesList.map((tv) => (
+                <CardPopularMedia
+                  key={tv.id}
+                  id={tv.id!}
+                  locale={locale}
+                  catalog={seriesCatalog}
+                  folderPath={coverTMDBFolderPath}
+                  coverPath={tv.coverPath}
+                  title={tv.title}
+                  score={tv.score}
+                  votesAmount={tv.votes}
+                  bookmark={
+                    <Bookmark
+                      props={{
+                        ...tv,
+                        catalog: seriesCatalog,
+                        folderPath: coverTMDBFolderPath,
+                      }}
+                    />
+                  }
+                />
+              ))
+            : t("Error")}
+        </CardPopularContainer>
+        <CardPopularContainer
+          label={t("labelBooks")}
+          buttonLabels={buttonLabels}
+        >
+          {bookList
+            ? bookList.map((book) => (
+                <CardPopularBook
+                  key={book.id}
+                  id={book.id!}
+                  locale={locale}
+                  catalog={booksCatalog}
+                  folderPath={coverOpenLibraryFolderPath}
+                  coverPath={book.coverPath}
+                  title={book.title}
+                  author={book?.author ? book?.author[0] : t("Unknown")}
+                  bookmark={
+                    <Bookmark
+                      props={{
+                        ...book,
+                        catalog: booksCatalog,
+                        folderPath: coverOpenLibraryFolderPath,
+                      }}
+                    />
+                  }
+                />
+              ))
+            : t("Error")}
+        </CardPopularContainer>
+      </section>
+    </Suspense>
   )
 }

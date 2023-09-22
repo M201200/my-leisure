@@ -1,7 +1,7 @@
-import CardPopularContainer from "./_components/CardPopularContainer"
-import CardPopularSkeleton from "./_components/common/CardPopularSkeleton"
+import CardPopularContainer from "./CardPopularContainer"
+import CardPopularSkeleton from "./common/CardPopularSkeleton"
 
-export default function LoadingMain() {
+export default function MainPageFallback() {
   const buttonLabels: [string, string] = ["Prev", "Next"]
 
   return (
