@@ -234,3 +234,38 @@ export function dictionaryThemeToggle(locale: Locale) {
       }
   }
 }
+
+export function dictionaryHomePage(locale: Locale) {
+  switch (locale) {
+    case "en":
+      return {
+        Welcome: "Welcome to ",
+        MainText:
+          "It's a database* with great variety of movies, series and books to find something interesting for yourself.",
+        Add: "You can add to bookmarks any media you interesting in.",
+        Click: "Just click on 'bookmark' icon",
+        Proceed: "Proceed to main page",
+        Provided: "*Provided by themoviedb.org and openlibrary.org.",
+      }
+    case "ro":
+      return {
+        Welcome: "Bun venit la ",
+        MainText:
+          "Este o bază de date* cu o mare varietate de serii, de filme și cărți pentru a găsi ceva interesant pentru tine.",
+        Add: "Puteți adăuga la marcaje orice conținut media care vă interesează.",
+        Click: "Doar faceți clic pe pictograma 'marcajului'",
+        Proceed: "Treceți la pagina principală",
+        Provided: "*Furnizat de themoviedb.org și openlibrary.org.",
+      }
+    case "ru":
+      return {
+        Welcome: "Добро пожаловать на ",
+        MainText:
+          "Это база данных* с широким выбором сериалов, фильмов и книг, где можно найти что-то интересное для себя.",
+        Add: "Вы можете добавить в закладки любые интересующие вас медиа.",
+        Click: "Просто нажмите на иконку 'закладки'",
+        Proceed: "Перейти на главную страницу",
+        Provided: "*Предоставлена themoviedb.org и openlibrary.org.",
+      }
+  }
+}

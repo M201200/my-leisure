@@ -1,7 +1,7 @@
 import CardDetailsContainer from "../../../_components/CardDetailsContainer"
 import CardDetailsSkeleton from "../../../_components/common/CardDetailsSkeleton"
 
-export default function LoadingMain() {
+export default function Loading() {
   return (
     <CardDetailsContainer label="Books" locale="en">
       <CardDetailsSkeleton />

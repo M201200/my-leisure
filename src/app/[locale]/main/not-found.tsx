@@ -6,10 +6,10 @@ export default function NotFound() {
       <h1 className="p-4 fluid-2xl text-textPrimary">Not Found</h1>
       <p className="p-4 fluid-base text-textPrimary">This page is not exist!</p>
       <Link
-        href="/main"
+        href="/"
         className="p-2 transition-colors rounded fluid-lg text-textPrimary bg-secondary hover:bg-green-600"
       >
-        Return to Home page
+        Return to Welcome screen
       </Link>
     </div>
   )

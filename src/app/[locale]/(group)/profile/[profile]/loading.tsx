@@ -1,6 +1,6 @@
 import CardDetailsContainer from "../../_components/CardDetailsContainer"
 
-export default function LoadingMain() {
+export default function Loading() {
   return (
     <div className="grid content-start gap-4 pb-4">
       <section className="w-full h-16 p-2 rounded-b bg-hoverSecondary text-textPrimary fluid-base" />

@@ -8,6 +8,7 @@ import { AiOutlineMenu } from "react-icons/ai"
 import { BsSearch } from "react-icons/bs"
 import NavLink from "./common/NavLink"
 import ThemeToggle from "./ThemeToggle"
+import Link from "next-intl/link"
 
 type Props = {
   locale: Locale
@@ -31,7 +32,12 @@ export default async function Header({ locale }: Props) {
             buttonStyles="lg:hidden"
             hasArrow={false}
           >
-            <ul className="grid content-center justify-center rounded lg:bg-inherit bg-primary lg:text-textPrimary text-textSecondary drop-shadow-xl gap-x-4 lg:flex">
+            <ul className="grid content-center justify-center text-center rounded lg:bg-inherit bg-primary lg:text-textPrimary text-textSecondary drop-shadow-xl gap-x-4 lg:flex">
+              <li className="grid content-center p-2 border-b lg:border-b-0 border-b-background">
+                <NavLink href={"/main"} locale={locale} title={t("Main")}>
+                  {t("Main")}
+                </NavLink>
+              </li>
               <li className="grid content-center p-2 border-b lg:border-b-0 border-b-background">
                 <NavLink
                   href={"/category/discover/movies"}
@@ -72,19 +78,19 @@ export default async function Header({ locale }: Props) {
         </div>
 
         <span className="grid content-center justify-center fluid-base lg:col-start-1 lg:col-end-2">
-          <NavLink
-            href={"/"}
+          <Link
+            href={"/main"}
             locale={locale}
-            className={`flex content-center w-max lg:justify-start ${dancingScript.className} fluid-lg`}
+            className={`flex content-center w-max lg:justify-start ${dancingScript.className} hover:scale-95 transition-transform fluid-lg`}
             title={t("Home")}
           >
             <span className="w-full text-center lg:hidden">
               <span className="text-orange-600">M</span>L
             </span>
             <span className="hidden w-full text-center lg:block">
-              <span className="text-orange-600 ">My</span> Leisure
+              <span className="text-orange-600">My</span> Leisure
             </span>
-          </NavLink>
+          </Link>
         </span>
 
         <Dropdown
@@ -103,6 +109,7 @@ export default async function Header({ locale }: Props) {
             <li className="p-2">
               <NavLink
                 href={"/profile/Guest"}
+                className="block text-center"
                 locale={locale}
                 title={t("Guest")}
               >
