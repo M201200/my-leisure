@@ -1,10 +1,5 @@
 "use client"
 import { useEffect } from "react"
-import { Sofia_Sans } from "next/font/google"
-
-const sofia_Sans = Sofia_Sans({
-  subsets: ["latin", "latin-ext"],
-})
 
 export default function Error({
   error,
@@ -18,9 +13,7 @@ export default function Error({
   }, [error])
 
   return (
-    <div
-      className={`grid bg-background justify-center content-start h-screen ${sofia_Sans.className}`}
-    >
+    <div className="grid content-start justify-center h-screen bg-background">
       <h1 className="p-4 fluid-2xl text-textPrimary">Something went wrong!</h1>
       <button
         onClick={() => reset()}
