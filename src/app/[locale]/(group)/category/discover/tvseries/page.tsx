@@ -33,7 +33,7 @@ export default async function TVShows({ params, searchParams }: Props) {
   const search_without_genres = searchParams.without_genres as
     | string
     | undefined
-  console.log(searchParams)
+
   const genresData = genresMedia(params.locale, "tv")
   const tData = getTranslator(params.locale, "SearchResults")
   const seriesData = pageMedia(

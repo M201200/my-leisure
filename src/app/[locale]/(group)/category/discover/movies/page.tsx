@@ -30,7 +30,6 @@ export default async function Movies({ params, searchParams }: Props) {
   const search_without_genres = searchParams.without_genres as
     | string
     | undefined
-  console.log(searchParams)
 
   const genresData = genresMedia(params.locale, "movie")
   const tData = getTranslator(params.locale, "SearchResults")

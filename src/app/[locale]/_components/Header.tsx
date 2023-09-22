@@ -82,7 +82,7 @@ export default async function Header({ locale }: Props) {
             href={"/main"}
             locale={locale}
             className={`flex content-center w-max lg:justify-start ${dancingScript.className} hover:scale-95 transition-transform fluid-lg`}
-            title={t("Home")}
+            title={t("Main")}
           >
             <span className="w-full text-center lg:hidden">
               <span className="text-orange-600">M</span>L
