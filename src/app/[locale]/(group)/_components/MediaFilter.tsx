@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SelectMinMaxNumber from "./common/SelectMinMaxNumber"
 import GenreCheck from "./common/GenreCheck"
 import Link from "next-intl/link"
@@ -17,50 +17,64 @@ export default function MediaFilter({
   genres: Genre[]
 }) {
   const t = dictionaryMediaFilter(locale)
-  const currentYear = new Date().toISOString().slice(0, 4)
+  const currentYear = +new Date().toISOString().slice(0, 4)
 
   const currentPath = usePathname()
   const query = useSearchParams()
-  const newQuery = new URLSearchParams(query)
-  const search_min_year = newQuery.get("min_year")
-    ? +newQuery.get("min_year")!
-    : 1900
-  const search_max_year = newQuery.get("max_year")
-    ? +newQuery.get("max_year")!
-    : currentYear
-  const search_min_score = newQuery.get("min_score")
-    ? +newQuery.get("min_score")!
-    : 0
-  const search_max_score = newQuery.get("max_score")
-    ? +newQuery.get("max_score")!
-    : 10
-  const search_sort_by = newQuery.get("sort_by")
-    ? (newQuery.get("sort_by") as SortBy)
-    : "popularity"
-  const search_sort_order = newQuery.get("sort_order")
-    ? (newQuery.get("sort_order") as "desc" | "asc")
-    : "desc"
-  const search_with_genres = newQuery.get("with_genres")
-    ? newQuery
-        .get("with_genres")!
-        .split(",")
-        .map((id) => +id)
-    : []
-  const search_without_genres = newQuery.get("without_genres")
-    ? newQuery
-        .get("without_genres")!
-        .split(",")
-        .map((id) => +id)
-    : []
 
-  const [min_year, set_min_year] = useState(search_min_year)
-  const [max_year, set_max_year] = useState(search_max_year)
-  const [min_score, set_min_score] = useState(search_min_score)
-  const [max_score, set_max_score] = useState(search_max_score)
-  const [sort_by, set_sort_by] = useState(search_sort_by)
-  const [sort_order, set_sort_order] = useState(search_sort_order)
-  const [with_genres, set_with_genres] = useState(search_with_genres)
-  const [without_genres, set_without_genres] = useState(search_without_genres)
+  const [min_year, set_min_year] = useState(1900)
+  const [max_year, set_max_year] = useState(currentYear)
+  const [min_score, set_min_score] = useState(0)
+  const [max_score, set_max_score] = useState(10)
+  const [sort_by, set_sort_by] = useState("popularity")
+  const [sort_order, set_sort_order] = useState("desc")
+  const [with_genres, set_with_genres] = useState<number[]>([])
+  const [without_genres, set_without_genres] = useState<number[]>([])
+
+  useEffect(() => {
+    const search_min_year = query.get("min_year")
+      ? +query.get("min_year")!
+      : 1900
+    const search_max_year = query.get("max_year")
+      ? +query.get("max_year")!
+      : currentYear
+    const search_min_score = query.get("min_score")
+      ? +query.get("min_score")!
+      : 0
+    const search_max_score = query.get("max_score")
+      ? +query.get("max_score")!
+      : 10
+    const search_sort_by = query.get("sort_by")
+      ? (query.get("sort_by") as SortBy)
+      : "popularity"
+    const search_sort_order = query.get("sort_order")
+      ? (query.get("sort_order") as "desc" | "asc")
+      : "desc"
+    const search_with_genres = query.get("with_genres")
+      ? query
+          .get("with_genres")!
+          .split(",")
+          .map((id) => +id)
+      : []
+    const search_without_genres = query.get("without_genres")
+      ? query
+          .get("without_genres")!
+          .split(",")
+          .map((id) => +id)
+      : []
+
+    set_min_year(search_min_year)
+    set_max_year(search_max_year)
+    set_min_score(search_min_score)
+    set_max_score(search_max_score)
+    set_sort_by(search_sort_by)
+    set_sort_order(search_sort_order)
+    set_with_genres(search_with_genres)
+    set_without_genres(search_without_genres)
+  }, [currentYear, query])
+
+  const newQuery = new URLSearchParams(query)
+
   /* @ts-ignore */
   newQuery.set("page", 1)
   /* @ts-ignore */

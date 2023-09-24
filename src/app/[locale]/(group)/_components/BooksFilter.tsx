@@ -2,7 +2,7 @@
 import Link from "next-intl/link"
 import { usePathname } from "next-intl/client"
 import { useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { dictionaryBookFilter } from "../../../../../messages/dictionary/clientSide"
 import { SortBooks } from "@/api/FETCH_OPEN_LIBRARY"
 
@@ -20,7 +20,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
   const searchLanguage = query.get("language") as string | undefined
   const searchPublisher = query.get("publisher") as string | undefined
   const searchSort = query.get("sort") as SortBooks | undefined
-  const newQuery = new URLSearchParams(query)
 
   const [any, setAny] = useState(searchQuery || "")
   const [title, setTitle] = useState(searchTitle || "")
@@ -32,6 +31,43 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
   const [publisher, setPublisher] = useState(searchPublisher || "")
   const [sort, setSort] = useState(searchSort || "")
 
+  useEffect(() => {
+    setAny(searchQuery || "")
+  }, [searchQuery])
+
+  useEffect(() => {
+    setTitle(searchTitle || "")
+  }, [searchTitle])
+
+  useEffect(() => {
+    setAuthor(searchAuthor || "")
+  }, [searchAuthor])
+
+  useEffect(() => {
+    setSubject(searchSubject || "")
+  }, [searchSubject])
+
+  useEffect(() => {
+    setPlace(searchPlace || "")
+  }, [searchPlace])
+
+  useEffect(() => {
+    setPerson(searchPerson || "")
+  }, [searchPerson])
+
+  useEffect(() => {
+    setLanguage(searchLanguage || "")
+  }, [searchLanguage])
+
+  useEffect(() => {
+    setPublisher(searchPublisher || "")
+  }, [searchPublisher])
+
+  useEffect(() => {
+    setSort(searchSort || "")
+  }, [searchSort])
+
+  const newQuery = new URLSearchParams(query)
   /* @ts-ignore */
   newQuery.set("page", 1)
   newQuery.set("query", any)
@@ -52,7 +88,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={any}
-            onFocus={(e) => setAny("")}
             onChange={(e) => setAny(e.target.value)}
           />
         </div>
@@ -62,7 +97,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={title}
-            onFocus={(e) => setTitle("")}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -72,7 +106,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={author}
-            onFocus={(e) => setAuthor("")}
             onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
@@ -82,7 +115,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={subject}
-            onFocus={(e) => setSubject("")}
             onChange={(e) => setSubject(e.target.value)}
           />
         </div>
@@ -92,7 +124,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={place}
-            onFocus={(e) => setPlace("")}
             onChange={(e) => setPlace(e.target.value)}
           />
         </div>
@@ -102,7 +133,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={person}
-            onFocus={(e) => setPerson("")}
             onChange={(e) => setPerson(e.target.value)}
           />
         </div>
@@ -112,7 +142,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={language}
-            onFocus={(e) => setLanguage("")}
             onChange={(e) => setLanguage(e.target.value)}
           />
         </div>
@@ -122,7 +151,6 @@ export default function BooksFilter({ locale }: { locale: Locale }) {
             className="p-2 rounded bg-background text-textPrimary"
             type="text"
             value={publisher}
-            onFocus={(e) => setPublisher("")}
             onChange={(e) => setPublisher(e.target.value)}
           />
         </div>

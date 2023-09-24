@@ -94,7 +94,9 @@ export default async function TVShows({ params, searchParams }: Props) {
       }
     })
   ) : (
-    <section>{t("NotFound")}</section>
+    <section className="col-span-4 p-2 rounded bg-secondary text-textPrimary fluid-lg">
+      {t("NotFound")}
+    </section>
   )
   return (
     <>
