@@ -1,15 +1,16 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next-intl/link"
+import Link from "next/link"
 import { AiFillAmazonSquare } from "react-icons/ai"
-import { getTranslator } from "next-intl/server"
+import { getTranslations } from "next-intl/server"
 import {
   currentAuthor,
   currentWorks,
   currentWorksEditions,
   currentWorksRating,
-} from "@/api/FETCH_OPEN_LIBRARY"
-import Bookmark from "@/app/[locale]/_components/common/Bookmark"
+} from "@/app/api/FETCH_OPEN_LIBRARY"
+import { auth } from "@/app/lib/auth"
+import BookmarkButton from "@/app/[locale]/components/BookmarkButton"
 
 type Props = {
   params: {
@@ -29,13 +30,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BookPage({ params, searchParams }: Props) {
+  const session = await auth()
+
   const query = params.query
   const lastIndexOfId = query.search(/%26/)
   const id = lastIndexOfId === -1 ? query : query.slice(0, lastIndexOfId)
 
   const editionId = searchParams.edition ? +searchParams.edition : null
 
-  const tData = getTranslator(params.locale, "BookDetails")
+  const tData = getTranslations("BookDetails")
 
   const worksData = currentWorks(id)
   const editionsData = currentWorksEditions(id)
@@ -84,10 +87,10 @@ export default async function BookPage({ params, searchParams }: Props) {
       </section>
     )
 
-  const bookBookmark: BookEntry = {
+  const bookBookmark = {
     id: works.key.slice(7)!,
     title: works?.title || t("Unknown"),
-    coverPath: cover,
+    coverPath: cover || 0,
     author: authorNames,
     date: currentEdition?.publish_date
       ? +currentEdition?.publish_date.slice(-4)
@@ -95,7 +98,9 @@ export default async function BookPage({ params, searchParams }: Props) {
     editions: editions.entries?.length || 0,
     languages: currentEdition?.languages?.map((lang) => lang.key.slice(-3)),
     folderPath: "https://covers.openlibrary.org/b/id/",
-    catalog: "book",
+    catalog: "book" as const,
+    locale: params.locale,
+    user_email: session?.user?.email,
   }
 
   return (
@@ -122,7 +127,7 @@ export default async function BookPage({ params, searchParams }: Props) {
             <h1 className="text-accent fluid-2xl max-w-[30rem]">
               {works.title}
             </h1>
-            <Bookmark props={bookBookmark} />
+            <BookmarkButton props={bookBookmark} />
           </div>
 
           {currentEdition?.publish_date ? (
@@ -140,7 +145,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                   <Link
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     key={name + "key"}
-                    href={`/category/discover/books?author=${name}`}
+                    href={`/${params.locale}/category/discover/books?author=${name}`}
                     locale={params.locale}
                   >
                     {name}
@@ -150,7 +155,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                   <Link
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     key={name + "key"}
-                    href={`/category/discover/books?author=${name}`}
+                    href={`/${params.locale}/category/discover/books?author=${name}`}
                     locale={params.locale}
                   >
                     {name}
@@ -169,7 +174,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Link
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                       key={subject + "key"}
-                      href={`/category/discover/books?subject=${subject}`}
+                      href={`/${params.locale}/category/discover/books?subject=${subject}`}
                       locale={params.locale}
                     >
                       {subject}
@@ -179,7 +184,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Link
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                       key={subject + "key"}
-                      href={`/category/discover/books?subject=${subject}`}
+                      href={`/${params.locale}/category/discover/books?subject=${subject}`}
                       locale={params.locale}
                     >
                       {subject}
@@ -198,7 +203,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Link
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                       key={person + "key"}
-                      href={`/category/discover/books?person=${person}`}
+                      href={`/${params.locale}/category/discover/books?person=${person}`}
                       locale={params.locale}
                     >
                       {person}
@@ -208,7 +213,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Link
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                       key={person + "key"}
-                      href={`/category/discover/books?person=${person}`}
+                      href={`/${params.locale}/category/discover/books?person=${person}`}
                       locale={params.locale}
                     >
                       {person}
@@ -227,7 +232,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Link
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                       key={place + "key"}
-                      href={`/category/discover/books?place=${place}`}
+                      href={`/${params.locale}/category/discover/books?place=${place}`}
                       locale={params.locale}
                     >
                       {place}
@@ -237,7 +242,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Link
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                       key={place + "key"}
-                      href={`/category/discover/books?place=${place}`}
+                      href={`/${params.locale}/category/discover/books?place=${place}`}
                       locale={params.locale}
                     >
                       {place}
@@ -256,7 +261,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Link
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                       key={period + "key"}
-                      href={`/category/discover/books?query=${period}`}
+                      href={`/${params.locale}/category/discover/books?query=${period}`}
                       locale={params.locale}
                     >
                       {period}
@@ -266,7 +271,7 @@ export default async function BookPage({ params, searchParams }: Props) {
                     <Link
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                       key={period + "key"}
-                      href={`/category/discover/books?query=${period}`}
+                      href={`/${params.locale}/category/discover/books?query=${period}`}
                       locale={params.locale}
                     >
                       {period}

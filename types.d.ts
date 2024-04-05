@@ -22,7 +22,7 @@ type BookEntry = {
   date?: number | null
 }
 
-type CardPopularMedia = {
+type CardMedia = {
   id: number
   locale: Locale
   catalog: "movie" | "tvshow"
@@ -30,19 +30,25 @@ type CardPopularMedia = {
   coverPath: string
   title: string
   score: number
-  votesAmount: number
-  bookmark: React.ReactNode
+  votes: number
+  genreIds: number[]
+  date: string
+  user_email: string | null | undefined
+  // bookmark: React.ReactNode
 }
 
-type CardPopularBook = {
+type CardBook = {
   id: string
   locale: Locale
   catalog: "book"
   folderPath: string
   coverPath: number
   title: string
-  author?: string
-  bookmark: React.ReactNode
+  author?: string[] | null
+  editions: number
+  languages?: string[] | null
+  date?: number | null
+  user_email: string | null | undefined
 }
 
 type DiscoverQuery = {
@@ -80,3 +86,42 @@ type SearchQuery = {
 }
 
 type Locale = "en" | "ro" | "ru"
+
+type Theme = "dark" | "light"
+
+type UserPreferences =
+  | {
+      theme: Theme | null
+      preferredLocale: Locale
+      movies:
+        | {
+            id: number
+            catalog: "movie"
+            folderPath: string
+            coverPath: string
+            title: string
+            score: number
+            votes: number
+            genreIds: number[]
+            date: string
+          }[]
+        | null
+        | undefined
+      series:
+        | {
+            id: number
+            catalog: "tvshow"
+            folderPath: string
+            coverPath: string
+            title: string
+            score: number
+            votes: number
+            genreIds: number[]
+            date: string
+          }[]
+        | null
+        | undefined
+      books: BookEntry[] | null | undefined
+    }
+  | undefined
+  | null

@@ -1,10 +1,10 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import Header from "./_components/Header"
+import Header from "./components/Header"
 import { useLocale } from "next-intl"
 import { notFound } from "next/navigation"
 import Favicon from "/public/images/favicon/favicon-32x32.png"
-import Footer from "./_components/Footer"
+import Footer from "./components/Footer"
 import { Sofia_Sans } from "next/font/google"
 
 type Params = {
@@ -33,7 +33,7 @@ export default function LocaleLayout({ children, params }: Params) {
     <html lang={locale}>
       <body className="dark">
         <div
-          className={`grid grid-cols-12 bg-background ${sofia_Sans.className}`}
+          className={`grid grid-cols-12 bg-background ${sofia_Sans.className} overflow-x-hidden`}
         >
           <Header locale={locale} />
           <main className="grid col-start-2 col-end-12 min-h-[60vh] row-start-2 row-end-3">

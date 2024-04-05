@@ -22,7 +22,24 @@
     "Search": "Căutare",
     "SearchPlaceholder": "caută...",
     "Movie": "Film",
-    "TV Show": "Serie"
+    "TVShow": "Serie",
+    "Book": "Carte",
+    "Bookmarks": "Marcaje"
+    },
+    "LanguageSwitcher": {
+      "ChangeLanguage": "Schimbă limba",
+      "en": "Engleză",
+      "ro": "Română",
+      "ru": "Rusă"
+  },
+  "ThemeSwitcher": {
+      "ChangeTheme": "Schimbă tema",
+      "Light": "Deschis",
+      "Dark": "Întunecat"
+  },
+  "LogIn": {
+      "Signin": "Conectare",
+      "Signout": "Deconectare"  
     },
   "Details": {
     "Not found pt1": "Media cu id: ",
@@ -67,11 +84,11 @@
     "Votes": "Voturi: ",
     "Links": "link-uri: ",
     "Overview": "Prezentare generală: ",
-    "NA": "Nu este disponibil"
+    "NA": "Nu este disponibil",
+    "Unknown": "Necunoscut"
   },
-  "Profile": {
-    "DisclaimerHead": "Nu sunteți autentificat.",
-    "DisclaimerBody": "În timpul sesiunii pentru invitați, marcajele sunt stocate în stocarea locală a browserului curent și sunt disponibile pentru oricine care au acces la browserul dat.",
+  "Bookmarks": {
+    "Disclaimer": "Conectați-vă pentru a vă vedea semnele de carte ale profilului dumneavoastră.",
     "Bookmarks": "Marcaje",
     "Movies": "Filme",
     "Series": "Serie",
@@ -80,6 +97,23 @@
     "Entries": "intrări",
     "Delete": "Ștergeți marcajul"
   },
+  "Profile": {
+    "Profile": "Profil",
+    "Email": "Email",
+    "Name": "Nume",
+    "DefaultName": "Vizitator",
+    "Language": "Limba",
+    "Theme": "Tema",
+    "En": "Engleză",
+    "Ro": "Română",
+    "Ru": "Rusă",
+    "Light": "Deschis",
+    "Dark": "Întunecat",
+    "DeleteProfile": "Șterge profil",
+    "Cancel": "Anulează",
+    "DeleteDisclaimer": "Preferințele tale și marcaje vor fi șterse permanent. Continuă?",
+    "Delete": "Șterge"
+},
   "SearchResults": {
     "Search": "Rezultatele căutării de",
     "NotFound": "Fara coincidente",

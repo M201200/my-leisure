@@ -1,13 +1,14 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next-intl/link"
+import Link from "next/link"
 import {
   currentMediaDetails,
   currentMediaCredits,
   currentMediaProviders,
-} from "@/api/FETCH_TMDB"
-import { getTranslator } from "next-intl/server"
-import Bookmark from "@/app/[locale]/_components/common/Bookmark"
+} from "@/app/api/FETCH_TMDB"
+import { getTranslations } from "next-intl/server"
+import { auth } from "@/app/lib/auth"
+import BookmarkButton from "@/app/[locale]/components/BookmarkButton"
 
 type Props = {
   params: {
@@ -26,7 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function TVShowPage({ params }: Props) {
-  const tData = getTranslator(params.locale, "Details")
+  const session = await auth()
+
+  const tData = getTranslations("Details")
   const TVShowData = currentMediaDetails(+params.id, params.locale, "tv")
   const creditsData = currentMediaCredits(+params.id, params.locale, "tv")
   const providersData = currentMediaProviders(+params.id, params.locale, "tv")
@@ -49,7 +52,7 @@ export default async function TVShowPage({ params }: Props) {
       </section>
     )
 
-  const tvBookmark: MediaEntry = {
+  const tvBookmark = {
     id: TVShow.id!,
     title: "name" in TVShow ? TVShow.name || t("Unknown") : "",
     coverPath: TVShow.poster_path || "",
@@ -58,8 +61,10 @@ export default async function TVShowPage({ params }: Props) {
     genreIds: TVShow.genres.map((genre) => genre.id) || [],
     date:
       "first_air_date" in TVShow ? TVShow.first_air_date || t("Unknown") : "",
-    catalog: "tvshow",
+    catalog: "tvshow" as const,
     folderPath: "https://image.tmdb.org/t/p/w342",
+    locale: params.locale,
+    user_email: session?.user?.email,
   }
 
   const actors = credits?.cast
@@ -98,14 +103,14 @@ export default async function TVShowPage({ params }: Props) {
               <h1 className="text-accent fluid-2xl max-w-[30rem]">
                 {TVShow?.name}
               </h1>
-              <Bookmark props={tvBookmark} />
+              <BookmarkButton props={tvBookmark} />
             </div>
           ) : (
             <div className="flex items-start gap-2 pt-2">
               <h1 className="text-accent fluid-2xl max-w-[30rem]">
                 {TVShow?.name}/ {TVShow?.original_name}{" "}
               </h1>
-              <Bookmark props={tvBookmark} />
+              <BookmarkButton props={tvBookmark} />
             </div>
           )}
           {TVShow?.tagline ? (
@@ -119,7 +124,7 @@ export default async function TVShowPage({ params }: Props) {
               <label className="font-semibold">{t("Date")}</label>
               <Link
                 key={TVShow?.first_air_date + "key"}
-                href={`/category/discover/tvseries?min_year=${
+                href={`/${params.locale}/category/discover/tvseries?min_year=${
                   +TVShow?.first_air_date.slice(0, 4) < 1900
                     ? 1900
                     : +TVShow?.first_air_date.slice(0, 4) - 1
@@ -144,7 +149,7 @@ export default async function TVShowPage({ params }: Props) {
                   id < arr.length - 1 ? (
                     <Link
                       key={genre?.id}
-                      href={`/category/discover/tvseries?with_genres=${genre?.id}`}
+                      href={`/${params.locale}/category/discover/tvseries?with_genres=${genre?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -153,7 +158,7 @@ export default async function TVShowPage({ params }: Props) {
                   ) : (
                     <Link
                       key={genre?.id}
-                      href={`/category/discover/tvseries?with_genres=${genre?.id}`}
+                      href={`/${params.locale}/category/discover/tvseries?with_genres=${genre?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -173,7 +178,7 @@ export default async function TVShowPage({ params }: Props) {
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -182,7 +187,7 @@ export default async function TVShowPage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -202,7 +207,7 @@ export default async function TVShowPage({ params }: Props) {
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -211,7 +216,7 @@ export default async function TVShowPage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -231,7 +236,7 @@ export default async function TVShowPage({ params }: Props) {
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -240,7 +245,7 @@ export default async function TVShowPage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -298,7 +303,7 @@ export default async function TVShowPage({ params }: Props) {
                 id < arr.length - 1 ? (
                   <Link
                     key={country?.iso_3166_1}
-                    href={`/category/discover/tvseries?with_origin_country=${country?.iso_3166_1}`}
+                    href={`/${params.locale}/category/discover/tvseries?with_origin_country=${country?.iso_3166_1}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -307,7 +312,7 @@ export default async function TVShowPage({ params }: Props) {
                 ) : (
                   <Link
                     key={country?.iso_3166_1}
-                    href={`/category/discover/tvseries?with_origin_country=${country?.iso_3166_1}`}
+                    href={`/${params.locale}/category/discover/tvseries?with_origin_country=${country?.iso_3166_1}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -325,7 +330,7 @@ export default async function TVShowPage({ params }: Props) {
                 id < arr.length - 1 ? (
                   <Link
                     key={company?.id}
-                    href={`/category/discover/tvseries?with_companies=${company?.id}`}
+                    href={`/${params.locale}/category/discover/tvseries?with_companies=${company?.id}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -334,7 +339,7 @@ export default async function TVShowPage({ params }: Props) {
                 ) : (
                   <Link
                     key={company?.id}
-                    href={`/category/discover/tvseries?with_companies=${company?.id}`}
+                    href={`/${params.locale}/category/discover/tvseries?with_companies=${company?.id}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >

@@ -1,13 +1,14 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next-intl/link"
+import Link from "next/link"
 import {
   currentMediaCredits,
   currentMediaDetails,
   currentMediaProviders,
-} from "@/api/FETCH_TMDB"
-import { getTranslator } from "next-intl/server"
-import Bookmark from "@/app/[locale]/_components/common/Bookmark"
+} from "@/app/api/FETCH_TMDB"
+import { getTranslations } from "next-intl/server"
+import { auth } from "@/app/lib/auth"
+import BookmarkButton from "@/app/[locale]/components/BookmarkButton"
 
 type Props = {
   params: {
@@ -26,7 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function MoviePage({ params }: Props) {
-  const tData = getTranslator(params.locale, "Details")
+  const session = await auth()
+
+  const tData = getTranslations("Details")
 
   const movieData = currentMediaDetails(+params.id, params.locale, "movie")
   const creditsData = currentMediaCredits(+params.id, params.locale, "movie")
@@ -54,7 +57,7 @@ export default async function MoviePage({ params }: Props) {
       </section>
     )
 
-  const movieBookmark: MediaEntry = {
+  const movieBookmark = {
     id: movie.id,
     title: "title" in movie ? movie.title || t("Unknown") : "",
     coverPath: movie.poster_path || "",
@@ -62,8 +65,10 @@ export default async function MoviePage({ params }: Props) {
     votes: movie.vote_count || 0,
     genreIds: movie.genres.map((genre) => genre.id) || [],
     date: "release_date" in movie ? movie.release_date || t("Unknown") : "",
-    catalog: "movie",
+    catalog: "movie" as const,
     folderPath: "https://image.tmdb.org/t/p/w342",
+    locale: params.locale,
+    user_email: session?.user?.email,
   }
 
   const actors = credits.cast
@@ -110,13 +115,13 @@ export default async function MoviePage({ params }: Props) {
               <h1 className="text-accent fluid-2xl max-w-[30rem]">
                 {movie.title}
               </h1>
-              <Bookmark props={movieBookmark} />
+              <BookmarkButton props={movieBookmark} />
             </div>
           ) : (
             <div className="flex items-start gap-2 pt-2">
               <h1 className="text-accent fluid-2xl max-w-[30rem]">
                 {movie?.title}/ {movie?.original_title}{" "}
-                <Bookmark props={movieBookmark} />
+                <BookmarkButton props={movieBookmark} />
               </h1>
             </div>
           )}
@@ -131,7 +136,7 @@ export default async function MoviePage({ params }: Props) {
               <label className="font-semibold">{t("Date")} </label>
               <Link
                 key={movie.release_date + "key"}
-                href={`/category/discover/movies?min_year=${
+                href={`/${params.locale}/category/discover/movies?min_year=${
                   +movie.release_date.slice(0, 4) < 1900
                     ? 1900
                     : +movie.release_date.slice(0, 4) - 1
@@ -156,7 +161,7 @@ export default async function MoviePage({ params }: Props) {
                   id < arr.length - 1 ? (
                     <Link
                       key={genre?.id}
-                      href={`/category/discover/movies?with_genres=${genre?.id}`}
+                      href={`/${params.locale}/category/discover/movies?with_genres=${genre?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -165,7 +170,7 @@ export default async function MoviePage({ params }: Props) {
                   ) : (
                     <Link
                       key={genre?.id}
-                      href={`/category/discover/movies?with_genres=${genre?.id}`}
+                      href={`/${params.locale}/category/discover/movies?with_genres=${genre?.id}`}
                       locale={params?.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -185,7 +190,7 @@ export default async function MoviePage({ params }: Props) {
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -194,7 +199,7 @@ export default async function MoviePage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
                       locale={params?.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -214,7 +219,7 @@ export default async function MoviePage({ params }: Props) {
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -223,7 +228,7 @@ export default async function MoviePage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
                       locale={params?.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -243,7 +248,7 @@ export default async function MoviePage({ params }: Props) {
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -252,7 +257,7 @@ export default async function MoviePage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
                       locale={params?.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -304,7 +309,7 @@ export default async function MoviePage({ params }: Props) {
                 id < arr.length - 1 ? (
                   <Link
                     key={country?.iso_3166_1}
-                    href={`/category/discover/movies?with_origin_country=${country?.iso_3166_1}`}
+                    href={`/${params.locale}/category/discover/movies?with_origin_country=${country?.iso_3166_1}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -313,7 +318,7 @@ export default async function MoviePage({ params }: Props) {
                 ) : (
                   <Link
                     key={country?.iso_3166_1}
-                    href={`/category/discover/movies?with_origin_country=${country?.iso_3166_1}`}
+                    href={`/${params.locale}/category/discover/movies?with_origin_country=${country?.iso_3166_1}`}
                     locale={params?.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -331,7 +336,7 @@ export default async function MoviePage({ params }: Props) {
                 id < arr.length - 1 ? (
                   <Link
                     key={company?.id}
-                    href={`/category/discover/movies?with_companies=${company?.id}`}
+                    href={`/${params.locale}/category/discover/movies?with_companies=${company?.id}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -340,7 +345,7 @@ export default async function MoviePage({ params }: Props) {
                 ) : (
                   <Link
                     key={company?.id}
-                    href={`/category/discover/movies?with_companies=${company?.id}`}
+                    href={`/${params.locale}/category/discover/movies?with_companies=${company?.id}`}
                     locale={params?.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >

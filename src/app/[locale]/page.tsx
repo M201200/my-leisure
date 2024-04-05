@@ -1,7 +1,7 @@
 import { dictionaryHomePage } from "../../../messages/dictionary/clientSide"
 import { Dancing_Script } from "next/font/google"
 import { BsBookmark, BsBookmarkCheckFill, BsArrowRight } from "react-icons/bs"
-import Link from "next-intl/link"
+import Link from "next/link"
 
 type Params = {
   params: {
@@ -27,7 +27,7 @@ export default function HomePage({ params: { locale } }: Params) {
       <p className="lg:fluid-xl max-w-prose">{t.MainText}</p>
 
       <Link
-        href="/main"
+        href={`/${[locale]}/main`}
         title={t.Proceed}
         className="self-start p-3 transition-colors border rounded-lg fluid-lg bg-secondary hover:bg-accent max-w-max max-h-max justify-self-center border-accent hover:text-secondary"
       >
