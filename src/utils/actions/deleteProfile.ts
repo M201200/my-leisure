@@ -3,7 +3,14 @@
 import { eq } from "drizzle-orm"
 
 import { db } from "@/app/db"
-import { accounts, favorites, user_profile, users } from "@/app/db/schema"
+import {
+  accounts,
+  bookmarksBooks,
+  bookmarksMovies,
+  bookmarksSeries,
+  user_profile,
+  users,
+} from "@/app/db/schema"
 
 export default async function deleteProfile(user_email: string) {
   const userIdArr = await db
@@ -15,6 +22,14 @@ export default async function deleteProfile(user_email: string) {
     await tx.delete(users).where(eq(users.email, user_email))
     await tx.delete(accounts).where(eq(accounts.userId, userId))
     await tx.delete(user_profile).where(eq(user_profile.user_email, user_email))
-    await tx.delete(favorites).where(eq(favorites.user_email, user_email))
+    await tx
+      .delete(bookmarksBooks)
+      .where(eq(bookmarksBooks.user_email, user_email))
+    await tx
+      .delete(bookmarksMovies)
+      .where(eq(bookmarksMovies.user_email, user_email))
+    await tx
+      .delete(bookmarksSeries)
+      .where(eq(bookmarksSeries.user_email, user_email))
   })
 }
