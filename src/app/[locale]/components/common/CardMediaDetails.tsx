@@ -3,6 +3,8 @@ import Image from "next/image"
 import pickGenres from "@/app/data/tmdbGenres"
 import { dictionaryDetails } from "../../../../../messages/dictionary/clientSide"
 import BookmarkButton from "../BookmarkButton"
+import { BsStar } from "react-icons/bs"
+import { IoPersonOutline } from "react-icons/io5"
 
 export default function CardMediaDetails({
   props,
@@ -20,9 +22,9 @@ export default function CardMediaDetails({
       props.genreIds.some((id) => id === genre.id) ? (
         <Link
           key={genre.id}
-          href={`/${locale}/category/discover/${path}?with_genres=${genre.id}`}
+          href={`/${locale}/discover/${path}?with_genres=${genre.id}`}
           title={genre.name}
-          className="truncate transition cursor-pointer hover:text-textHoverPrimary"
+          className="capitalize truncate transition cursor-pointer hover:text-textHoverPrimary"
         >
           {genre.name}
         </Link>
@@ -66,7 +68,7 @@ export default function CardMediaDetails({
             className="truncate"
           >
             <label
-              className="font-semibold truncate transition cursor-pointer text-accent fluid-lg hover:text-hoverAccent"
+              className="font-bold truncate transition cursor-pointer text-accent fluid-lg hover:text-hoverAccent"
               title={props.title}
             >
               {props.title}
@@ -76,11 +78,10 @@ export default function CardMediaDetails({
         </div>
         <ul className="grid gap-2 p-1">
           <li className="flex flex-wrap truncate gap-x-2" title={t.Date}>
-            {/* <label className="font-semibold truncate">{t.Date}</label> */}
             <Link
               title={t.Date}
               key={props.date + "key"}
-              href={`/${locale}/category/discover/${path}?min_year=${
+              href={`/${locale}/discover/${path}?min_year=${
                 +props.date.slice(0, 4) - 1 < 1900
                   ? 1900
                   : +props.date.slice(0, 4) - 1
@@ -89,23 +90,28 @@ export default function CardMediaDetails({
                   ? 1901
                   : +props.date.slice(0, 4)
               }`}
-              className="truncate transition cursor-pointer hover:text-textHoverPrimary"
+              className="font-semibold truncate transition cursor-pointer hover:text-textHoverPrimary"
             >
               {props.date}
             </Link>
           </li>
           <li className="flex flex-wrap gap-x-2" title={`${t.Genres}`}>
-            {/* <label className="font-semibold truncate">{t.Genres}</label> */}
             {genres ? genres : <span>{t.Unknown}</span>}
           </li>
-          <li className="flex truncate gap-x-2" title={`${t.Score}`}>
-            {/* <label className="font-semibold truncate">{t.Score}</label> */}
-            {props.score.toFixed(1)}/{props.votes.toLocaleString()}
+          <li
+            className="flex items-baseline gap-1 truncate"
+            title={`${t.Score}`}
+          >
+            <span className="flex gap-1">
+              <BsStar />
+              {props.score.toFixed(1)}
+            </span>
+            /
+            <span className="flex gap-1 fluid-sm">
+              <IoPersonOutline />
+              {props.votes.toLocaleString()}
+            </span>
           </li>
-          {/* <li className="flex truncate gap-x-2" title={props.votes.toString()}>
-            <label className="font-semibold truncate">{t.Votes}</label>
-            {props.votes.toLocaleString()}
-          </li> */}
         </ul>
       </section>
     </div>

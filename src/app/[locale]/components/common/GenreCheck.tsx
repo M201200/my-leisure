@@ -22,11 +22,13 @@ export default function GenreCheck({
 }: Props) {
   return (
     <div className="flex justify-between px-1 pb-1 rounded-md gap-x-2 hover:outline hover:outline-1 outline-secondary">
-      <span className="fluid-base">{genre.name}</span>
+      <span className="capitalize fluid-base" title={genre.name}>
+        {genre.name}
+      </span>
       <div className="flex gap-x-2">
         <button
           className="text-green-500 transition-colors hover:text-green-700"
-          title="Include"
+          title="+"
           name={genre.name}
           onClick={(e) => {
             withGenre(e)
@@ -40,7 +42,7 @@ export default function GenreCheck({
         </button>
         <button
           className="text-red-500 transition-colors hover:text-red-700"
-          title="Exclude"
+          title="-"
           name={genre.name}
           onClick={(e) => {
             withoutGenre(e)

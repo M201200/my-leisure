@@ -1,9 +1,9 @@
-import CardDetailsContainer from "../../../components/CardDetailsContainer"
-import CardDetailsSkeleton from "../../../components/common/CardDetailsSkeleton"
+import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
+import CardDetailsSkeleton from "@/app/[locale]/components/common/CardDetailsSkeleton"
 
 export default function Loading() {
   return (
-    <CardDetailsContainer label="Books" locale="en">
+    <CardDetailsContainer label="Series" locale="en">
       <CardDetailsSkeleton />
       <CardDetailsSkeleton />
       <CardDetailsSkeleton />

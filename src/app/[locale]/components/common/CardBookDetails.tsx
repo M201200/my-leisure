@@ -5,37 +5,40 @@ import BookmarkButton from "../BookmarkButton"
 
 export default function CardBookDetails({
   props,
-  // button,
   locale,
 }: {
   locale: Locale
   props: CardBook
-  // button: React.ReactNode
 }) {
   const t = dictionaryDetails(locale)
 
   const authors = props?.author
-    ? props?.author?.slice(0, 3)?.map((author, id, arr) =>
-        id < arr.length - 1 ? (
-          <Link
-            key={author + props.id}
-            title={author}
-            href={`/${locale}/category/discover/books?author=${author}`}
-            className="transition cursor-pointer hover:text-textHoverPrimary"
-          >
-            {author},{" "}
-          </Link>
-        ) : (
-          <Link
-            key={author + props.id}
-            title={author}
-            href={`/${locale}/category/discover/books?author=${author}`}
-            className="transition cursor-pointer hover:text-textHoverPrimary"
-          >
-            {author}
-          </Link>
+    ? props?.author
+        ?.slice(0, 3)
+        .filter(
+          (author, id, arr) => arr.indexOf(author) === arr.lastIndexOf(author)
         )
-      )
+        ?.map((author, id, arr) =>
+          id < arr.length - 1 ? (
+            <Link
+              key={author + props.id}
+              title={author}
+              href={`/${locale}/discover/books?author=${author}`}
+              className="transition cursor-pointer hover:text-textHoverPrimary"
+            >
+              {author},{" "}
+            </Link>
+          ) : (
+            <Link
+              key={author + props.id}
+              title={author}
+              href={`/${locale}/discover/books?author=${author}`}
+              className="transition cursor-pointer hover:text-textHoverPrimary"
+            >
+              {author}
+            </Link>
+          )
+        )
     : t.Unknown
   return (
     <div className="grid bg-secondary text-textPrimary rounded-md fluid-base grid-cols-[8rem_1fr] min-h-[13rem]">
@@ -66,7 +69,7 @@ export default function CardBookDetails({
             className="truncate"
           >
             <label
-              className="font-semibold truncate transition cursor-pointer text-accent fluid-lg hover:text-hoverAccent"
+              className="font-bold truncate transition cursor-pointer text-accent fluid-lg hover:text-hoverAccent"
               title={props.title}
             >
               {props.title}
@@ -74,20 +77,21 @@ export default function CardBookDetails({
           </Link>
           <BookmarkButton props={props} />
         </div>
-        <ul className="grid gap-1 p-1">
-          <li className="flex flex-wrap truncate gap-x-2" title={t.Author}>
-            {/* <label className="font-semibold">{t.Author}</label> */}
+        <ul className="grid gap-2 p-1">
+          <li
+            className="flex flex-wrap font-semibold truncate gap-x-2"
+            title={t.Author}
+          >
             {authors}
           </li>
           <li title={t.Date} className="flex truncate gap-x-2">
-            {/* <label className="font-semibold truncate">{t.Date}</label> */}
             {props.date}
           </li>
           <li
             title={props.editions?.toString()}
             className="flex truncate gap-x-2"
           >
-            <label className="font-semibold">{t.Editions}</label>
+            <label>{t.Editions}:</label>
             {props.editions}
           </li>
           {props.languages ? (
@@ -95,7 +99,7 @@ export default function CardBookDetails({
               title={props.languages?.join(", ")}
               className="flex truncate gap-x-2"
             >
-              <label className="font-semibold">{t.Languages}</label>
+              <label>{t.Languages}:</label>
               {props.languages?.length}
             </li>
           ) : null}

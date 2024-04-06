@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function LoadingMain() {
   return (
-    <section className="md:grid gap-4 lg:justify-self-center lg:max-w-[120ch] fluid-base text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
+    <section className="md:grid gap-4 lg:justify-self-center fluid-base text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
       <div>
         <Image
           unoptimized={true}
@@ -91,10 +91,10 @@ export default function LoadingMain() {
             <span className="font-semibold h-[2ch] w-[20ch] bg-slate-700" />
           </div>
         </section>
-        <section className="grid gap-2 py-2">
-          <label className="font-semibold h-[2ch] w-[5ch] bg-slate-700" />
-          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md h-[20ch] w-[60ch] bg-slate-700 max-h-40  border-primary" />
-        </section>
+      </section>
+      <section className="grid col-span-2 gap-2 py-2">
+        <label className="font-semibold h-[2ch] w-[5ch] bg-slate-700" />
+        <p className="p-1 pr-4 overflow-auto text-justify h-[20ch] w-[60ch] bg-slate-700" />
       </section>
     </section>
   )

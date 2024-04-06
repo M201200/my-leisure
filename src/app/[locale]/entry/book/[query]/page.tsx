@@ -104,315 +104,335 @@ export default async function BookPage({ params, searchParams }: Props) {
   }
 
   return (
-    <>
-      <section className="md:grid gap-y-6 gap-x-4 fluid-base lg:justify-self-center lg:max-w-[120ch] text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
-        <div>
-          <Image
-            className="relative z-10 transition duration-300 delay-300 rounded lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"
-            src={
-              cover
-                ? `https://covers.openlibrary.org/b/id/${cover}-L.jpg`
-                : "https://fakeimg.pl/460x690/d1d1d1/878787?text=No+image"
-            }
-            alt="backdrop"
-            width={460}
-            height={690}
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,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"
-          />
-        </div>
+    <section className="md:grid gap-y-6 gap-x-4 fluid-base lg:justify-self-center text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
+      <div>
+        <Image
+          className="relative z-10 transition duration-300 delay-300 rounded lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"
+          src={
+            cover
+              ? `https://covers.openlibrary.org/b/id/${cover}-L.jpg`
+              : "https://fakeimg.pl/460x690/d1d1d1/878787?text=No+image"
+          }
+          alt="backdrop"
+          width={460}
+          height={690}
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,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"
+        />
+      </div>
 
-        <section className="grid content-start gap-y-2">
-          <div className="flex items-start gap-2 pt-2">
-            <h1 className="text-accent fluid-2xl max-w-[30rem]">
-              {works.title}
-            </h1>
-            <BookmarkButton props={bookBookmark} />
-          </div>
+      <ul className="grid content-start gap-y-3">
+        <li className="flex items-start gap-2 pt-2">
+          <h1 className="text-accent fluid-2xl max-w-[30rem]">{works.title}</h1>
+          <BookmarkButton props={bookBookmark} />
+        </li>
 
-          {currentEdition?.publish_date ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Date")} </label>
-              {currentEdition?.publish_date}
-            </div>
-          ) : null}
+        {currentEdition?.publish_date ? (
+          <li className="flex gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Date")}{" "}
+            </label>
+            {currentEdition?.publish_date}
+          </li>
+        ) : null}
 
-          <div className="flex flex-wrap gap-x-2">
-            <label className="font-semibold">{t("Author")}</label>
-            <span>
-              {authorNames.map((name, id, arr) =>
+        <li className="flex flex-wrap gap-x-2">
+          <label className="font-semibold text-textHoverPrimary">
+            {t("Author")}
+          </label>
+          <span>
+            {authorNames.map((name, id, arr) =>
+              id < arr.length - 1 ? (
+                <Link
+                  className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                  key={name + "key"}
+                  href={`/${params.locale}/discover/books?author=${name}`}
+                  locale={params.locale}
+                >
+                  {name}
+                  {", "}
+                </Link>
+              ) : (
+                <Link
+                  className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                  key={name + "key"}
+                  href={`/${params.locale}/discover/books?author=${name}`}
+                  locale={params.locale}
+                >
+                  {name}
+                </Link>
+              )
+            )}{" "}
+          </span>
+        </li>
+
+        {works?.subjects ? (
+          <li className="grid gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Subjects")}
+            </label>
+            <div className="flex flex-wrap max-w-lg p-1 overflow-auto rounded-md gap-x-2 max-h-40 bg-secondary">
+              {works.subjects.map((subject, id, arr) =>
                 id < arr.length - 1 ? (
                   <Link
-                    className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                    key={name + "key"}
-                    href={`/${params.locale}/category/discover/books?author=${name}`}
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={subject + "key"}
+                    href={`/${params.locale}/discover/books?subject=${subject}`}
                     locale={params.locale}
                   >
-                    {name}
+                    {subject}
                     {", "}
                   </Link>
                 ) : (
                   <Link
-                    className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                    key={name + "key"}
-                    href={`/${params.locale}/category/discover/books?author=${name}`}
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={subject + "key"}
+                    href={`/${params.locale}/discover/books?subject=${subject}`}
                     locale={params.locale}
                   >
-                    {name}
+                    {subject}
                   </Link>
                 )
-              )}{" "}
+              )}
+            </div>
+          </li>
+        ) : null}
+        {works?.subject_people ? (
+          <li className="grid gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Characters")}{" "}
+            </label>
+            <span className="flex flex-wrap max-w-lg p-1 overflow-auto rounded gap-x-2 max-h-40 bg-secondary">
+              {works?.subject_people.map((person, id, arr) =>
+                id < arr.length - 1 ? (
+                  <Link
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={person + "key"}
+                    href={`/${params.locale}/discover/books?person=${person}`}
+                    locale={params.locale}
+                  >
+                    {person}
+                    {", "}
+                  </Link>
+                ) : (
+                  <Link
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={person + "key"}
+                    href={`/${params.locale}/discover/books?person=${person}`}
+                    locale={params.locale}
+                  >
+                    {person}
+                  </Link>
+                )
+              )}
             </span>
-          </div>
-
-          {works?.subjects ? (
-            <div className="grid gap-x-2">
-              <label className="font-semibold">{t("Subjects")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-primary">
-                {works.subjects.map((subject, id, arr) =>
-                  id < arr.length - 1 ? (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={subject + "key"}
-                      href={`/${params.locale}/category/discover/books?subject=${subject}`}
-                      locale={params.locale}
-                    >
-                      {subject}
-                      {", "}
-                    </Link>
-                  ) : (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={subject + "key"}
-                      href={`/${params.locale}/category/discover/books?subject=${subject}`}
-                      locale={params.locale}
-                    >
-                      {subject}
-                    </Link>
-                  )
-                )}
-              </span>
-            </div>
-          ) : null}
-          {works?.subject_people ? (
-            <div className="grid gap-x-2">
-              <label className="font-semibold">{t("Characters")} </label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-primary">
-                {works?.subject_people.map((person, id, arr) =>
-                  id < arr.length - 1 ? (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={person + "key"}
-                      href={`/${params.locale}/category/discover/books?person=${person}`}
-                      locale={params.locale}
-                    >
-                      {person}
-                      {", "}
-                    </Link>
-                  ) : (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={person + "key"}
-                      href={`/${params.locale}/category/discover/books?person=${person}`}
-                      locale={params.locale}
-                    >
-                      {person}
-                    </Link>
-                  )
-                )}
-              </span>
-            </div>
-          ) : null}
-          {works?.subject_places ? (
-            <div className="grid gap-x-2">
-              <label className="font-semibold">{t("Places")} </label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-primary">
-                {works?.subject_places.map((place, id, arr) =>
-                  id < arr.length - 1 ? (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={place + "key"}
-                      href={`/${params.locale}/category/discover/books?place=${place}`}
-                      locale={params.locale}
-                    >
-                      {place}
-                      {", "}
-                    </Link>
-                  ) : (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={place + "key"}
-                      href={`/${params.locale}/category/discover/books?place=${place}`}
-                      locale={params.locale}
-                    >
-                      {place}
-                    </Link>
-                  )
-                )}
-              </span>
-            </div>
-          ) : null}
-          {works?.subject_times ? (
-            <div className="grid gap-x-2">
-              <label className="font-semibold">{t("Period")} </label>
-              <span className="max-w-lg gap-2 p-1 overflow-auto border rounded-md max-h-28 border-primary">
-                {works?.subject_times.map((period, id, arr) =>
-                  id < arr.length - 1 ? (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={period + "key"}
-                      href={`/${params.locale}/category/discover/books?query=${period}`}
-                      locale={params.locale}
-                    >
-                      {period}
-                      {", "}
-                    </Link>
-                  ) : (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={period + "key"}
-                      href={`/${params.locale}/category/discover/books?query=${period}`}
-                      locale={params.locale}
-                    >
-                      {period}
-                    </Link>
-                  )
-                )}
-              </span>
-            </div>
-          ) : null}
-          {editions.entries ? (
-            <div className="grid gap-x-2">
-              <label className="font-semibold">{t("Editions")} </label>
-              <span className="flex flex-wrap max-w-lg gap-2 p-1 overflow-auto border rounded-md max-h-28 border-primary">
-                {editions?.entries.map((entry, id) => (
+          </li>
+        ) : null}
+        {works?.subject_places ? (
+          <li className="grid gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Places")}{" "}
+            </label>
+            <span className="flex flex-wrap max-w-lg p-1 overflow-auto rounded gap-x-2 max-h-40 bg-secondary">
+              {works?.subject_places.map((place, id, arr) =>
+                id < arr.length - 1 ? (
                   <Link
-                    className="transition drop-shadow-md hover:scale-110"
-                    key={entry.key}
-                    href={`${params.query}?edition=${id}`}
-                    scroll={false}
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={place + "key"}
+                    href={`/${params.locale}/discover/books?place=${place}`}
+                    locale={params.locale}
                   >
-                    <Image
-                      unoptimized={true}
-                      src={
-                        entry?.covers?.find(
-                          (cover) => cover !== -1 && cover !== undefined
-                        ) ||
-                        works?.covers?.find(
-                          (cover) => cover !== -1 && cover !== undefined
-                        )
-                          ? `https://covers.openlibrary.org/b/id/${
-                              entry?.covers?.find(
-                                (cover) => cover !== -1 && cover !== undefined
-                              ) ||
-                              works?.covers?.find(
-                                (cover) => cover !== -1 && cover !== undefined
-                              )
-                            }-M.jpg`
-                          : "https://fakeimg.pl/64x96/d1d1d1/878787?text=No+image"
-                      }
-                      alt="Book cover"
-                      width={64}
-                      height={96}
-                      title={entry.title}
-                      placeholder="blur"
-                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABgCAYAAACtxXToAAAAtElEQVR4Xu3XAQ3AIBAEQV4jcpCFQBCyUwmb8pObd/Zd4W8E8Ad4Am5A+AYuR5ACFKAABSgQLoBBDGIQgxgMI2AMYRCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBssMfqKY8GFgV1duAAAAAElFTkSuQmCC"
-                    />
+                    {place}
+                    {", "}
                   </Link>
-                ))}
-              </span>
-            </div>
-          ) : null}
-          {currentEdition?.number_of_pages ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Pages")}</label>
-              {currentEdition?.number_of_pages}
-            </div>
-          ) : null}
-          {rating?.summary?.average ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Rating")}</label>
-              {`${rating.summary.average.toFixed(1)}/5`}
-            </div>
-          ) : null}
-          {rating?.summary?.count ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Votes")}</label>
-              {rating.summary.count}
-            </div>
-          ) : null}
-          {records ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Buy")}</label>
-              <span className="flex gap-2">
-                {amazonRecord ? (
+                ) : (
                   <Link
-                    title="Amazon"
-                    className="transition drop-shadow-md hover:scale-110 text-accent"
-                    href={`https://www.amazon.com/dp/${amazonRecord.slice(
-                      7,
-                      17
-                    )}/?tag=internetarchi-20`}
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={place + "key"}
+                    href={`/${params.locale}/discover/books?place=${place}`}
+                    locale={params.locale}
                   >
-                    <AiFillAmazonSquare className="w-8 h-8" />
+                    {place}
                   </Link>
-                ) : null}
-                {bwbRecord ? (
+                )
+              )}
+            </span>
+          </li>
+        ) : null}
+        {works?.subject_times ? (
+          <li className="grid gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Period")}{" "}
+            </label>
+            <span className="max-w-lg gap-2 p-1 overflow-auto border rounded-md max-h-28 border-primary">
+              {works?.subject_times.map((period, id, arr) =>
+                id < arr.length - 1 ? (
                   <Link
-                    title="Better World Books"
-                    className="transition drop-shadow-md hover:scale-110"
-                    href={`https://www.betterworldbooks.com/product/detail/-${bwbRecord.slice(
-                      4
-                    )}`}
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={period + "key"}
+                    href={`/${params.locale}/discover/books?query=${period}`}
+                    locale={params.locale}
                   >
-                    <Image
-                      unoptimized={true}
-                      src={`/images/BWBookicon_400x400.png`}
-                      alt="Better World Books logo"
-                      width={28}
-                      height={28}
-                    />
+                    {period}
+                    {", "}
                   </Link>
-                ) : null}
-              </span>
-            </div>
-          ) : null}
-          {works?.links ? (
-            <div className="grid gap-x-2">
-              <label className="font-semibold">{t("Links")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-20 border-primary">
-                {works.links.map((link, id, arr) =>
-                  id < arr.length - 1 ? (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={link + "key"}
-                      href={link.url}
-                      locale={params.locale}
-                    >
-                      {link.title},{" "}
-                    </Link>
-                  ) : (
-                    <Link
-                      className="truncate transition cursor-pointer hover:text-textHoverPrimary"
-                      key={link + "key"}
-                      href={link.url}
-                      locale={params.locale}
-                    >
-                      {link.title}
-                    </Link>
-                  )
-                )}
-              </span>
-            </div>
-          ) : null}
-        </section>
-        <section className="col-span-2">
-          <h1 className="font-semibold fluid-lg">{t("Overview")}</h1>
-          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-primary">
-            {description ? description : t("NA")}
-          </p>
-        </section>
+                ) : (
+                  <Link
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={period + "key"}
+                    href={`/${params.locale}/discover/books?query=${period}`}
+                    locale={params.locale}
+                  >
+                    {period}
+                  </Link>
+                )
+              )}
+            </span>
+          </li>
+        ) : null}
+        {editions.entries ? (
+          <li className="grid gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Editions")}{" "}
+            </label>
+            <span className="flex flex-wrap max-w-lg gap-2 p-1 overflow-auto max-h-28 bg-secondary">
+              {editions?.entries.map((entry, id) => (
+                <Link
+                  className="transition drop-shadow-md hover:scale-110"
+                  key={entry.key}
+                  href={`${params.query}?edition=${id}`}
+                  scroll={false}
+                >
+                  <Image
+                    unoptimized={true}
+                    src={
+                      entry?.covers?.find(
+                        (cover) => cover !== -1 && cover !== undefined
+                      ) ||
+                      works?.covers?.find(
+                        (cover) => cover !== -1 && cover !== undefined
+                      )
+                        ? `https://covers.openlibrary.org/b/id/${
+                            entry?.covers?.find(
+                              (cover) => cover !== -1 && cover !== undefined
+                            ) ||
+                            works?.covers?.find(
+                              (cover) => cover !== -1 && cover !== undefined
+                            )
+                          }-M.jpg`
+                        : "https://fakeimg.pl/64x96/d1d1d1/878787?text=No+image"
+                    }
+                    alt="Book cover"
+                    width={64}
+                    height={96}
+                    title={entry.title}
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABgCAYAAACtxXToAAAAtElEQVR4Xu3XAQ3AIBAEQV4jcpCFQBCyUwmb8pObd/Zd4W8E8Ad4Am5A+AYuR5ACFKAABSgQLoBBDGIQgxgMI2AMYRCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBjEYLoBBDGIQgxgMI2ANYhCDGMQgBssMfqKY8GFgV1duAAAAAElFTkSuQmCC"
+                  />
+                </Link>
+              ))}
+            </span>
+          </li>
+        ) : null}
+        {currentEdition?.number_of_pages ? (
+          <li className="flex gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Pages")}
+            </label>
+            {currentEdition?.number_of_pages}
+          </li>
+        ) : null}
+        {rating?.summary?.average ? (
+          <li className="flex gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Rating")}
+            </label>
+            {`${rating.summary.average.toFixed(1)}/5`}
+          </li>
+        ) : null}
+        {rating?.summary?.count ? (
+          <li className="flex gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Votes")}
+            </label>
+            {rating.summary.count}
+          </li>
+        ) : null}
+        {records ? (
+          <li className="flex gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Buy")}
+            </label>
+            <span className="flex gap-2">
+              {amazonRecord ? (
+                <Link
+                  title="Amazon"
+                  className="transition drop-shadow-md hover:scale-110 text-accent"
+                  href={`https://www.amazon.com/dp/${amazonRecord.slice(
+                    7,
+                    17
+                  )}/?tag=internetarchi-20`}
+                >
+                  <AiFillAmazonSquare className="w-8 h-8" />
+                </Link>
+              ) : null}
+              {bwbRecord ? (
+                <Link
+                  title="Better World Books"
+                  className="transition drop-shadow-md hover:scale-110"
+                  href={`https://www.betterworldbooks.com/product/detail/-${bwbRecord.slice(
+                    4
+                  )}`}
+                >
+                  <Image
+                    unoptimized={true}
+                    src={`/images/BWBookicon_400x400.png`}
+                    alt="Better World Books logo"
+                    width={28}
+                    height={28}
+                  />
+                </Link>
+              ) : null}
+            </span>
+          </li>
+        ) : null}
+        {works?.links ? (
+          <li className="grid gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Links")}
+            </label>
+            <span className="flex flex-wrap max-w-lg p-1 overflow-auto rounded gap-x-2 max-h-40 bg-secondary">
+              {works.links.map((link, id, arr) =>
+                id < arr.length - 1 ? (
+                  <Link
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={link + "key"}
+                    href={link.url}
+                    locale={params.locale}
+                  >
+                    {link.title},{" "}
+                  </Link>
+                ) : (
+                  <Link
+                    className="leading-relaxed truncate transition cursor-pointer hover:text-textHoverPrimary"
+                    key={link + "key"}
+                    href={link.url}
+                    locale={params.locale}
+                  >
+                    {link.title}
+                  </Link>
+                )
+              )}
+            </span>
+          </li>
+        ) : null}
+      </ul>
+      <section className="grid col-span-2 gap-2 py-2 max-w-[80ch]">
+        <h1 className="font-semibold fluid-lg">{t("Overview")}</h1>
+        <p className="p-1 pl-4 leading-relaxed text-balance">
+          {description ? description : t("NA")}
+        </p>
       </section>
-    </>
+    </section>
   )
 }

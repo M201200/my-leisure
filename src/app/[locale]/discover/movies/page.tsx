@@ -1,11 +1,10 @@
 import type { Metadata } from "next"
 import { genresMedia, pageMedia } from "@/app/api/FETCH_TMDB"
-import Pagination from "../../../components/Pagination"
-import CardDetailsContainer from "../../../components/CardDetailsContainer"
-import CardMediaDetails from "../../../components/common/CardMediaDetails"
-import MediaFilter from "../../../components/MediaFilter"
+import Pagination from "@/app/[locale]/components/Pagination"
+import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
+import CardMediaDetails from "@/app/[locale]/components/common/CardMediaDetails"
+import MediaFilter from "@/app/[locale]/components/MediaFilter"
 import { getTranslations } from "next-intl/server"
-import Bookmark from "@/app/[locale]/components/common/Bookmark"
 import { auth } from "@/app/lib/auth"
 
 type Props = {
@@ -21,7 +20,8 @@ export const metadata: Metadata = {
 
 export default async function Movies({ params, searchParams }: Props) {
   const session = await auth()
-
+  const tData = getTranslations("SearchResults")
+  const tFilterQuery = getTranslations("MediaFilter")
   const search_page = searchParams.page ? +searchParams.page : 1
   const search_min_year = searchParams.min_year as string | undefined
   const search_max_year = searchParams.max_year as string | undefined
@@ -35,7 +35,6 @@ export default async function Movies({ params, searchParams }: Props) {
     | undefined
 
   const genresData = genresMedia(params.locale, "movie")
-  const tData = getTranslations("SearchResults")
   const moviesData = pageMedia(
     {
       page: search_page || 1,
@@ -57,8 +56,9 @@ export default async function Movies({ params, searchParams }: Props) {
     params.locale,
     "movie"
   )
-  const [t, genresResponse, moviesResponse] = await Promise.all([
+  const [t, tFilterAsync, genresResponse, moviesResponse] = await Promise.all([
     tData,
+    tFilterQuery,
     genresData,
     moviesData,
   ])
@@ -98,9 +98,21 @@ export default async function Movies({ params, searchParams }: Props) {
       {t("NotFound")}
     </section>
   )
+  const tFilter = {
+    Filters: tFilterAsync("Filters"),
+    ReleaseDate: tFilterAsync("ReleaseDate"),
+    Genres: tFilterAsync("Genres"),
+    Sort: tFilterAsync("Sort"),
+    Score: tFilterAsync("Score"),
+    Votes: tFilterAsync("Votes"),
+    Popularity: tFilterAsync("Popularity"),
+    Order: tFilterAsync("Order"),
+    Accept: tFilterAsync("Accept"),
+    Reset: tFilterAsync("Reset"),
+  }
   return (
     <>
-      <MediaFilter locale={params.locale} genres={genres} />
+      <MediaFilter genres={genres} t={tFilter} />
       <CardDetailsContainer
         label={t("Movies")}
         hasCount={totalAmount}

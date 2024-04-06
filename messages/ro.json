@@ -1,8 +1,14 @@
 {
+  "WelcomeScreen": {
+    "MainText1":  "Bază de date extinsă",
+    "MainText2": "pentru planificarea timpului liber",
+    "Proceed": "Alege un film, serial, carte",
+    "Provided": "*Furnizat de themoviedb.org și openlibrary.org."
+},  
   "MainPage": {
-    "labelMovies": "Filme aleatorii: ",
-    "labelSeries": "Serii aleatorii: ",
-    "labelBooks": "Cărți aleatorii: ",
+    "labelMovies": "Filme populare: ",
+    "labelSeries": "Serii populare: ",
+    "labelBooks": "Cărți populare: ",
     "Unknown": "Necunoscut",
     "Error": "Ceva n-a mers bine",
     "Next": "Următorul",
@@ -125,5 +131,40 @@
     "Movie genres": "Genuri de film: ",
     "Series genres": "Genuri seriale: ",
     "Book subjects": "Subiecte de carte: "
+  },
+  "MediaFilter": {
+    "Filters": "Filtre",
+    "ReleaseDate": "Data de lansare",
+    "Genres": "Genuri",
+    "Sort": "Filtrează după",
+    "Score": "Scor",
+    "Votes": "Număr de voturi",
+    "Popularity": "Popularitate",
+    "Order": "Coborâre/Urcare",
+    "Accept": "Accept",
+    "Reset": "Resetați"
+  },
+  "BookFilter": {
+    "Filters": "Filtre",
+    "Sort": "Filtrează după",
+    "Popularity": "Popularitate",
+    "Order": "Coborâre/Urcare",
+    "Submit": "A confirma",
+    "Reset": "Resetați",
+    "Any": "Căutare generală",
+    "ByTitle": "Dupa titlu",
+    "ByAuthor": "După autor",
+    "BySubject": "După subiect",
+    "ByPlace": "După loc",
+    "ByPerson": "După persoană",
+    "ByLanguage": "După limbă",
+    "ByPublisher": "De către editor",
+    "Relevance": "Relevanţă",
+    "Editions": "Numărul de ediții",
+    "Date": "Data publicării",
+    "Desc": "descinde",
+    "Asc": "ridica",
+    "Rating": "Evaluare",
+    "Random": "Aleatoriu"
   }
 }

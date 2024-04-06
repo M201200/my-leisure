@@ -24,10 +24,10 @@ export default function SearchBar({
   const router = useRouter()
   const currentPath = usePathname()
   const searchParams = useSearchParams()
-  const href = sanitizeString(query)
-    ? `/${locale}/search?query=${sanitizeString(query)}`
-    : `${currentPath}?${searchParams}`
   const [path, setPath] = useState("movie")
+  const href = sanitizeString(query)
+    ? `/${locale}/search/${path}?query=${sanitizeString(query)}`
+    : `${currentPath}?${searchParams}`
   return (
     <div className="flex fluid-base drop-shadow">
       <select
@@ -52,7 +52,7 @@ export default function SearchBar({
         }}
       />
       <Link
-        href={`/${locale}/category/search/${path}?query=${query}`}
+        href={`/${locale}/search/${path}?query=${query}`}
         title={tl.search}
         className="flex content-center p-2 transition-colors duration-100 bg-primary fluid-base rounded-r-md text-textSecondary"
       >

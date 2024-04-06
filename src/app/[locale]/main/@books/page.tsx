@@ -1,8 +1,7 @@
-import CardPopularContainer from "../../components/CardPopularContainer"
+import CardPopularContainer from "@/app/[locale]/components/CardPopularContainer"
 import { getTranslations } from "next-intl/server"
-import Bookmark from "../../components/common/Bookmark"
 import { popularBooks } from "@/app/api/FETCH_OPEN_LIBRARY"
-import CardPopularBook from "../../components/common/CardPopularBook"
+import CardPopularBook from "@/app/[locale]/components/common/CardPopularBook"
 import { auth } from "@/app/lib/auth"
 
 type Params = {

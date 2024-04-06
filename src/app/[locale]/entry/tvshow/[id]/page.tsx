@@ -78,7 +78,7 @@ export default async function TVShowPage({ params }: Props) {
     ?.sort((a, b) => b.popularity! - a.popularity!)
 
   return "name" in TVShow ? (
-    <section className="md:grid gap-4 lg:justify-self-center lg:max-w-[120ch] fluid-base text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
+    <section className="md:grid gap-4 lg:justify-self-center fluid-base text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
       <div>
         <Image
           unoptimized={true}
@@ -97,34 +97,34 @@ export default async function TVShowPage({ params }: Props) {
       </div>
 
       <section className="grid content-start gap-y-6">
-        <section className="grid gap-y-2">
+        <ul className="grid gap-y-3">
           {TVShow?.name === TVShow?.original_name ? (
-            <div className="flex items-start gap-2 pt-2">
-              <h1 className="text-accent fluid-2xl max-w-[30rem]">
+            <li className="flex items-start gap-2 pt-2">
+              <h1 className="text-accent leading-none fluid-2xl max-w-[30rem]">
                 {TVShow?.name}
               </h1>
               <BookmarkButton props={tvBookmark} />
-            </div>
+            </li>
           ) : (
-            <div className="flex items-start gap-2 pt-2">
-              <h1 className="text-accent fluid-2xl max-w-[30rem]">
+            <li className="flex items-start gap-2 pt-2">
+              <h1 className="text-accent leading-none fluid-2xl max-w-[30rem]">
                 {TVShow?.name}/ {TVShow?.original_name}{" "}
               </h1>
               <BookmarkButton props={tvBookmark} />
-            </div>
+            </li>
           )}
           {TVShow?.tagline ? (
-            <span className="text-textHoverPrimary fluid-lg">
-              {TVShow.tagline}
-            </span>
+            <li className="text-textHoverPrimary fluid-lg">{TVShow.tagline}</li>
           ) : null}
 
           {TVShow?.first_air_date ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Date")}</label>
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Date")}
+              </label>
               <Link
                 key={TVShow?.first_air_date + "key"}
-                href={`/${params.locale}/category/discover/tvseries?min_year=${
+                href={`/${params.locale}/discover/tvseries?min_year=${
                   +TVShow?.first_air_date.slice(0, 4) < 1900
                     ? 1900
                     : +TVShow?.first_air_date.slice(0, 4) - 1
@@ -138,18 +138,20 @@ export default async function TVShowPage({ params }: Props) {
               >
                 {TVShow?.first_air_date}
               </Link>
-            </div>
+            </li>
           ) : null}
 
           {TVShow?.genres ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Genres")}</label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Genres")}
+              </label>
               <span className="flex flex-wrap gap-1">
                 {TVShow.genres.map((genre, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
                       key={genre?.id}
-                      href={`/${params.locale}/category/discover/tvseries?with_genres=${genre?.id}`}
+                      href={`/${params.locale}/discover/tvseries?with_genres=${genre?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -158,7 +160,7 @@ export default async function TVShowPage({ params }: Props) {
                   ) : (
                     <Link
                       key={genre?.id}
-                      href={`/${params.locale}/category/discover/tvseries?with_genres=${genre?.id}`}
+                      href={`/${params.locale}/discover/tvseries?with_genres=${genre?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -167,18 +169,20 @@ export default async function TVShowPage({ params }: Props) {
                   )
                 )}
               </span>
-            </div>
+            </li>
           ) : null}
 
           {actors?.length ? (
-            <div className="grid gap-2">
-              <label className="font-semibold">{t("Actors")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
+            <li className="grid gap-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Actors")}
+              </label>
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto gap-x-2 max-h-60 bg-secondary">
                 {actors.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -187,7 +191,7 @@ export default async function TVShowPage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -196,18 +200,20 @@ export default async function TVShowPage({ params }: Props) {
                   )
                 )}
               </span>
-            </div>
+            </li>
           ) : null}
 
           {direction?.length ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Direction")}</label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Direction")}
+              </label>
               <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {direction.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -216,7 +222,7 @@ export default async function TVShowPage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -225,18 +231,20 @@ export default async function TVShowPage({ params }: Props) {
                   )
                 )}
               </span>
-            </div>
+            </li>
           ) : null}
 
           {production?.length ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Production")}</label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Production")}
+              </label>
               <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {production.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -245,7 +253,7 @@ export default async function TVShowPage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/tvseries?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/tvseries?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -254,56 +262,70 @@ export default async function TVShowPage({ params }: Props) {
                   )
                 )}
               </span>
-            </div>
+            </li>
           ) : null}
 
           {TVShow?.status ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Status")}</label>{" "}
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Status")}
+              </label>{" "}
               {TVShow.status}
-            </div>
+            </li>
           ) : null}
 
           {TVShow?.number_of_episodes ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Episodes")}</label>{" "}
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Episodes")}
+              </label>{" "}
               {TVShow.number_of_episodes}
-            </div>
+            </li>
           ) : null}
 
           {TVShow?.number_of_seasons ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Seasons")}</label>
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Seasons")}
+              </label>
               {TVShow.number_of_seasons}{" "}
-            </div>
+            </li>
           ) : null}
 
           {TVShow?.episode_run_time?.length ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Episode time")}</label>
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Episode time")}
+              </label>
               {TVShow.episode_run_time.map((time) => `${time} `)}
               {t("Min")}
-            </div>
+            </li>
           ) : null}
 
-          <div className="flex flex-wrap gap-x-2">
-            <label className="font-semibold">{t("Score")}</label>
+          <li className="flex flex-wrap gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Score")}
+            </label>
             <span>{TVShow.vote_average?.toFixed(1)}/10</span>
-          </div>
+          </li>
 
-          <div className="flex flex-wrap gap-x-2">
-            <label className="font-semibold">{t("Votes")}</label>
+          <li className="flex flex-wrap gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Votes")}
+            </label>
             <span>{TVShow.vote_count?.toLocaleString()}</span>
-          </div>
+          </li>
 
           {TVShow?.production_countries ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Countries")}</label>
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Countries")}
+              </label>
               {TVShow.production_countries.map((country, id, arr) =>
                 id < arr.length - 1 ? (
                   <Link
                     key={country?.iso_3166_1}
-                    href={`/${params.locale}/category/discover/tvseries?with_origin_country=${country?.iso_3166_1}`}
+                    href={`/${params.locale}/discover/tvseries?with_origin_country=${country?.iso_3166_1}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -312,7 +334,7 @@ export default async function TVShowPage({ params }: Props) {
                 ) : (
                   <Link
                     key={country?.iso_3166_1}
-                    href={`/${params.locale}/category/discover/tvseries?with_origin_country=${country?.iso_3166_1}`}
+                    href={`/${params.locale}/discover/tvseries?with_origin_country=${country?.iso_3166_1}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -320,17 +342,19 @@ export default async function TVShowPage({ params }: Props) {
                   </Link>
                 )
               )}
-            </div>
+            </li>
           ) : null}
 
           {TVShow?.production_companies ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Companies")}</label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Companies")}
+              </label>
               {TVShow.production_companies.map((company, id, arr) =>
                 id < arr.length - 1 ? (
                   <Link
                     key={company?.id}
-                    href={`/${params.locale}/category/discover/tvseries?with_companies=${company?.id}`}
+                    href={`/${params.locale}/discover/tvseries?with_companies=${company?.id}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -339,7 +363,7 @@ export default async function TVShowPage({ params }: Props) {
                 ) : (
                   <Link
                     key={company?.id}
-                    href={`/${params.locale}/category/discover/tvseries?with_companies=${company?.id}`}
+                    href={`/${params.locale}/discover/tvseries?with_companies=${company?.id}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -347,12 +371,12 @@ export default async function TVShowPage({ params }: Props) {
                   </Link>
                 )
               )}
-            </div>
+            </li>
           ) : null}
 
           {providers?.watchProviders?.length ? (
-            <div className="flex flex-wrap items-center gap-2">
-              <label className="font-semibold">
+            <li className="flex flex-wrap items-center gap-2">
+              <label className="font-semibold text-textHoverPrimary">
                 {t("Available")}
                 <Link href={"#remark"} title={t("Disclaimer")}>
                   *
@@ -379,15 +403,15 @@ export default async function TVShowPage({ params }: Props) {
                   </Link>
                 ))}
               </span>
-            </div>
+            </li>
           ) : null}
-        </section>
-        <section className="grid gap-2 py-2">
-          <label className="font-semibold fluid-lg">{t("Overview")}</label>
-          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-primary">
-            {TVShow.overview ? TVShow.overview : t("NA")}
-          </p>
-        </section>
+        </ul>
+      </section>
+      <section className="grid col-span-2 gap-2 py-2 max-w-[80ch]">
+        <label className="font-semibold fluid-lg">{t("Overview")}</label>
+        <p className="p-1 pl-4 leading-relaxed text-balance">
+          {TVShow.overview ? TVShow.overview : t("NA")}
+        </p>
       </section>
     </section>
   ) : null

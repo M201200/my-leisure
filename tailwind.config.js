@@ -6,10 +6,8 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'selector',
   theme: {
-    fluidTypography: {
-      maxScreenSize: 2560,
-  },
     extend: {
       minHeight: {
       '48': '12rem',

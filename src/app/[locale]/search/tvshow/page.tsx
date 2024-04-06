@@ -1,10 +1,9 @@
 import type { Metadata } from "next"
-import { getTranslations } from "next-intl/server"
 import { searchMedia } from "@/app/api/FETCH_TMDB"
-import CardMediaDetails from "../../../components/common/CardMediaDetails"
-import Bookmark from "@/app/[locale]/components/common/Bookmark"
-import CardDetailsContainer from "../../../components/CardDetailsContainer"
-import Pagination from "../../../components/Pagination"
+import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
+import CardMediaDetails from "@/app/[locale]/components/common/CardMediaDetails"
+import Pagination from "@/app/[locale]/components/Pagination"
+import { getTranslations } from "next-intl/server"
 import { auth } from "@/app/lib/auth"
 type Props = {
   params: {
@@ -17,14 +16,14 @@ export const metadata: Metadata = {
   title: "Search",
 }
 
-export default async function SearchMoviePage({ params, searchParams }: Props) {
+export default async function SearchTVPage({ params, searchParams }: Props) {
   const session = await auth()
 
   const searchQuery = (searchParams.query as string) || ""
   const searchPage = searchParams.page ? +searchParams.page : 1
 
   const tData = getTranslations("SearchResults")
-  const mediaData = searchMedia(searchQuery, params.locale, "movie", searchPage)
+  const mediaData = searchMedia(searchQuery, params.locale, "tv", searchPage)
   const [t, mediaResponse] = await Promise.all([tData, mediaData])
 
   const mediaResult = mediaResponse.results
@@ -36,15 +35,15 @@ export default async function SearchMoviePage({ params, searchParams }: Props) {
     mediaResult.map((entry) => {
       const props = {
         id: entry.id!,
-        catalog: "movie" as const,
+        catalog: "tvshow" as const,
         folderPath: "https://image.tmdb.org/t/p/w342",
         coverPath: entry.poster_path || "",
-        title:
-          "title" in entry ? (entry?.title ? entry?.title : "No title") : "",
+        title: "name" in entry ? (entry?.name ? entry.name : "No title") : "",
         score: entry.vote_average || 0,
         votes: entry.vote_count || 0,
         genreIds: entry.genre_ids || [],
-        date: "release_date" in entry ? entry.release_date || "Unknown" : "",
+        date:
+          "first_air_date" in entry ? entry.first_air_date || "Unknown" : "",
         locale: params.locale,
         user_email: session?.user?.email,
       }
@@ -64,7 +63,7 @@ export default async function SearchMoviePage({ params, searchParams }: Props) {
       </h1>
 
       <CardDetailsContainer
-        label={t("Movies")}
+        label={t("Series")}
         hasCount={totalAmount}
         locale={params.locale}
       >

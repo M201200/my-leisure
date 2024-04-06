@@ -45,7 +45,7 @@ export default function ThemeToggle({
   return (
     <select
       title={tl.changeTheme}
-      className="cursor-pointer bg-gray-500 text-gray-50 fluid-base p-[1px] rounded"
+      className="cursor-pointer bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 font-bold fluid-base p-[1px] rounded"
       name="theme select"
       value={theme || "dark"}
       disabled={isPending}

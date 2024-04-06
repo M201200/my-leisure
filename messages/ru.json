@@ -1,8 +1,14 @@
 {
+  "WelcomeScreen": {
+    "MainText1":  "Обширная база данных",
+    "MainText2": "для планирования вашего досуга",
+    "Proceed": "Выбрать фильм, сериал, книгу",
+    "Provided": "*Предоставлено themoviedb.org и openlibrary.org."
+  },  
   "MainPage": {
-    "labelMovies": "Случайные фильмы: ",
-    "labelSeries": "Случайные сериалы: ",
-    "labelBooks": "Случайные книги: ",
+    "labelMovies": "Популярные фильмы: ",
+    "labelSeries": "Популярные сериалы: ",
+    "labelBooks": "Популярные книги: ",
     "Unknown": "Неизвестно",
     "Error": "Что-то пошло не так",
     "Next": "Следующие",
@@ -125,5 +131,40 @@
     "Movie genres": "Жанры фильмов: ",
     "Series genres": "Жанры сериалов: ",
     "Book subjects": "Темы книг: "
+  },
+  "MediaFilter": {
+    "Filters": "Фильтры",
+    "ReleaseDate": "Дата выхода",
+    "Genres": "Жанры",
+    "Sort": "Сортировать по",
+    "Score": "Рейтинг",
+    "Votes": "Количество голосов",
+    "Popularity": "Популярность",
+    "Order": "Уменьшение/Возрастание",
+    "Accept": "Принять",
+    "Reset": "Сброс"
+  },
+  "BookFilter": {
+    "Filters": "Фильтры",
+    "Sort": "Сортировать по",
+    "Popularity": "Популярность",
+    "Order": "Уменьшение/Возрастание",
+    "Submit": "Подтвердить",
+    "Reset": "Сброс",
+    "Any": "Общий поиск",
+    "ByTitle": "По заголовку",
+    "ByAuthor": "По автору",
+    "BySubject": "По теме",
+    "ByPlace": "По локации",
+    "ByPerson": "По персонажу",
+    "ByLanguage": "По языку",
+    "ByPublisher": "По изданию",
+    "Relevance": "Актуальность",
+    "Editions": "Количество изданий",
+    "Date": "Дата публикации",
+    "Desc": "убывание",
+    "Asc": "возрастание",
+    "Rating": "Рейтинг",
+    "Random": "Случайно"
   }
 }

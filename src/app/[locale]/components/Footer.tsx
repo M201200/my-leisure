@@ -37,15 +37,15 @@ export default async function Footer({ locale }: { locale: Locale }) {
       <footer className="grid col-start-2 col-end-12 row-start-3 py-4 bg-secondary content-start min-h-[35vh] fluid-base text-textPrimary lg:grid-cols-3">
         {movieGenres ? (
           <section className="grid content-start gap-4 p-4 border-b-2 border-primary lg:border-r-2 gap-x-2 lg:border-b-0">
-            <h2>{t("Movie genres")}</h2>
+            <h2 className="font-extrabold fluid-lg">{t("Movie genres")}</h2>
 
-            <div className="grid grid-cols-2 gap-x-4 p-x-4">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 p-x-4">
               {movieGenres.genres.map((genre) => (
                 <Link
                   key={genre.id}
                   href={`/${locale}/category/discover/movies?with_genres=${genre.id}`}
                   locale={locale}
-                  className="truncate transition duration-150 hover:scale-105"
+                  className="capitalize truncate transition duration-150 hover:scale-105"
                   title={genre.name}
                 >
                   {genre.name}
@@ -57,15 +57,15 @@ export default async function Footer({ locale }: { locale: Locale }) {
 
         {tvGenres ? (
           <section className="grid content-start gap-4 p-4">
-            <h2>{t("Series genres")}</h2>
+            <h2 className="font-extrabold fluid-lg">{t("Series genres")}</h2>
 
-            <div className="grid grid-cols-2 gap-x-4 p-x-4">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 p-x-4">
               {tvGenres.genres.map((genre) => (
                 <Link
                   key={genre.id}
                   href={`/${locale}/category/discover/tvseries?with_genres=${genre.id}`}
                   locale={locale}
-                  className="truncate transition duration-150 hover:scale-105"
+                  className="capitalize truncate transition duration-150 hover:scale-105"
                   title={genre.name}
                 >
                   {genre.name}
@@ -76,15 +76,15 @@ export default async function Footer({ locale }: { locale: Locale }) {
         ) : null}
 
         <section className="grid content-start gap-4 p-4 border-t-2 border-primary lg:border-l-2 lg:border-t-0">
-          <h2>{t("Book subjects")}</h2>
+          <h2 className="font-extrabold fluid-lg">{t("Book subjects")}</h2>
 
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1">
             {someBookSubjects.map((subject) => (
               <Link
                 key={subject + "key"}
                 href={`/${locale}/category/discover/books?subject=${subject}`}
                 locale={locale}
-                className="truncate transition duration-150 hover:scale-105"
+                className="capitalize truncate transition duration-150 hover:scale-105"
                 title={subject}
               >
                 {subject}

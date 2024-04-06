@@ -41,13 +41,13 @@ export default function SelectMinMaxNumber({
     )
   )
   return (
-    <div>
+    <li>
       <label className="font-bold text-accent" title={label}>
         {label}
       </label>
-      <div className="flex p-1 rounded gap-x-1 bg-primary text-textSecondary">
+      <div className="flex p-1 rounded gap-x-1 bg-secondary text-textPrimary">
         <select
-          className="p-1 cursor-pointer bg-primary text-textSecondary"
+          className="p-1 cursor-pointer bg-secondary text-textPrimary"
           onChange={(event) => setMInNumber(event)}
           value={minNumber}
           name="selectMinNumber"
@@ -55,7 +55,7 @@ export default function SelectMinMaxNumber({
           {minNumberArray}
         </select>
         <select
-          className="p-1 border-l cursor-pointer bg-primary text-textSecondary border-l-textSecondary"
+          className="p-1 border-l cursor-pointer bg-secondary text-textPrimary border-l-primary"
           onChange={(event) => setMaxNumber(event)}
           value={maxNumber}
           name="selectMaxNumber"
@@ -63,6 +63,6 @@ export default function SelectMinMaxNumber({
           {maxNumberArray}
         </select>
       </div>
-    </div>
+    </li>
   )
 }

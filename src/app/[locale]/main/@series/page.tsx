@@ -1,8 +1,7 @@
-import CardPopularContainer from "../../components/CardPopularContainer"
+import CardPopularContainer from "@/app/[locale]/components/CardPopularContainer"
 import { popularMedia } from "@/app/api/FETCH_TMDB"
 import { getTranslations } from "next-intl/server"
-import CardPopularMedia from "../../components/common/CardPopularMedia"
-import Bookmark from "../../components/common/Bookmark"
+import CardPopularMedia from "@/app/[locale]/components/common/CardPopularMedia"
 import { auth } from "@/app/lib/auth"
 
 type Params = {

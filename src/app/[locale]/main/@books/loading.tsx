@@ -1,5 +1,5 @@
-import CardPopularContainer from "../../components/CardPopularContainer"
-import CardPopularSkeleton from "../../components/common/CardPopularSkeleton"
+import CardPopularContainer from "@/app/[locale]/components/CardPopularContainer"
+import CardPopularSkeleton from "@/app/[locale]/components/common/CardPopularSkeleton"
 
 export default function Loading() {
   const buttonLabels: [string, string] = ["Prev", "Next"]

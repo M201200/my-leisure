@@ -91,7 +91,7 @@ export default async function MoviePage({ params }: Props) {
     "runtime" in movie ? `${movie.runtime % 60} ${t("Min")}` : ""
 
   return "title" in movie ? (
-    <section className="md:grid gap-4 fluid-base lg:justify-self-center lg:max-w-[120ch] text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
+    <section className="md:grid gap-4 fluid-base lg:justify-self-center text-textPrimary lg:grid-cols-[28.75rem_1fr] flex flex-wrap py-4">
       <div>
         <Image
           className="relative transition duration-300 delay-300 rounded lg:z-10 lg:hover:translate-x-2/4 drop-shadow-lg lg:hover:scale-125"
@@ -109,34 +109,34 @@ export default async function MoviePage({ params }: Props) {
       </div>
 
       <section className="grid content-start gap-y-6">
-        <section className="grid gap-y-2">
+        <ul className="grid gap-y-3">
           {movie?.title === movie?.original_title ? (
-            <div className="flex items-start gap-2 pt-2">
-              <h1 className="text-accent fluid-2xl max-w-[30rem]">
+            <li className="flex items-start gap-2 pt-2">
+              <h1 className="text-accent fluid-2xl leading-none max-w-[30rem]">
                 {movie.title}
               </h1>
               <BookmarkButton props={movieBookmark} />
-            </div>
+            </li>
           ) : (
-            <div className="flex items-start gap-2 pt-2">
-              <h1 className="text-accent fluid-2xl max-w-[30rem]">
+            <li className="flex items-start gap-2 pt-2 ">
+              <h1 className="text-accent leading-none fluid-2xl max-w-[30rem]">
                 {movie?.title}/ {movie?.original_title}{" "}
                 <BookmarkButton props={movieBookmark} />
               </h1>
-            </div>
+            </li>
           )}
           {movie?.tagline ? (
-            <span className="text-textHoverPrimary fluid-lg">
-              {movie?.tagline}
-            </span>
+            <li className="text-textHoverPrimary fluid-lg">{movie?.tagline}</li>
           ) : null}
 
           {movie.release_date ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Date")} </label>
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Date")}{" "}
+              </label>
               <Link
                 key={movie.release_date + "key"}
-                href={`/${params.locale}/category/discover/movies?min_year=${
+                href={`/${params.locale}/discover/movies?min_year=${
                   +movie.release_date.slice(0, 4) < 1900
                     ? 1900
                     : +movie.release_date.slice(0, 4) - 1
@@ -150,18 +150,20 @@ export default async function MoviePage({ params }: Props) {
               >
                 {movie.release_date}
               </Link>
-            </div>
+            </li>
           ) : null}
 
           {movie?.genres ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Genres")}</label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Genres")}
+              </label>
               <span className="flex flex-wrap gap-1">
                 {movie?.genres.map((genre, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
                       key={genre?.id}
-                      href={`/${params.locale}/category/discover/movies?with_genres=${genre?.id}`}
+                      href={`/${params.locale}/discover/movies?with_genres=${genre?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -170,7 +172,7 @@ export default async function MoviePage({ params }: Props) {
                   ) : (
                     <Link
                       key={genre?.id}
-                      href={`/${params.locale}/category/discover/movies?with_genres=${genre?.id}`}
+                      href={`/${params.locale}/discover/movies?with_genres=${genre?.id}`}
                       locale={params?.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -179,18 +181,20 @@ export default async function MoviePage({ params }: Props) {
                   )
                 )}
               </span>
-            </div>
+            </li>
           ) : null}
 
           {actors?.length ? (
-            <div className="grid gap-2">
-              <label className="font-semibold">{t("Actors")}</label>
-              <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
+            <li className="grid gap-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Actors")}
+              </label>
+              <span className="flex flex-wrap max-w-lg p-1 overflow-auto rounded gap-x-2 max-h-60 bg-secondary">
                 {actors.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/movies?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -199,7 +203,7 @@ export default async function MoviePage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/movies?with_people=${cast?.id}`}
                       locale={params?.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -208,18 +212,20 @@ export default async function MoviePage({ params }: Props) {
                   )
                 )}
               </span>
-            </div>
+            </li>
           ) : null}
 
           {direction?.length ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Direction")} </label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Direction")}{" "}
+              </label>
               <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {direction.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/movies?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -228,7 +234,7 @@ export default async function MoviePage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/movies?with_people=${cast?.id}`}
                       locale={params?.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -237,18 +243,20 @@ export default async function MoviePage({ params }: Props) {
                   )
                 )}
               </span>
-            </div>
+            </li>
           ) : null}
 
           {production?.length ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Production")}</label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Production")}
+              </label>
               <span className="flex flex-wrap max-w-lg p-1 overflow-auto border rounded-md gap-x-2 max-h-16 border-primary">
                 {production.map((cast, id, arr) =>
                   id < arr.length - 1 ? (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/movies?with_people=${cast?.id}`}
                       locale={params.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -257,7 +265,7 @@ export default async function MoviePage({ params }: Props) {
                   ) : (
                     <Link
                       key={cast?.id}
-                      href={`/${params.locale}/category/discover/movies?with_people=${cast?.id}`}
+                      href={`/${params.locale}/discover/movies?with_people=${cast?.id}`}
                       locale={params?.locale}
                       className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                     >
@@ -266,50 +274,62 @@ export default async function MoviePage({ params }: Props) {
                   )
                 )}
               </span>
-            </div>
+            </li>
           ) : null}
 
           {movie?.budget ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Budget")}</label> $
-              {movie.budget.toLocaleString()}
-            </div>
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Budget")}
+              </label>{" "}
+              ${movie.budget.toLocaleString()}
+            </li>
           ) : null}
 
           {movie?.revenue ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Revenue")}</label>$
-              {movie.revenue.toLocaleString()}{" "}
-            </div>
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Revenue")}
+              </label>
+              ${movie.revenue.toLocaleString()}{" "}
+            </li>
           ) : null}
 
           {movie?.runtime ? (
-            <div className="flex gap-x-2">
-              <label className="font-semibold">{t("Runtime")}</label>
+            <li className="flex gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Runtime")}
+              </label>
               <span>
                 {runtimeHours} {runtimeMinutes}
               </span>
-            </div>
+            </li>
           ) : null}
 
-          <div className="flex flex-wrap gap-x-2">
-            <label className="font-semibold">{t("Score")}</label>
+          <li className="flex flex-wrap gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Score")}
+            </label>
             <span>{movie.vote_average?.toFixed(1)}/10</span>
-          </div>
+          </li>
 
-          <div className="flex flex-wrap gap-x-2">
-            <label className="font-semibold">{t("Votes")}</label>
+          <li className="flex flex-wrap gap-x-2">
+            <label className="font-semibold text-textHoverPrimary">
+              {t("Votes")}
+            </label>
             <span>{movie.vote_count?.toLocaleString()}</span>
-          </div>
+          </li>
 
           {movie?.production_countries ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Countries")}</label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Countries")}
+              </label>
               {movie.production_countries.map((country, id, arr) =>
                 id < arr.length - 1 ? (
                   <Link
                     key={country?.iso_3166_1}
-                    href={`/${params.locale}/category/discover/movies?with_origin_country=${country?.iso_3166_1}`}
+                    href={`/${params.locale}/discover/movies?with_origin_country=${country?.iso_3166_1}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -318,7 +338,7 @@ export default async function MoviePage({ params }: Props) {
                 ) : (
                   <Link
                     key={country?.iso_3166_1}
-                    href={`/${params.locale}/category/discover/movies?with_origin_country=${country?.iso_3166_1}`}
+                    href={`/${params.locale}/discover/movies?with_origin_country=${country?.iso_3166_1}`}
                     locale={params?.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -326,17 +346,19 @@ export default async function MoviePage({ params }: Props) {
                   </Link>
                 )
               )}
-            </div>
+            </li>
           ) : null}
 
           {movie?.production_companies ? (
-            <div className="flex flex-wrap gap-x-2">
-              <label className="font-semibold">{t("Companies")}</label>
+            <li className="flex flex-wrap gap-x-2">
+              <label className="font-semibold text-textHoverPrimary">
+                {t("Companies")}
+              </label>
               {movie.production_companies.map((company, id, arr) =>
                 id < arr.length - 1 ? (
                   <Link
                     key={company?.id}
-                    href={`/${params.locale}/category/discover/movies?with_companies=${company?.id}`}
+                    href={`/${params.locale}/discover/movies?with_companies=${company?.id}`}
                     locale={params.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -345,7 +367,7 @@ export default async function MoviePage({ params }: Props) {
                 ) : (
                   <Link
                     key={company?.id}
-                    href={`/${params.locale}/category/discover/movies?with_companies=${company?.id}`}
+                    href={`/${params.locale}/discover/movies?with_companies=${company?.id}`}
                     locale={params?.locale}
                     className="truncate transition cursor-pointer hover:text-textHoverPrimary"
                   >
@@ -353,12 +375,12 @@ export default async function MoviePage({ params }: Props) {
                   </Link>
                 )
               )}
-            </div>
+            </li>
           ) : null}
 
           {providers?.watchProviders?.length ? (
-            <div className="flex flex-wrap items-center gap-2">
-              <label className="font-semibold">
+            <li className="flex flex-wrap items-center gap-2">
+              <label className="font-semibold text-textHoverPrimary">
                 {t("Available")}
                 <Link href={"#remark"} title={t("Disclaimer")}>
                   *
@@ -375,7 +397,6 @@ export default async function MoviePage({ params }: Props) {
                     className="transition drop-shadow-md hover:scale-110"
                   >
                     <Image
-                      unoptimized={true}
                       src={`https://image.tmdb.org/t/p/w45/${item.logo_path}`}
                       width={45}
                       height={45}
@@ -386,16 +407,15 @@ export default async function MoviePage({ params }: Props) {
                   </Link>
                 ))}
               </span>
-            </div>
+            </li>
           ) : null}
-        </section>
-
-        <section className="grid gap-2 py-2">
-          <h1 className="font-semibold fluid-lg">{t("Overview")}</h1>
-          <p className="p-1 pr-4 overflow-auto text-justify border rounded-md max-h-40 border-primary">
-            {movie.overview ? movie.overview : t("NA")}
-          </p>
-        </section>
+        </ul>
+      </section>
+      <section className="grid col-span-2 gap-2 py-2 max-w-[80ch]">
+        <h1 className="font-semibold fluid-lg">{t("Overview")}</h1>
+        <p className="p-1 pl-4 leading-relaxed text-balance">
+          {movie.overview ? movie.overview : t("NA")}
+        </p>
       </section>
     </section>
   ) : null

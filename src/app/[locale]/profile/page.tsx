@@ -1,12 +1,27 @@
 import { auth } from "@/app/lib/auth"
-
-import DeleteProfileButton from "../components/common/DeleteProfileButton"
-import ProfilePreferences from "../components/pageClientSide/ProfilePreferences"
+import type { Metadata } from "next"
+import DeleteProfileButton from "@/app/[locale]/components/common/DeleteProfileButton"
+import ProfilePreferences from "@/app/[locale]/components/pageClientSide/ProfilePreferences"
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server"
 
 type ProfilePageParams = {
   params: {
     locale: Locale
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: ProfilePageParams): Promise<Metadata> {
+  const session = await auth()
+
+  const t = await getTranslations("Profile")
+  const title = `${t("Profile")}: ${
+    session ? session.user?.name : t("DefaultName")
+  }`
+
+  return {
+    title: title,
   }
 }
 

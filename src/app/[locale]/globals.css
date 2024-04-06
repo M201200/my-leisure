@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  color-scheme:light;
   --text-primary: #092324;
   --text-hover-primary: #506566;
   --text-secondary: #f0e6d9;
@@ -17,15 +18,16 @@
 }
 
 :root .dark {
-  --text-primary: #fbfefe;
+  color-scheme:dark;
+  --text-primary: #e6ebeb;
   --text-hover-primary: #bcbebe;
   --text-secondary: #efdabd;
   --text-hover-secondary: #efdabdb0;
   --background: #06191a;
-  --primary: rgb(110, 41, 3);
-  --hover-primary: rgb(114, 44, 6);
-  --secondary: #1a1716;
-  --hover-secondary: #332e2d;
-  --accent: #e494b7;
-  --hover-accent: #ce7c9f;
+  --primary: rgb(90, 7, 7);
+  --hover-primary: rgb(121, 9, 9);
+  --secondary: #161a19;
+  --hover-secondary: rgb(7, 8, 4);
+  --accent: #c76b93;
+  --hover-accent: #b8708f;
 }

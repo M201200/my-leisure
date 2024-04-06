@@ -22,7 +22,7 @@ export default function Bookmarks({ tl, locale, userEmail }: BookmarksProps) {
   const series = useBookmarks((state) => state.series)
 
   return (
-    <section className="text-textPrimary min-h-[40vh]">
+    <section className="text-textPrimary lg:pl-4 min-h-[40vh]">
       {books?.length || movies?.length || series?.length ? (
         <>
           {books?.length ? (
@@ -91,7 +91,7 @@ export default function Bookmarks({ tl, locale, userEmail }: BookmarksProps) {
           ) : null}
         </>
       ) : (
-        <p>{tl.Nothing}</p>
+        <p className="pl-2 text-textHoverPrimary fluid-base">{tl.Nothing}</p>
       )}
     </section>
   )

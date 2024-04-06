@@ -1,15 +1,14 @@
 import type { Metadata } from "next"
-import Pagination from "../../../components/Pagination"
-import CardDetailsContainer from "../../../components/CardDetailsContainer"
-import CardBookDetails from "../../../components/common/CardBookDetails"
+import Pagination from "@/app/[locale]/components/Pagination"
+import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
+import CardBookDetails from "@/app/[locale]/components/common/CardBookDetails"
 import { getTranslations } from "next-intl/server"
-import Bookmark from "@/app/[locale]/components/common/Bookmark"
 import {
   SortBooks,
   popularBooks,
   searchBook,
 } from "@/app/api/FETCH_OPEN_LIBRARY"
-import BooksFilter from "../../../components/BooksFilter"
+import BooksFilter from "@/app/[locale]/components/BooksFilter"
 import { auth } from "@/app/lib/auth"
 
 type Props = {
@@ -25,6 +24,9 @@ export const metadata: Metadata = {
 
 export default async function Books({ params, searchParams }: Props) {
   const session = await auth()
+  const tData = getTranslations("SearchResults")
+  const tFilterQuery = getTranslations("BookFilter")
+
   const searchPage = searchParams.page ? +searchParams.page : 1
   const searchQuery = searchParams.query as string | undefined
   const searchTitle = searchParams.title as string | undefined
@@ -46,7 +48,6 @@ export default async function Books({ params, searchParams }: Props) {
     searchLanguage ||
     searchPublisher
 
-  const tData = getTranslations("SearchResults")
   const bookData = isFiltered
     ? searchBook({
         query: searchQuery,
@@ -61,7 +62,11 @@ export default async function Books({ params, searchParams }: Props) {
         sort: sort,
       })
     : popularBooks(searchPage, sort)
-  const [t, bookResponse] = await Promise.all([tData, bookData])
+  const [t, tFilterAsync, bookResponse] = await Promise.all([
+    tData,
+    tFilterQuery,
+    bookData,
+  ])
 
   const bookResult =
     "numFound" in bookResponse ? bookResponse?.docs : bookResponse?.works
@@ -86,7 +91,7 @@ export default async function Books({ params, searchParams }: Props) {
       }
       return (
         <CardBookDetails
-          key={book.key + book.edition_count}
+          key={book.key + book?.title}
           locale={params.locale}
           props={props}
         />
@@ -97,9 +102,32 @@ export default async function Books({ params, searchParams }: Props) {
       {t("NotFound")}
     </section>
   )
+  const tFilter = {
+    Filters: tFilterAsync("Filters"),
+    Sort: tFilterAsync("Sort"),
+    Popularity: tFilterAsync("Popularity"),
+    Order: tFilterAsync("Order"),
+    Submit: tFilterAsync("Submit"),
+    Reset: tFilterAsync("Reset"),
+    Any: tFilterAsync("Any"),
+    ByTitle: tFilterAsync("ByTitle"),
+    ByAuthor: tFilterAsync("ByAuthor"),
+    BySubject: tFilterAsync("BySubject"),
+    ByPlace: tFilterAsync("ByPlace"),
+    ByPerson: tFilterAsync("ByPerson"),
+    ByLanguage: tFilterAsync("ByLanguage"),
+    ByPublisher: tFilterAsync("ByPublisher"),
+    Relevance: tFilterAsync("Relevance"),
+    Editions: tFilterAsync("Editions"),
+    Date: tFilterAsync("Date"),
+    Desc: tFilterAsync("Desc"),
+    Asc: tFilterAsync("Asc"),
+    Rating: tFilterAsync("Rating"),
+    Random: tFilterAsync("Random"),
+  }
   return (
     <>
-      <BooksFilter locale={params.locale} />
+      <BooksFilter t={tFilter} />
       <CardDetailsContainer
         label={t("Books")}
         hasCount={totalAmount}

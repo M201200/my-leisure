@@ -5,13 +5,13 @@ import { auth } from "@/app/lib/auth"
 
 type Props = {
   params: {
-    profile: string
     locale: Locale
   }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const title = params.profile
+  const t = await getTranslations("Bookmarks")
+  const title = t("Bookmarks")
 
   return {
     title: title,
@@ -28,14 +28,14 @@ export default async function ProfilePage({ params }: Props) {
     Nothing: t("Nothing"),
   }
   return (
-    <div className="grid content-start gap-4 pb-4">
+    <div className="grid content-start gap-4 py-4">
       {!session ? (
-        <p className="font-semibold fluid-sm text-textHoverPrimary">
+        <p className="pt-2 pl-6 font-semibold w-80 fluid-sm text-balance text-textHoverPrimary">
           {t("Disclaimer")}
         </p>
       ) : null}
-      <section className="grid gap-5 py-5">
-        <h1 className="font-extrabold fluid-xl text-textPrimary">
+      <section className="grid gap-5">
+        <h1 className="font-extrabold fluid-3xl text-textPrimary">
           {t("Bookmarks")}
         </h1>
         <Bookmarks

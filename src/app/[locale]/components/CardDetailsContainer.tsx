@@ -17,10 +17,8 @@ export default function CardDetailsContainer({
 }: Props) {
   const total = locale === "ru" ? "Всего: " : "Total: "
   return (
-    <div className="grid">
-      <h1 className={`font-extrabold text-center ${labelSize} text-accent`}>
-        {label}
-      </h1>
+    <div className="grid gap-2 py-4">
+      <h1 className={`font-extrabold ${labelSize} text-accent`}>{label}</h1>
       {hasCount ? (
         <h3 className="flex items-center gap-1 py-1 font-semibold fluid-lg text-textPrimary">
           {total}
@@ -28,7 +26,7 @@ export default function CardDetailsContainer({
         </h3>
       ) : null}
       <section
-        className={`grid w-full gap-2 bg-primary p-2 rounded-md md:grid-cols-2 2xl:grid-cols-4 overflow-auto ${maxHeight}`}
+        className={`grid w-full gap-4 p-2 rounded-md md:grid-cols-2 2xl:grid-cols-4 overflow-auto ${maxHeight}`}
       >
         {children}
       </section>

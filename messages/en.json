@@ -1,8 +1,14 @@
 {
-    "MainPage": {
-      "labelMovies": "Random movies: ",
-      "labelSeries": "Random series: ",
-      "labelBooks": "Random books: ",
+  "WelcomeScreen": {
+    "MainText1": "Extensive database",
+    "MainText2": "to plan your leisure",
+    "Proceed": "Choose a movie, series, book",
+    "Provided": "*Provided by themoviedb.org and openlibrary.org."
+  },  
+  "MainPage": {
+      "labelMovies": "Popular movies",
+      "labelSeries": "Popular series",
+      "labelBooks": "Popular books",
       "Unknown": "Unknown",
       "Error": "Something went wrong",
       "Next": "Next",
@@ -125,5 +131,40 @@
       "Movie genres": "Movie genres: ",
       "Series genres": "Series genres: ",
       "Book subjects": "Book subjects: "
+    },
+    "MediaFilter": {
+      "Filters": "Filters",
+      "ReleaseDate": "Release date",
+      "Sort": "Sort by",
+      "Genres": "Genres",
+      "Score": "Score",
+      "Votes": "Vote count",
+      "Popularity": "Popularity",
+      "Order": "Descend/Ascend",
+      "Accept": "Accept",
+      "Reset": "Reset"
+    },
+    "BookFilter": {
+      "Filters": "Filters",
+      "Sort": "Sort by",
+      "Popularity": "Popularity",
+      "Order": "Descend/Ascend",
+      "Submit": "Submit",
+      "Reset": "Reset",
+      "Any": "General search",
+      "ByTitle": "By title",
+      "ByAuthor": "By author",
+      "BySubject": "By subject",
+      "ByPlace": "By place",
+      "ByPerson": "By person",
+      "ByLanguage": "By language",
+      "ByPublisher": "By publisher",
+      "Relevance": "Relevance",
+      "Editions": "Number of editions",
+      "Date": "Publish date",
+      "Desc": "descend",
+      "Asc": "ascend",
+      "Rating": "Rating",
+      "Random": "Random"
     }
   }

@@ -7,6 +7,7 @@ import { IoPersonOutline, IoPersonSharp } from "react-icons/io5"
 
 import BookmarksLink from "./BookmarksLink"
 import SignIn from "./SignIn"
+import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi"
 
 type ProfileButtonsProps = {
   tl: {
@@ -21,7 +22,7 @@ type ProfileButtonsProps = {
   userPreferences: UserPreferences
 }
 
-export function ProfileButtons({
+export function ProfileLinks({
   tl,
   locale,
   session,
@@ -54,10 +55,13 @@ export function ProfileButtons({
       } bg-background lg:bg-transparent rounded justify-self-end text-textPrimary`}
     >
       <button
-        className="flex items-center w-full gap-2 p-2 text-center transition-colors rounded lg:hidden fluid-base"
+        className="flex items-center w-full p-2 font-bold text-center transition-colors rounded lg:hidden fluid-base"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {session ? session.user?.name : tl.guest}
+        <span className="max-w-40">
+          {session ? session.user?.name : tl.guest}
+        </span>
+        <span>{isOpen ? <BiChevronsRight /> : <BiChevronsLeft />}</span>
       </button>
       <section
         className={`flex flex-wrap justify-end gap-3 gap-x-6 lg:relative absolute w-fit lg:w-full lg:opacity-100 lg:visible lg:translate-x-0 lg:bg-transparent  transition-[visibility,opacity,transform] ease-in-out drop-shadow rounded bg-secondary z-20 p-4 ${

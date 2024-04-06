@@ -35,12 +35,6 @@ export default function BookmarksLink({
       : setSeries(getEntryList("tvshow") as MediaEntry[] | null)
   }, [userPreferences, setBooks, setMovies, setSeries])
 
-  console.log(
-    !!userPreferences?.books,
-    !!userPreferences?.movies,
-    !!userPreferences?.series
-  )
-
   useEffect(() => {
     loadBookmarks()
   }, [loadBookmarks])
