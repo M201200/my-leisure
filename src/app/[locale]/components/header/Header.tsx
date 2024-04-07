@@ -5,7 +5,7 @@ import { Dancing_Script } from "next/font/google"
 import Link from "next/link"
 
 import { auth } from "@/app/lib/auth"
-import loadProfile from "@/utils/actions/loadProfile"
+import loadProfile from "../../../../utils/actions/loadProfile"
 
 import { ProfileLinks } from "./ProfileLinks"
 import LanguageSwitcher from "./LanguageSwitcher"
