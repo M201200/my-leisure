@@ -43,7 +43,7 @@ export default async function Footer({ locale }: { locale: Locale }) {
               {movieGenres.genres.map((genre) => (
                 <Link
                   key={genre.id}
-                  href={`/${locale}/category/discover/movies?with_genres=${genre.id}`}
+                  href={`/${locale}/discover/movies?with_genres=${genre.id}`}
                   locale={locale}
                   className="capitalize truncate transition duration-150 hover:scale-105"
                   title={genre.name}
@@ -63,7 +63,7 @@ export default async function Footer({ locale }: { locale: Locale }) {
               {tvGenres.genres.map((genre) => (
                 <Link
                   key={genre.id}
-                  href={`/${locale}/category/discover/tvseries?with_genres=${genre.id}`}
+                  href={`/${locale}/discover/tvseries?with_genres=${genre.id}`}
                   locale={locale}
                   className="capitalize truncate transition duration-150 hover:scale-105"
                   title={genre.name}
@@ -82,7 +82,7 @@ export default async function Footer({ locale }: { locale: Locale }) {
             {someBookSubjects.map((subject) => (
               <Link
                 key={subject + "key"}
-                href={`/${locale}/category/discover/books?subject=${subject}`}
+                href={`/${locale}/discover/books?subject=${subject}`}
                 locale={locale}
                 className="capitalize truncate transition duration-150 hover:scale-105"
                 title={subject}
