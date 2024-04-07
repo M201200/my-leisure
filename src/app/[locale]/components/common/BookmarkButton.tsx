@@ -6,10 +6,7 @@ import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs"
 
 import addToBookmarks from "@/utils/actions/FavoritesActions/addToBookmarks"
 import removeFromBookmarks from "@/utils/actions/FavoritesActions/removeFromBookmarks"
-import {
-  addEntry,
-  removeEntry,
-} from "../../../../utils/functions/localStorageActions"
+import { addEntry, removeEntry } from "@/utils/functions/LocalStorageActions"
 import { useBookmarks } from "@/utils/hooks/zustand/useBookmarks"
 
 type BookmarkProps = {

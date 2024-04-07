@@ -3,7 +3,7 @@ import { SetStateAction, useCallback, useEffect } from "react"
 
 import Link from "next/link"
 import { BsBookmark } from "react-icons/bs"
-import { getEntryList } from "../../../../utils/functions/localStorageActions"
+import { getEntryList } from "@/utils/functions/LocalStorageActions"
 import { useBookmarks } from "@/utils/hooks/zustand/useBookmarks"
 
 type FavoritesLinkProps = {
