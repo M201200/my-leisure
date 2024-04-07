@@ -41,12 +41,12 @@ export default function LanguageSwitcher({
       disabled={isPending}
       title={tl.changeLanguage}
       onChange={(e) => {
+        setLocale(e.target.value as Locale)
         startTransition(() => {
           user_email
             ? updatePreferredLanguage(user_email, e.target.value as Locale)
             : null
         })
-        setLocale(e.target.value as Locale)
         router.replace(url.replace(/\/en|\/ro|\/ru/, `/${e.target.value}`))
       }}
     >

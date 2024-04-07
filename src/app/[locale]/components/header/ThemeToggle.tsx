@@ -51,11 +51,11 @@ export default function ThemeToggle({
       disabled={isPending}
       onChange={(e) => {
         if (user_email) {
+          setTheme(e.target.value as Theme)
+          document.body.className = e.target.value
           startTransition(() => {
             updatePreferredTheme(user_email, e.target.value as Theme)
           })
-          setTheme(e.target.value as Theme)
-          document.body.className = e.target.value
           router.refresh()
         } else {
           setTheme(e.target.value as Theme)
