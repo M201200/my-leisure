@@ -1,5 +1,5 @@
-import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
-import CardDetailsSkeleton from "@/app/[locale]/components/common/CardDetailsSkeleton"
+import CardDetailsContainer from "@/app/[locale]/components/cards/CardDetailsContainer"
+import CardDetailsSkeleton from "@/app/[locale]/components/cards/CardDetailsSkeleton"
 
 export default function Loading() {
   return (

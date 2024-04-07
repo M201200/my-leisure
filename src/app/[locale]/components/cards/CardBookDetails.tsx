@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
-import { dictionaryDetails } from "../../../../../messages/dictionary/clientSide"
-import BookmarkButton from "../BookmarkButton"
+import cardTranslation from "@/utils/functions/cardTranslation"
+import BookmarkButton from "../common/BookmarkButton"
 
 export default function CardBookDetails({
   props,
@@ -10,7 +10,7 @@ export default function CardBookDetails({
   locale: Locale
   props: CardBook
 }) {
-  const t = dictionaryDetails(locale)
+  const t = cardTranslation(locale)
 
   const authors = props?.author
     ? props?.author

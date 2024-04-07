@@ -1,8 +1,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import pickGenres from "@/app/data/tmdbGenres"
-import { dictionaryDetails } from "../../../../../messages/dictionary/clientSide"
-import BookmarkButton from "../BookmarkButton"
+import cardTranslation from "@/utils/functions/cardTranslation"
+import BookmarkButton from "../common/BookmarkButton"
 import { BsStar } from "react-icons/bs"
 import { IoPersonOutline } from "react-icons/io5"
 
@@ -15,7 +15,7 @@ export default function CardMediaDetails({
   locale: Locale
 }) {
   const path = props.catalog === "movie" ? "movies" : "tvseries"
-  const t = dictionaryDetails(locale)
+  const t = cardTranslation(locale)
 
   const genres = pickGenres(props.catalog, locale)
     .map((genre) =>

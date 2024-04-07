@@ -1,7 +1,7 @@
-import CardPopularContainer from "@/app/[locale]/components/CardPopularContainer"
+import CardPopularContainer from "@/app/[locale]/components/cards/CardPopularContainer"
 import { popularMedia } from "@/app/api/FETCH_TMDB"
 import { getTranslations } from "next-intl/server"
-import CardPopularMedia from "@/app/[locale]/components/common/CardPopularMedia"
+import CardPopularMedia from "@/app/[locale]/components/cards/CardPopularMedia"
 import { auth } from "@/app/lib/auth"
 
 type Params = {

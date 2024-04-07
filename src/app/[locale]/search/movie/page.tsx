@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { getTranslations } from "next-intl/server"
 import { searchMedia } from "@/app/api/FETCH_TMDB"
-import CardMediaDetails from "@/app/[locale]/components/common/CardMediaDetails"
-import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
+import CardMediaDetails from "@/app/[locale]/components/cards/CardMediaDetails"
+import CardDetailsContainer from "@/app/[locale]/components/cards/CardDetailsContainer"
 import Pagination from "@/app/[locale]/components/Pagination"
 import { auth } from "@/app/lib/auth"
 type Props = {

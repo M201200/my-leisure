@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react"
 
 import { Session } from "next-auth"
-import NavLink from "./common/NavLink"
+import NavLink from "./NavLink"
 import { AiOutlineMenu } from "react-icons/ai"
 
 type ProfileButtonsProps = {

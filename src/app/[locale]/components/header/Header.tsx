@@ -8,8 +8,8 @@ import { auth } from "@/app/lib/auth"
 import loadProfile from "@/utils/actions/LoadProfile"
 
 import { ProfileLinks } from "./ProfileLinks"
-import LanguageSwitcher from "./common/LanguageSwitcher"
-import SearchBar from "./common/SearchBar"
+import LanguageSwitcher from "./LanguageSwitcher"
+import SearchBar from "./SearchBar"
 import ThemeToggle from "./ThemeToggle"
 import { NavLinks } from "./NavLinks"
 

@@ -1,14 +1,14 @@
 import type { Metadata } from "next"
 import Pagination from "@/app/[locale]/components/Pagination"
-import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
-import CardBookDetails from "@/app/[locale]/components/common/CardBookDetails"
+import CardDetailsContainer from "@/app/[locale]/components/cards/CardDetailsContainer"
+import CardBookDetails from "@/app/[locale]/components/cards/CardBookDetails"
 import { getTranslations } from "next-intl/server"
 import {
   SortBooks,
   popularBooks,
   searchBook,
 } from "@/app/api/FETCH_OPEN_LIBRARY"
-import BooksFilter from "@/app/[locale]/components/BooksFilter"
+import BooksFilter from "@/app/[locale]/components/common/BooksFilter"
 import { auth } from "@/app/lib/auth"
 
 type Props = {

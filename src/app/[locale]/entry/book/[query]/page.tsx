@@ -10,7 +10,7 @@ import {
   currentWorksRating,
 } from "@/app/api/FETCH_OPEN_LIBRARY"
 import { auth } from "@/app/lib/auth"
-import BookmarkButton from "@/app/[locale]/components/BookmarkButton"
+import BookmarkButton from "@/app/[locale]/components/common/BookmarkButton"
 
 type Props = {
   params: {

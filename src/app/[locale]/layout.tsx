@@ -1,6 +1,6 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import Header from "./components/Header"
+import Header from "./components/header/Header"
 import { useLocale } from "next-intl"
 import { notFound } from "next/navigation"
 import Favicon from "/public/images/favicon/favicon-32x32.png"

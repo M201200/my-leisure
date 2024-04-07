@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { getTranslations } from "next-intl/server"
-import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
+import CardDetailsContainer from "@/app/[locale]/components/cards/CardDetailsContainer"
 import Pagination from "@/app/[locale]/components/Pagination"
 import { searchBook } from "@/app/api/FETCH_OPEN_LIBRARY"
-import CardBookDetails from "@/app/[locale]/components/common/CardBookDetails"
+import CardBookDetails from "@/app/[locale]/components/cards/CardBookDetails"
 import { auth } from "@/app/lib/auth"
 type Props = {
   params: {

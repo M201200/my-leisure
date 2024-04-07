@@ -1,4 +1,4 @@
-export function dictionaryDetails(locale: Locale) {
+export default function cardTranslation(locale: Locale) {
   switch (locale) {
     case "en":
       return {

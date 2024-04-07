@@ -1,25 +1,25 @@
 import Link from "next/link"
 import Image from "next/image"
-import BookmarkButton from "../BookmarkButton"
+import BookmarkButton from "../common/BookmarkButton"
 
-export default function CardPopularMedia(props: CardMedia) {
+export default function CardPopularBook(props: CardBook) {
   return (
-    <div className="w-32 transition duration-300 shrink-0 snap-start text-textPrimary hover:scale-105">
+    <div className="w-32 transition duration-300 text-textPrimary hover:scale-105 shrink-0 snap-start">
       <Link
         href={`/${props.locale}/entry/${props.catalog}/${props.id}`}
         title={props.title}
       >
         <Image
-          className="rounded-t-md min-h-48"
+          className="aspect-[0.615] rounded-t-md"
           unoptimized={true}
           src={
             props.coverPath
-              ? `${props.folderPath}${props.coverPath}`
+              ? `${props.folderPath}${props.coverPath}-M.jpg`
               : "https://fakeimg.pl/128x192/878787/d1d1d1?text=No+image"
           }
           alt="Cover"
           width={128}
-          height={192}
+          height={208}
           placeholder="blur"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAADACAYAAADMZmunAAABQUlEQVR42u3SAQ0AAAQAMPLaVFBdD/4Mz66e4K0UQAABBEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAAAQQQQAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEEAAAQQQQAAEQAAEQAAEQAAEQAAEQAAEQAAEQAAEQACuWBc9VVCGM5sbAAAAAElFTkSuQmCC"
         />
@@ -35,9 +35,8 @@ export default function CardPopularMedia(props: CardMedia) {
           </Link>
         </label>
         <div className="flex justify-between text-textHoverPrimary">
-          <span>
-            <span className="fluid-sm">☆{props.score.toFixed(1)}/</span>
-            <span className="fluid-xs">{props.votes.toLocaleString()}</span>
+          <span className="truncate fluid-sm" title={props.author?.toString()}>
+            {props.author?.toString()}
           </span>
           <BookmarkButton props={props} />
         </div>

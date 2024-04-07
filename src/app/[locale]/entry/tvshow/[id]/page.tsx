@@ -8,7 +8,7 @@ import {
 } from "@/app/api/FETCH_TMDB"
 import { getTranslations } from "next-intl/server"
 import { auth } from "@/app/lib/auth"
-import BookmarkButton from "@/app/[locale]/components/BookmarkButton"
+import BookmarkButton from "@/app/[locale]/components/common/BookmarkButton"
 
 type Props = {
   params: {

@@ -1,9 +1,9 @@
 "use client"
 import { useBookmarks } from "@/utils/hooks/zustand/useBookmarks"
 
-import CardDetailsContainer from "../CardDetailsContainer"
-import CardBookDetails from "../common/CardBookDetails"
-import CardMediaDetails from "../common/CardMediaDetails"
+import CardDetailsContainer from "../cards/CardDetailsContainer"
+import CardBookDetails from "../cards/CardBookDetails"
+import CardMediaDetails from "../cards/CardMediaDetails"
 
 type BookmarksProps = {
   locale: Locale

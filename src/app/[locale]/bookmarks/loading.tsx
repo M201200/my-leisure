@@ -1,4 +1,4 @@
-import CardDetailsContainer from "../components/CardDetailsContainer"
+import CardDetailsContainer from "../components/cards/CardDetailsContainer"
 
 export default function Loading() {
   return (

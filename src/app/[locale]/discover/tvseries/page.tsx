@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { genresMedia, pageMedia } from "@/app/api/FETCH_TMDB"
 import Pagination from "@/app/[locale]/components/Pagination"
-import CardMediaDetails from "@/app/[locale]/components/common/CardMediaDetails"
-import CardDetailsContainer from "@/app/[locale]/components/CardDetailsContainer"
-import MediaFilter from "@/app/[locale]/components/MediaFilter"
+import CardMediaDetails from "@/app/[locale]/components/cards/CardMediaDetails"
+import CardDetailsContainer from "@/app/[locale]/components/cards/CardDetailsContainer"
+import MediaFilter from "@/app/[locale]/components/common/MediaFilter"
 import { getTranslations } from "next-intl/server"
 import { auth } from "@/app/lib/auth"
 
