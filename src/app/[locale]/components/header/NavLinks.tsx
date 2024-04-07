@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useRef, useState } from "react"
 
-import { Session } from "next-auth"
 import NavLink from "./NavLink"
 import { AiOutlineMenu } from "react-icons/ai"
 
