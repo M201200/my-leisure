@@ -33,8 +33,8 @@ export default function ThemeToggle({
       document.body.className = currentTheme
     } else {
       const storage = localStorage.getItem("theme") as Theme | null
-      setLocalTheme(storage ? storage : isDarkMode ? "dark" : "light")
       setTheme(storage ? storage : isDarkMode ? "dark" : "light")
+      setLocalTheme(storage ? storage : isDarkMode ? "dark" : "light")
       document.body.className = storage
         ? storage
         : isDarkMode

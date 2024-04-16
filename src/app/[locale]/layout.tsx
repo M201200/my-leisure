@@ -33,7 +33,7 @@ export default function LocaleLayout({ children, params }: Params) {
     <html lang={locale}>
       <body className="dark">
         <div
-          className={`grid grid-cols-12 bg-background ${sofia_Sans.className} overflow-x-hidden`}
+          className={`grid grid-cols-12 bg-background ${sofia_Sans.className} relative overflow-x-hidden`}
         >
           <Header locale={locale} />
           <main className="grid col-start-2 col-end-12 min-h-[60vh] row-start-2 row-end-3">

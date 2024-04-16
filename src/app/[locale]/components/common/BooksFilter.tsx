@@ -125,20 +125,21 @@ export default function BooksFilter({
   return (
     <div
       ref={ref}
-      className={`relative ${
+      className={`absolute ${
         isOpen ? "max-w-[30rem]" : ""
       } bg-primary p-1 m-4 rounded justify-self-end text-textPrimary`}
     >
       <button
+        title={t.Filters}
         className="flex items-center w-full gap-2 p-2 font-bold text-center transition-colors rounded text-textSecondary fluid-xl"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {t.Filters} <GiSettingsKnobs className="w-8 h-8" />
+        <GiSettingsKnobs className="w-8 h-8" />
       </button>
       <section
         className={`grid gap-4 p-2 justify-items-center text-textPrimary fluid-base rounded-b-md absolute w-fit  transition-[visibility,opacity,transform] ease-in-out drop-shadow rounded bg-background border-hoverAccent border z-20 ${
           isOpen
-            ? "opacity-100 visible -translate-x-40 translate-y-4"
+            ? "opacity-100 visible -translate-x-52 translate-y-4"
             : "invisible overflow-hidden opacity-0 translate-x-4 translate-y-4"
         }`}
       >
