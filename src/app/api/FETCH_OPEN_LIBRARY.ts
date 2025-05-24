@@ -39,25 +39,41 @@ export async function fetchOpenLibraryData({
       accept: accept,
     },
   }
-  const response = await fetch(url, options)
-  return response.json()
+  try {
+    const response = await fetch(url, options)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    console.log("fetchOpenLibraryData", response)
+    return response.json()
+  } catch (error) {
+    console.error("Error fetching data:", error)
+    throw new Error("Failed to fetch data")
+  }
 }
 
 export async function popularBooks(page?: number, sort?: SortBooks) {
   const randomPage = 1
   const popularBooksURL = "trending/daily.json"
 
-  const response = await fetchOpenLibraryData({
-    additionURL: popularBooksURL,
-    queryList: [
-      ["page", page || randomPage],
-      ["sort", sort || ""],
-      ["limit", 20],
-    ],
-  })
+  try {
+    const response = await fetchOpenLibraryData({
+      additionURL: popularBooksURL,
+      queryList: [
+        ["page", page || randomPage],
+        ["sort", sort || ""],
+        ["limit", 20],
+      ],
+    })
 
-  const result: PopularBooks = await response
-  return result
+    const result: PopularBooks = await response
+
+    console.log("popularBooks", result)
+    return result
+  } catch (error) {
+    console.error("Error fetching popular books:", error)
+    throw new Error("Failed to fetch popular books")
+  }
 }
 
 export async function currentWorks(id: string) {

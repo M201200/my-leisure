@@ -83,7 +83,7 @@ export function NavLinks({ tl, locale }: ProfileButtonsProps) {
               {tl.series}
             </NavLink>
           </li>
-          <li className="grid content-center p-2">
+          {/* <li className="grid content-center p-2">
             <NavLink
               href={`/${locale}/discover/books`}
               title={tl.books}
@@ -91,7 +91,7 @@ export function NavLinks({ tl, locale }: ProfileButtonsProps) {
             >
               {tl.books}
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </section>
     </div>
